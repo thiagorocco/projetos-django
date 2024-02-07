@@ -10,14 +10,12 @@
     <table>
         <thead>
             <tr>
-                <th>Origem ID</th>
                 <th>Origem</th>
                 <th>Valor</th>
             </tr>
         </thead>
         {% for dif in diferenca %}
         <tr>
-            <td>{{ dif.origem_id }}</td>
             <td>{{ dif.nome }}</td>
             <td>R$ {{ dif.diferenca }}</td>
         </tr>
