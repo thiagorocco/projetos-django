@@ -6,6 +6,24 @@
     <title>Index</title>
 </head>
 <body>
+    <h1>Saldos</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Origem ID</th>
+                <th>Origem</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+        {% for dif in diferenca %}
+        <tr>
+            <td>{{ dif.origem_id }}</td>
+            <td>{{ dif.nome }}</td>
+            <td>R$ {{ dif.diferenca }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    
     <h1>Lançamentos</h1>
     <table>
         <thead>
