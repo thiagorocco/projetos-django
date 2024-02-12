@@ -1,3 +1,4 @@
+{% load humanize %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -25,7 +26,7 @@
         {% for dif in diferenca %}
         <tr>
             <td>{{ dif.origem__nome }}</td>
-            <td>R$ {{ dif.diferenca }}</td>
+            <td>R$ {{ dif.diferenca|floatformat:2 }}</td>
         </tr>
         {% endfor %}
     </table>
