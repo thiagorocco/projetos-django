@@ -44,7 +44,7 @@ class Lancamento(models.Model):
             f"{self.categoria} | {self.origem} | {self.tipo_operacao}"
 
     @staticmethod
-    def calcular_diferenca1SQL():
+    def calcular_diferencaSQL():
         query = """
         SELECT origem_id, financeiro_origem.nome,
         SUM(CASE WHEN tipo_operacao='e'
