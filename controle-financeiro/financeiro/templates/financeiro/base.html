@@ -8,18 +8,26 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
 </head>
 <body>
-    <h1>CONTROLE FINANCEIRO</h1>
-    <ul>
-        <li><a href="home">Home</a></li>
-        <li><a href="#">Gerenciar Origens</a></li>
-        <li><a href="#">Gerenciar Categorias</a></li>
-        <li><a href="#">Incluir orçamentos</a></li>
-        <li><a href="#">Lançar entradas/saídas</a></li>
-        <li><a href="rel-lctos">Relatório de lançamentos</a></li>
-        <li><a href="#">Desempenho(Orçado vs Realizado)</a></li>
-    </ul>
-    <br>
-    <br>
-    {% block content %}{% endblock %}
+    <header>
+        <h1>CONTROLE FINANCEIRO</h1>
+        <ul>
+            <li><a href="home">Home</a></li>
+            <li><a href="#">Gerenciar Origens</a></li>
+            <li><a href="#">Gerenciar Categorias</a></li>
+            <li><a href="#">Incluir orçamentos</a></li>
+            <li><a href="#">Lançar entradas/saídas</a></li>
+            <li><a href="rel-lctos">Relatório de lançamentos</a></li>
+            <li><a href="#">Desempenho(Orçado vs Realizado)</a></li>
+        </ul>
+    </header>
+    <nav>
+
+        <br>
+        <br>
+        {% block content %}{% endblock %}
+    </nav>
+    <footer>
+
+    </footer>
 </body>
 </html>
