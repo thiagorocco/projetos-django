@@ -1,0 +1,22 @@
+{% extends 'financeiro/base.html' %}
+{% load static %}
+{% block titulo %}Relatório de lançamentos{% endblock %}
+{% block content %}
+<h2>Lançamentos</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Data</th>
+            <th>Descrição</th>
+            <th>Valor</th>
+        </tr>
+    </thead>
+    {% for lcto in lctos %}
+    <tr>
+        <td>{{ lcto.data }}</td>
+        <td>R$ {{ lcto.valor }}</td>
+        <td>{{ lcto.descricao }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

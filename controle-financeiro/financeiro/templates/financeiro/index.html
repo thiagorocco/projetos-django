@@ -20,6 +20,7 @@
     </ul>
     <br>
     <br>
+    <h2>Saldos</h2>
     <table>
         <thead>
             <tr>
@@ -35,22 +36,6 @@
         {% endfor %}
     </table>
     
-    <h2>Lançamentos</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Data</th>
-                <th>Descrição</th>
-                <th>Valor</th>
-            </tr>
-        </thead>
-        {% for lcto in lctos %}
-        <tr>
-            <td>{{ lcto.data }}</td>
-            <td>R$ {{ lcto.valor }}</td>
-            <td>{{ lcto.descricao }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+   
 </body>
 </html>
