@@ -1,15 +1,20 @@
 {% extends 'financeiro/base.html' %}
-
-{% block titulo %} Controle Financeiro {% endblock %}
-
-{% block navbar %}
-    {% include 'fragments/navbar.html' %}
-{% endblock %}
-
-{% block banner %}
-    {% include 'fragments/banner.html' %}
-{% endblock %}
-
+{% load static %}
+{% block titulo %}Home{% endblock %}
 {% block content %}
-    {% include 'fragments/conteudo.html' %}
+<h2>Saldos</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Origem</th>
+            <th>Valor</th>
+        </tr>
+    </thead>
+    {% for dif in diferenca %}
+    <tr>
+        <td>{{ dif.origem__nome }}</td>
+        <td>R$ {{ dif.diferenca|floatformat:2 }}</td>
+    </tr>
+    {% endfor %}
+</table>
 {% endblock %}

@@ -20,22 +20,5 @@
     </ul>
     <br>
     <br>
-    <h2>Saldos</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Origem</th>
-                <th>Valor</th>
-            </tr>
-        </thead>
-        {% for dif in diferenca %}
-        <tr>
-            <td>{{ dif.origem__nome }}</td>
-            <td>R$ {{ dif.diferenca|floatformat:2 }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    
-   
 </body>
 </html>
