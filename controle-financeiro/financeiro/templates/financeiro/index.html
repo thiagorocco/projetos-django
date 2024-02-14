@@ -5,16 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index</title>
     <style>
+        h1{
+            text-align: center;
+        }
+        ul li{
+            float: left;
+            padding-right: 20px;
+            list-style-type: none;
+        }
+        ul li a{
+            text-decoration: none;
+            color: black;
+        }
+        ul li a:hover{
+            text-decoration: none;
+            color: black;
+            background: orange
+        }
+
         thead tr{ 
             background-color: rgb(0,206,255)
         }
         tr{
             background-color: rgb(233,224,224)
         }
+
     </style>
 </head>
 <body>
-    <h1>Saldos</h1>
+    <h1>CONTROLE FINANCEIRO</h1>
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Gerenciar Origens</a></li>
+        <li><a href="#">Gerenciar Categorias</a></li>
+        <li><a href="#">Incluir orçamentos</a></li>
+        <li><a href="#">Lançar entradas/saídas</a></li>
+        <li><a href="#">Relatório de lançamentos</a></li>
+        <li><a href="#">Desempenho(Orçado vs Realizado)</a></li>
+    </ul>
+    <br>
+    <br>
     <table>
         <thead>
             <tr>
@@ -30,7 +60,7 @@
         {% endfor %}
     </table>
     
-    <h1>Lançamentos</h1>
+    <h2>Lançamentos</h2>
     <table>
         <thead>
             <tr>
