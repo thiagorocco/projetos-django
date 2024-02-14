@@ -14,4 +14,4 @@ def home(request):
 
 def rel_lancamentos(request):
     lctos = Lancamento.objects.all()
-    return render(request, 'financeiro/index.html', {"lctos": lctos})
+    return render(request, 'financeiro/rel_lancamentos.html', {"lctos": lctos})
