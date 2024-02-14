@@ -8,7 +8,10 @@ import locale
 # Create your views here.
 def home(request):
     locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
-    lctos = Lancamento.objects.all()
     diferenca = Services.calcular_diferencaORM()
-    return render(request, 'financeiro/index.html', {"lctos": lctos,
-                                                     "diferenca": diferenca})
+    return render(request, 'financeiro/index.html', {"diferenca": diferenca})
+
+
+def rel_lancamentos(request):
+    lctos = Lancamento.objects.all()
+    return render(request, 'financeiro/index.html', {"lctos": lctos})
