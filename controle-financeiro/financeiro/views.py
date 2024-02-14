@@ -9,7 +9,7 @@ import locale
 def home(request):
     locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
     diferenca = Services.calcular_diferencaORM()
-    return render(request, 'financeiro/index.html', {"diferenca": diferenca})
+    return render(request, 'financeiro/home.html', {"diferenca": diferenca})
 
 
 def rel_lancamentos(request):
