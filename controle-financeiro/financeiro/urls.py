@@ -6,6 +6,6 @@ urlpatterns = [
     path('', home),
     path('home', home),
     path('rel-lctos', rel_lancamentos),
-    path('origens', rel_origens),
+    path('origens/', rel_origens),
     path('categorias', rel_categorias),
 ]
