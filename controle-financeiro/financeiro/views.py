@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from financeiro.models import Lancamento, Origem
+from financeiro.models import Lancamento, Origem, Categoria
 from financeiro.services import Services
 
 import locale
@@ -20,3 +20,9 @@ def rel_lancamentos(request):
 def rel_origens(request):
     origens = Origem.objects.all()
     return render(request, 'financeiro/origens.html', {"origens": origens})
+
+
+def rel_categorias(request):
+    categorias = Categoria.objects.all()
+    return render(request, 'financeiro/categorias.html',
+                  {"categorias": categorias})
