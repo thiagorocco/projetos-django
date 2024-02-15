@@ -11,15 +11,7 @@
     <header>
         <h1>CONTROLE FINANCEIRO</h1>
         <nav>
-            <ul>
-                <li><a href="home">Home</a></li>
-                <li><a href="#">Gerenciar Origens</a></li>
-                <li><a href="#">Gerenciar Categorias</a></li>
-                <li><a href="#">Incluir orçamentos</a></li>
-                <li><a href="#">Lançar entradas/saídas</a></li>
-                <li><a href="rel-lctos">Relatório de lançamentos</a></li>
-                <li><a href="#">Desempenho(Orçado vs Realizado)</a></li>
-            </ul>
+            {% block navbar %}{% include 'fragments/navbar.html' %}{% endblock %}
         </nav>
     </header>
     <main>    
