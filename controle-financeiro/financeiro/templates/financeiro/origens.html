@@ -12,11 +12,12 @@
     <thead>
         <tr>
             <th>Origem</th>
+            <th colspan="2">Ações</th>
         </tr>
     </thead>
-    {% for lcto in lctos %}
+    {% for origem in origens %}
     <tr>
-        <td>{{ lcto.data }}</td><td>Editar</td><td>Excluir</td>
+        <td>{{ origem.nome }}</td><td><a href="#">Editar</a></td><td><a href="">Excluir</a></td>
     </tr>
     {% endfor %}
 </table>
