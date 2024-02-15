@@ -1,0 +1,23 @@
+{% extends 'financeiro/base.html' %}
+{% load static %}
+{% block titulo %}Relatório de lançamentos{% endblock %}
+{% block content %}
+<br><br>
+<h2>Origens</h2>
+<form action="">
+    Cadastrar origem: <input type="text" name="origem" id="">
+</form>
+<h3>Origens cadastradas</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Origem</th>
+        </tr>
+    </thead>
+    {% for lcto in lctos %}
+    <tr>
+        <td>{{ lcto.data }}</td><td>Editar</td><td>Excluir</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
