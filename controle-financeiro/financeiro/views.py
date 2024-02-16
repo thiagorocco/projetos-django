@@ -18,6 +18,10 @@ def rel_lancamentos(request):
 
 
 def rel_origens(request):
+    nova_origem = Origem()
+    if 'nome' in request.POST:
+        nova_origem.nome = request.POST.get('nome')
+        nova_origem.save()
     origens = Origem.objects.all()
     return render(request, 'financeiro/origens.html', {"origens": origens})
 

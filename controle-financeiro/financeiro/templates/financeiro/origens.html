@@ -4,8 +4,9 @@
 {% block content %}
 <br><br>
 <h2>Origens</h2>
-<form action="">
-    Cadastrar origem: <input type="text" name="origem" id="">
+<form action="{% url 'rel_origens' %}" method="post">
+    {% csrf_token %}
+    Cadastrar origem: <input type="text" name="nome">
     <input type="submit" value="Cadastrar">
 </form>
 <h4>Origens cadastradas</h4>
