@@ -4,8 +4,9 @@
 {% block content %}
     <br><br>
     <h2>Categorias</h2>
-    <form action="">
-        Cadastrar categoria: <input type="text" name="categoria" id="">
+    <form action="{% url 'rel_categorias' %}" method="post">
+        {% csrf_token %}
+        Cadastrar categoria: <input type="text" name="nome">
         <input type="submit" value="Cadastrar">
     </form>
     <h4>Categorias cadastradas</h4>

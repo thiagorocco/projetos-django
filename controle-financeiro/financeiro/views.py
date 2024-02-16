@@ -27,6 +27,10 @@ def rel_origens(request):
 
 
 def rel_categorias(request):
+    nova_categoria = Categoria()
+    if 'nome' in request.POST:
+        nova_categoria.nome = request.POST.get('nome')
+        nova_categoria.save()
     categorias = Categoria.objects.all()
     return render(request, 'financeiro/categorias.html',
                   {"categorias": categorias})
