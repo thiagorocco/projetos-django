@@ -1,0 +1,26 @@
+{% extends 'financeiro/base.html' %}
+{% load static %}
+{% block titulo %}Lançamentos{% endblock %}
+{% block content %}
+    <br><br>
+    <h2>Lançamentos</h2>
+    <form action="{% url 'rel_categorias' %}" method="post">
+        {% csrf_token %}
+        Cadastrar categoria: <input type="text" name="nome">
+        <input type="submit" value="Cadastrar">
+    </form>
+    <h4>Categorias cadastradas</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Categoria</th>
+                <th colspan="2">Ações</th>
+            </tr>
+        </thead>
+        {% for categoria in categorias %}
+        <tr>
+            <td>{{ categoria.nome }}</td><td><a href="#">Editar</a></td><td><a href="">Excluir</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
