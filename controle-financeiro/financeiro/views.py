@@ -12,6 +12,10 @@ def home(request):
     return render(request, 'financeiro/home.html', {"diferenca": diferenca})
 
 
+def lancamentos(request):
+    return render(request, 'financeiro/lancamentos.html')
+
+
 def rel_lancamentos(request):
     lctos = Lancamento.objects.all()
     return render(request, 'financeiro/rel_lancamentos.html', {"lctos": lctos})

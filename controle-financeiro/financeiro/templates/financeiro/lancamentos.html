@@ -3,22 +3,46 @@
 {% block titulo %}Lançamentos{% endblock %}
 {% block content %}
     <br><br>
-    <h2>Lançamentos</h2>
-    <form action="{% url 'rel_categorias' %}" method="post">
+    <form action="{% url 'rel_lancamentos' %}" method="post">
         {% csrf_token %}
-        Data: <input type="data" name="data">
-        Descrição: <input type="text" name="descricao">
-        Categoria: <select name="categoria" id="">
-            <option value=""></option>
-        </select>
-        Origem: <select name="origem" id="">
-                <option value=""></option>
-            </select>
-            Tipo de operação: <select name="tipo_operacao" id="">
-                <option value="s">Saída</option>
-                <option value="e">Entrada</option>
-            </select>
-        Valor: <input type="number" name="valor">
+        <table>
+            <tr>
+                <td>Data:</td><td><input type="date" name="data"></td>
+            </tr>
+            <tr>
+                <td>Descrição:</td><td><input type="text" name="descricao"></td>
+            </tr>
+            <tr>
+                <td>Categoria:</td>
+                <td>
+                    <select name="categoria" id="">
+                    <option value=""></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Origem:</td>
+                <td>
+                    <select name="origem" id="">
+                        <option value=""></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Tipo de operação:</td>
+                <td>
+                    <select name="tipo_operacao" id="">
+                        <option value="s">Saída</option>
+                        <option value="e">Entrada</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Valor:</td><td><input type="number" name="valor"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Cadastrar"></td>
+            </tr>
+        </table>
     </form>
-    <h4>Categorias cadastradas</h4>
 {% endblock %}

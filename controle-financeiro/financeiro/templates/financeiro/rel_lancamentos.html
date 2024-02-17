@@ -3,20 +3,26 @@
 {% block titulo %}Relatório de lançamentos{% endblock %}
 {% block content %}
 <br><br>
-<h2>Lançamentos</h2>
-<table>
-    <thead>
-        <tr>
+    <h2>Lista de Lançamentos</h2>
+    <table>
+        <thead>
+            <tr>
             <th>Data</th>
+            <th>Categoria</th>
             <th>Descrição</th>
             <th>Valor</th>
+            <th>Operação</th>
+            <th>Origem</th>
         </tr>
     </thead>
     {% for lcto in lctos %}
     <tr>
         <td>{{ lcto.data }}</td>
-        <td>R$ {{ lcto.valor }}</td>
+        <td>{{ lcto.categoria_id }}</td>
         <td>{{ lcto.descricao }}</td>
+        <td>R$ {{ lcto.valor }}</td>
+        <td>{{ lcto.tipo_operacao }}</td>
+        <td>{{ lcto.origem_id }}</td>
     </tr>
     {% endfor %}
 </table>

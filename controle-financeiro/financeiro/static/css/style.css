@@ -17,6 +17,12 @@ footer{
     margin: 0 auto;
     text-align: center;
 }
+form {
+    border: #5ca5d7 1px;
+}
+form input{
+    display: inline;
+}
 h1, h2{
     text-align: center;
 }
