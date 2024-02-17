@@ -15,8 +15,10 @@
             <tr>
                 <td>Categoria:</td>
                 <td>
-                    <select name="categoria" id="">
-                    <option value=""></option>
+                    <select name="categoria">
+                        {% for lcto in lctos %}
+                           <option value="{{ lcto.categoria_id }}">{{ lcto.nome_categoria }}</option>
+                        {% endfor %}
                     </select>
                 </td>
             </tr>

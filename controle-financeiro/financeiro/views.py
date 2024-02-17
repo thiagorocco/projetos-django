@@ -13,7 +13,11 @@ def home(request):
 
 
 def lancamentos(request):
-    return render(request, 'financeiro/lancamentos.html')
+    lctos = Lancamento.objects.all()
+    for lcto in lctos:
+        lcto.nome_origem = lcto.origem.nome
+        lcto.nome_categoria = lcto.categoria.nome        
+    return render(request, 'financeiro/lancamentos.html', {"lctos": lctos})
 
 
 def rel_lancamentos(request):
