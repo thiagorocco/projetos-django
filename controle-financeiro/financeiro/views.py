@@ -18,6 +18,9 @@ def lancamentos(request):
 
 def rel_lancamentos(request):
     lctos = Lancamento.objects.all()
+
+    for lcto in lctos:
+        lcto.nome_origem = lcto.origem.nome    
     return render(request, 'financeiro/rel_lancamentos.html', {"lctos": lctos})
 
 
