@@ -17,12 +17,6 @@ footer{
     margin: 0 auto;
     text-align: center;
 }
-form {
-    border: #5ca5d7 1px;
-}
-form input{
-    display: inline;
-}
 h1, h2{
     text-align: center;
 }
@@ -42,7 +36,7 @@ ul li a:hover{
 }
 
 thead tr{ 
-    background-color: rgb(0,206,255)
+    background-color:#98FB98
 }
 tr{
     background-color: rgb(233,224,224)
