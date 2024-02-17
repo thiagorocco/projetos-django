@@ -14,15 +14,13 @@ def home(request):
 
 def lancamentos(request):
     lctos = Lancamento.objects.all()
-    for lcto in lctos:
-        lcto.nome_origem = lcto.origem.nome
-        lcto.nome_categoria = lcto.categoria.nome        
-    return render(request, 'financeiro/lancamentos.html', {"lctos": lctos})
+    cats = Categoria.objects.all()
+    return render(request, 'financeiro/lancamentos.html', {"lctos": lctos,
+                                                           "cats": cats})
 
 
 def rel_lancamentos(request):
     lctos = Lancamento.objects.all()
-
     for lcto in lctos:
         lcto.nome_origem = lcto.origem.nome
         lcto.nome_categoria = lcto.categoria.nome
