@@ -15,8 +15,10 @@ def home(request):
 def lancamentos(request):
     lctos = Lancamento.objects.all()
     cats = Categoria.objects.all()
+    origens = Origem.objects.all()
     return render(request, 'financeiro/lancamentos.html', {"lctos": lctos,
-                                                           "cats": cats})
+                                                           "cats": cats,
+                                                           "origens": origens})
 
 
 def rel_lancamentos(request):
