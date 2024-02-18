@@ -3,13 +3,14 @@
 {% block titulo %}Relatório de Orçamentos{% endblock %}
 {% block content %}
 <br><br>
-    <h2>Lista de Orçamentos</h2>
+    <h2>Relatório de Orçamentos</h2>
     <table>
         <thead>
             <tr>
             <th>Data</th>
             <th>Categoria</th>
             <th>Valor</th>
+            <th colspan="2">AÇÃO</th>
         </tr>
     </thead>
     {% for orcamento in orcamentos %}
@@ -17,6 +18,7 @@
         <td>{{ orcamento.data }}</td>
         <td>{{ orcamento.nome_categoria }}</td>
         <td>R$ {{ orcamento.valor }}</td>
+        <td><a href="#">Editar</a> | <a href="#">Excluir</a></td>
     </tr>
     {% endfor %}
 </table>

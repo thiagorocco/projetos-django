@@ -3,6 +3,7 @@
 {% block titulo %}Lançamentos{% endblock %}
 {% block content %}
     <br><br>
+    <h2>Lançar Entradas/Saídas</h2>
     <form action="{% url 'lancamentos_save' %}" method="post">
         {% csrf_token %}
         <table>

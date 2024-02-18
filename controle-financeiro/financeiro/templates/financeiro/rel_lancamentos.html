@@ -3,7 +3,7 @@
 {% block titulo %}Relatório de lançamentos{% endblock %}
 {% block content %}
 <br><br>
-    <h2>Lista de Lançamentos</h2>
+    <h2>Relatório de Lançamentos</h2>
     <table>
         <thead>
             <tr>
@@ -13,6 +13,7 @@
             <th>Valor</th>
             <th>Operação</th>
             <th>Origem</th>
+            <th colspan="2">AÇÃO</th>
         </tr>
     </thead>
     {% for lcto in lctos %}
@@ -23,6 +24,7 @@
         <td>R$ {{ lcto.valor }}</td>
         <td>{{ lcto.tipo_operacao }}</td>
         <td>{{ lcto.nome_origem}}</td>
+        <td><a href="#">Editar</a> | <a href="#">Excluir</a></td>
     </tr>
     {% endfor %}
 </table>

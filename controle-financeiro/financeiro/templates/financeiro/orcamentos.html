@@ -3,7 +3,8 @@
 {% block titulo %}Orçamento{% endblock %}
 {% block content %}
     <br><br>
-    <form action="" method="post">
+    <h2>Cadastrar Orçamento</h2>
+    <form action="{% url 'orcamentos_save' %}" method="post">
         {% csrf_token %}
         <table>
             <tr>
