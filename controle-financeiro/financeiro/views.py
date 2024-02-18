@@ -3,7 +3,6 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from financeiro.models import Lancamento, Origem, Categoria, Orcamento
 from financeiro.services import Services
-
 import locale
 
 
@@ -15,17 +14,16 @@ def home(request):
 
 
 def lancamentos(request):
-    lctos = Lancamento.objects.all()
     cats = Categoria.objects.all()
     origens = Origem.objects.all()
-    return render(request, 'financeiro/lancamentos.html', {"lctos": lctos,
-                                                           "cats": cats,
+    return render(request, 'financeiro/lancamentos.html', {"cats": cats,
                                                            "origens": origens})
 
 
 def lancamentos_save(request):
     novo_lcto = Lancamento()
-    campos_obrigatorios = ['data', 'descricao', 'tipo_operacao', 'valor', 'categoria', 'origem']
+    campos_obrigatorios = ['data', 'descricao', 'tipo_operacao', 'valor',
+                           'categoria', 'origem']
     if all(campo in request.POST for campo in campos_obrigatorios):
         novo_lcto.data = request.POST.get('data')
         novo_lcto.descricao = request.POST.get('descricao')
@@ -38,16 +36,36 @@ def lancamentos_save(request):
     return redirect(reverse('rel_lancamentos'))
 
 
-def orcamento_save(request):
-    pass
-
-
 def rel_lancamentos(request):
     lctos = Lancamento.objects.all()
     for lcto in lctos:
         lcto.nome_origem = lcto.origem.nome
         lcto.nome_categoria = lcto.categoria.nome
     return render(request, 'financeiro/rel_lancamentos.html', {"lctos": lctos})
+
+
+def orcamentos(request):
+    cats = Categoria.objects.all()
+    return render(request, 'financeiro/orcamentos.html', {"cats": cats})
+
+
+def orcamentos_save(request):
+    novo_orcamento = Orcamento()
+    campos_obrigatorios = ['data', 'categoria', 'valor']
+    if all(campo in request.POST for campo in campos_obrigatorios):
+        novo_orcamento.data = request.POST.get('data')
+        novo_orcamento.categoria_id = int(request.POST.get('categoria', 0))
+        novo_orcamento.valor = Decimal(request.POST.get('valor', 0.0))
+        novo_orcamento.save()
+    return redirect(reverse('rel_orcamentos'))
+
+
+def rel_orcamentos(request):
+    orcamentos = Orcamento.objects.all()
+    for orcamento in orcamentos:
+        orcamento.nome_categoria = orcamento.categoria.nome
+    return render(request, 'financeiro/rel_orcamentos.html',
+                  {"orcamentos": orcamentos})
 
 
 def rel_origens(request):

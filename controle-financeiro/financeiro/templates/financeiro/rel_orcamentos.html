@@ -1,0 +1,23 @@
+{% extends 'financeiro/base.html' %}
+{% load static %}
+{% block titulo %}Relatório de Orçamentos{% endblock %}
+{% block content %}
+<br><br>
+    <h2>Lista de Orçamentos</h2>
+    <table>
+        <thead>
+            <tr>
+            <th>Data</th>
+            <th>Categoria</th>
+            <th>Valor</th>
+        </tr>
+    </thead>
+    {% for orcamento in orcamentos %}
+    <tr>
+        <td>{{ orcamento.data }}</td>
+        <td>{{ orcamento.nome_categoria }}</td>
+        <td>R$ {{ orcamento.valor }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
