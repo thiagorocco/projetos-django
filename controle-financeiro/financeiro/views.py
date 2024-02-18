@@ -1,7 +1,7 @@
 from decimal import Decimal
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from financeiro.models import Lancamento, Origem, Categoria
+from financeiro.models import Lancamento, Origem, Categoria, Orcamento
 from financeiro.services import Services
 
 import locale
@@ -25,7 +25,8 @@ def lancamentos(request):
 
 def lancamentos_save(request):
     novo_lcto = Lancamento()
-    if 'data' in request.POST:
+    campos_obrigatorios = ['data', 'descricao', 'tipo_operacao', 'valor', 'categoria', 'origem']
+    if all(campo in request.POST for campo in campos_obrigatorios):
         novo_lcto.data = request.POST.get('data')
         novo_lcto.descricao = request.POST.get('descricao')
         novo_lcto.tipo_operacao = request.POST.get('tipo_operacao')
@@ -35,6 +36,10 @@ def lancamentos_save(request):
         novo_lcto.save()
     # Redirecionando para a view rel_lancamentos
     return redirect(reverse('rel_lancamentos'))
+
+
+def orcamento_save(request):
+    pass
 
 
 def rel_lancamentos(request):
