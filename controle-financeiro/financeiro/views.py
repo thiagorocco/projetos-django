@@ -21,6 +21,19 @@ def lancamentos(request):
                                                            "origens": origens})
 
 
+def lancamentos_save(request):
+    novo_lcto = Lancamento()
+    if 'nome' in request.POST:
+        novo_lcto.data = request.POST.get('data')
+        novo_lcto.descricao = request.POST.get('descricao')
+        novo_lcto.valor = request.POST.get('valor')
+        novo_lcto.tipo_operacao = request.POST.get('tipo_operacao')
+        novo_lcto.categoria_id = request.POST.get('categoria')
+        novo_lcto.origem_id = request.POST.get('origem')
+        novo_lcto.save()
+    return render(request, 'financeiro/rel_lancamentos.html')
+
+
 def rel_lancamentos(request):
     lctos = Lancamento.objects.all()
     for lcto in lctos:
