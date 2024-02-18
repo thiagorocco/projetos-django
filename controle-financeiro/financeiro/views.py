@@ -1,3 +1,4 @@
+from decimal import Decimal, DecimalException
 from django.shortcuts import render
 from financeiro.models import Lancamento, Origem, Categoria
 from financeiro.services import Services
@@ -23,14 +24,17 @@ def lancamentos(request):
 
 def lancamentos_save(request):
     novo_lcto = Lancamento()
-    if 'nome' in request.POST:
+    if 'data' in request.POST:
         novo_lcto.data = request.POST.get('data')
         novo_lcto.descricao = request.POST.get('descricao')
-        novo_lcto.valor = request.POST.get('valor')
         novo_lcto.tipo_operacao = request.POST.get('tipo_operacao')
-        novo_lcto.categoria_id = request.POST.get('categoria')
-        novo_lcto.origem_id = request.POST.get('origem')
-        novo_lcto.save()
+        try:
+            novo_lcto.valor = Decimal(request.POST.get('valor', 0.0))
+            novo_lcto.categoria_id = int(request.POST.get('categoria', 0))
+            novo_lcto.origem_id = int(request.POST.get('origem', 0))
+            novo_lcto.save()
+        except (ValueError, DecimalException) as e:
+            print(f"Erro na conversão: {e}")
     return render(request, 'financeiro/rel_lancamentos.html')
 
 
