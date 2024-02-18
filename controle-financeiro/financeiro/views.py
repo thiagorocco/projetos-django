@@ -44,6 +44,12 @@ def rel_lancamentos(request):
     return render(request, 'financeiro/rel_lancamentos.html', {"lctos": lctos})
 
 
+def delete_lancamentos(request, id):
+    lcto = Lancamento.objects.get(id=id)
+    lcto.delete()
+    return redirect(reverse('rel_lancamentos'))
+
+
 def orcamentos(request):
     cats = Categoria.objects.all()
     return render(request, 'financeiro/orcamentos.html', {"cats": cats})
