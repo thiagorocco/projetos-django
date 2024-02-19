@@ -32,7 +32,11 @@
                 <td>
                     <select name="origem">
                         {% for origem in origens %}
-                            <option value="{{ origem.id}}">{{ origem.nome }}</option>
+                            {% if origem.id == lcto.origem %} 
+                               <option value="{{ origem.id}}" selected>{{ origem.nome }}</option>
+                            {% else %}
+                               <option value="{{ origem.id}}">{{ origem.nome }}</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                 </td>
@@ -41,13 +45,16 @@
                 <td>Tipo de operação:</td>
                 <td>
                     <select name="tipo_operacao">
-                        <option value="s">Saída</option>
-                        <option value="e">Entrada</option>
+                        {% if lcto.tipo_operacao == 's' %}
+                            <option value="s">Saída</option>
+                        {% else %}
+                            <option value="e">Entrada</option>
+                        {% endif %}
                     </select>
                 </td>
             </tr>
             <tr>
-                <td>Valor:</td><td><input type="number" name="valor" step="0.01" required></td>
+                <td>Valor:</td><td><input type="number" name="valor" step="0.01" value="{{ lcto.valor }}" required></td>
             </tr>
             <tr>
                 <td colspan="2"><input type="submit" value="Cadastrar"></td>
