@@ -1,0 +1,53 @@
+{% extends 'financeiro/base.html' %}
+{% load static %}
+{% block titulo %}Editar Lançamento{% endblock %}
+{% block content %}
+    <br><br>
+    <h2>Editar Lançamento</h2>
+    <form action="{% url '' %}" method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>Data:</td><td><input type="date" name="data" value="" required ></td>
+            </tr>
+            <tr>
+                <td>Descrição:</td><td><input type="text" name="descricao" required></td>
+            </tr>
+            <tr>
+                <td>Categoria:</td>
+                <td>
+                    <select name="categoria">
+                        {% for cat in cats %}
+                           <option value="{{ cat.id }}">{{ cat.nome }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Origem:</td>
+                <td>
+                    <select name="origem">
+                        {% for origem in origens %}
+                            <option value="{{ origem.id}}">{{ origem.nome }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Tipo de operação:</td>
+                <td>
+                    <select name="tipo_operacao">
+                        <option value="s">Saída</option>
+                        <option value="e">Entrada</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Valor:</td><td><input type="number" name="valor" step="0.01" required></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Cadastrar"></td>
+            </tr>
+        </table>
+    </form>
+{% endblock %}
