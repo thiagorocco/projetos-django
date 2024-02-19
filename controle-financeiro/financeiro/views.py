@@ -44,7 +44,7 @@ def rel_lancamentos(request):
     return render(request, 'financeiro/rel_lancamentos.html', {"lctos": lctos})
 
 
-def delete_lancamentos(request, id):
+def delete_lcto(request, id):
     lcto = Lancamento.objects.get(id=id)
     lcto.delete()
     return redirect(reverse('rel_lancamentos'))

@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import home, lancamentos, rel_lancamentos, rel_origens
 from .views import lancamentos_save, rel_orcamentos, orcamentos_save
-from .views import rel_categorias, orcamentos
+from .views import rel_categorias, orcamentos, delete_lcto
 
 
 urlpatterns = [
@@ -15,4 +15,5 @@ urlpatterns = [
     path('orcamentos_save/', orcamentos_save, name='orcamentos_save'),
     path('origens/', rel_origens, name='rel_origens'),
     path('categorias/', rel_categorias, name='rel_categorias'),
+    path('delete_lcto/<int:id>/', delete_lcto, name='delete'),
 ]
