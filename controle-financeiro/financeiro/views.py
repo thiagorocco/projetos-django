@@ -50,6 +50,28 @@ def delete_lcto(request, id):
     return redirect(reverse('rel_lancamentos'))
 
 
+def update_get_lcto(request, id):
+    lcto = Lancamento.objects.get(id=id)
+    cats = Categoria.objects.all()
+    origens = Origem.objects.all()
+    return render(request, 'financeiro/editar_lancamento.html',
+                  {"lcto": lcto,
+                   "cats": cats,
+                   "origens": origens})
+
+
+def update_lcto(request, id):
+    lcto = Lancamento.objects.get(id=id)
+    lcto.data = request.POST['data']
+    lcto.descricao = request.POST['descricao']
+    lcto.valor = Decimal(request.POST.get('valor', 0.0))
+    lcto.tipo_operacao = request.POST['tipo_operacao']
+    lcto.categoria_id = int(request.POST.get('categoria', 0))
+    lcto.origem_id = int(request.POST.get('origem', 0))
+    lcto.save()
+    return redirect(reverse('rel_lancamentos'))
+
+
 def orcamentos(request):
     cats = Categoria.objects.all()
     return render(request, 'financeiro/orcamentos.html', {"cats": cats})

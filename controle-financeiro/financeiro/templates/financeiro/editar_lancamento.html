@@ -4,21 +4,25 @@
 {% block content %}
     <br><br>
     <h2>Editar Lançamento</h2>
-    <form action="{% url '' %}" method="post">
+    <form action="{% url 'update_lcto' lcto.id %}" method="post">
         {% csrf_token %}
         <table>
             <tr>
-                <td>Data:</td><td><input type="date" name="data" value="" required ></td>
+                <td>Data:</td><td><input type="date" name="data" value="{{ lcto.data }}" required ></td>
             </tr>
             <tr>
-                <td>Descrição:</td><td><input type="text" name="descricao" required></td>
+                <td>Descrição:</td><td><input type="text" name="descricao" value="{{ lcto.descricao }}" required></td>
             </tr>
             <tr>
                 <td>Categoria:</td>
                 <td>
                     <select name="categoria">
                         {% for cat in cats %}
-                           <option value="{{ cat.id }}">{{ cat.nome }}</option>
+                           {% if cat.id == lcto.categoria %} 
+                                <option value="{{ cat.id }}" selected>{{ cat.nome }}</option>
+                            {% else %}
+                                <option value="{{ cat.id }}">{{ cat.nome }}</option>
+                           {% endif %}
                         {% endfor %}
                     </select>
                 </td>
