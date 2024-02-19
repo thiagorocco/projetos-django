@@ -8,7 +8,7 @@
         {% csrf_token %}
         <table>
             <tr>
-                <td>Data:</td><td><input type="date" name="data" value="{{ lcto.data }}" required ></td>
+                <td>Data:</td><td><input type="date" name="data" value="{{ lcto.data|date:"Y-m-d" }}" required ></td>
             </tr>
             <tr>
                 <td>Descrição:</td><td><input type="text" name="descricao" value="{{ lcto.descricao }}" required></td>
@@ -54,10 +54,10 @@
                 </td>
             </tr>
             <tr>
-                <td>Valor:</td><td><input type="number" name="valor" step="0.01" value="{{ lcto.valor }}" required></td>
+                <td>Valor:</td><td><input type="number" name="valor" step="0.01" value="{{ pvalor }}" required></td>
             </tr>
             <tr>
-                <td colspan="2"><input type="submit" value="Cadastrar"></td>
+                <td colspan="2"><input type="submit" value="Editar"></td>
             </tr>
         </table>
     </form>

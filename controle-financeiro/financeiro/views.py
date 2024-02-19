@@ -52,12 +52,17 @@ def delete_lcto(request, id):
 
 def update_get_lcto(request, id):
     lcto = Lancamento.objects.get(id=id)
+    # vvalor pega lcto.valor e converte em string
+    vvalor = str(lcto.valor)
+    # pvalor pega a string vvalor e substitui a vírgula pelo ponto. Ex: 1,10 -> 1.10
+    pvalor = vvalor.replace(",", ".")
     cats = Categoria.objects.all()
     origens = Origem.objects.all()
     return render(request, 'financeiro/editar_lancamento.html',
                   {"lcto": lcto,
                    "cats": cats,
-                   "origens": origens})
+                   "origens": origens,
+                   "pvalor": pvalor})
 
 
 def update_lcto(request, id):
