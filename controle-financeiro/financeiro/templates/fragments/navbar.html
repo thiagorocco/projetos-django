@@ -7,4 +7,11 @@
     <li><a href="{% url 'lancamentos' %}">Lançar Entradas/Saídas</a></li>
     <li><a href="{% url 'rel_lancamentos' %}">Rel. Lançamentos</a></li>
     <li><a href="#">Orçado vs Realizado</a></li> 
+    <li>
+        {% if cotacao_dolar %}
+            Dólar: R$ {{ cotacao_dolar }} | Data de criação: {{ create_date }}
+        {% else %}
+            Impossível obter a cotação do dólar no momento.
+        {% endif %}
+    </li> 
 </ul>

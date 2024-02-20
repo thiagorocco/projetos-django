@@ -9,18 +9,24 @@ import requests
 
 def get_cotacao_dolar(request):
     url = 'https://economia.awesomeapi.com.br/json/last/USD-BRL'
+
     # Faz a requisição à API
     response = requests.get(url)
+
     # Verifica se a requisição foi bem-sucedida (código 200)
     if response.status_code == 200:
-        # Extrai a cotação do dólar do JSON retornado pela API
+        # Extrai os dados do JSON retornado pela API
         data = response.json()
+        # Extraindo os campos desejados
         cotacao_dolar = data['USDBRL']['bid']
+        create_date = data['USDBRL']['create_date']
     else:
-        cotacao_dolar = None
-    # Renderiza o template com a cotação do dólar
-    return render(request, 'seu_template.html',
-                  {'cotacao_dolar': cotacao_dolar})
+        cotacao_dolar = create_date = None
+    # Renderiza o template com os dados
+    return render(request, 'fragments/navbar.html', {
+        'cotacao_dolar': cotacao_dolar,
+        'create_date': create_date,
+    })
 
 
 def home(request):
