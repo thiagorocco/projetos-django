@@ -32,7 +32,7 @@
                 <td>
                     <select name="origem">
                         {% for origem in origens %}
-                            {% if origem.id == lcto.origem %} 
+                            {% if origem.id == lcto.origem.id %} 
                                <option value="{{ origem.id}}" selected>{{ origem.nome }}</option>
                             {% else %}
                                <option value="{{ origem.id}}">{{ origem.nome }}</option>
