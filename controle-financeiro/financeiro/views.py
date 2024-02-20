@@ -4,9 +4,25 @@ from django.urls import reverse
 from financeiro.models import Lancamento, Origem, Categoria, Orcamento
 from financeiro.services import Services
 import locale
+import requests
 
 
-# Create your views here.
+def get_cotacao_dolar(request):
+    url = 'https://economia.awesomeapi.com.br/json/last/USD-BRL'
+    # Faz a requisição à API
+    response = requests.get(url)
+    # Verifica se a requisição foi bem-sucedida (código 200)
+    if response.status_code == 200:
+        # Extrai a cotação do dólar do JSON retornado pela API
+        data = response.json()
+        cotacao_dolar = data['USDBRL']['bid']
+    else:
+        cotacao_dolar = None
+    # Renderiza o template com a cotação do dólar
+    return render(request, 'seu_template.html',
+                  {'cotacao_dolar': cotacao_dolar})
+
+
 def home(request):
     locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
     diferenca = Services.calcular_diferencaORM()
@@ -54,7 +70,7 @@ def update_get_lcto(request, id):
     lcto = Lancamento.objects.get(id=id)
     # vvalor pega lcto.valor e converte em string
     vvalor = str(lcto.valor)
-    # pvalor pega a string vvalor e substitui a vírgula pelo ponto. Ex: 1,10 -> 1.10
+    # pega a string vvalor e substitui a vírgula pelo ponto.
     pvalor = vvalor.replace(",", ".")
     cats = Categoria.objects.all()
     origens = Origem.objects.all()
