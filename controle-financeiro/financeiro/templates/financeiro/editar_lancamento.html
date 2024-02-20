@@ -18,7 +18,7 @@
                 <td>
                     <select name="categoria">
                         {% for cat in cats %}
-                           {% if cat.id == lcto.categoria %} 
+                           {% if cat.id == lcto.categoria.id %} 
                                 <option value="{{ cat.id }}" selected>{{ cat.nome }}</option>
                             {% else %}
                                 <option value="{{ cat.id }}">{{ cat.nome }}</option>
