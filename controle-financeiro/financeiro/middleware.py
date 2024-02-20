@@ -8,7 +8,6 @@ class CotacaoDolarMiddleware:
     def __call__(self, request):
         url = 'https://economia.awesomeapi.com.br/json/last/USD-BRL'
         response = requests.get(url)
-        
         if response.status_code == 200:
             data = response.json()
             cotacao_dolar = data['USDBRL']['bid']
