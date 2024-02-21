@@ -123,6 +123,12 @@ def rel_orcamentos(request):
                   {"orcamentos": orcamentos})
 
 
+def delete_orcamento(request, id):
+    orc = Orcamento.objects.get(id=id)
+    orc.delete()
+    return redirect(reverse('rel_orcamentos'))
+
+
 def rel_origens(request):
     nova_origem = Origem()
     if 'nome' in request.POST:
