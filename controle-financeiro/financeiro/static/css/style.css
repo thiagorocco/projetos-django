@@ -5,6 +5,7 @@ header{
 nav{
     margin: 0 auto;
 }
+
 main{
     margin: 0 auto;
     text-align: center;
@@ -17,6 +18,7 @@ footer{
     margin: 0 auto;
     text-align: center;
 }
+
 h1, h2{
     text-align: center;
 }
@@ -42,5 +44,8 @@ tr{
     background-color: rgb(233,224,224)
 }
 .cot-dolar{
+    justify-content: center;
+    font-family: 'Trebuchet MS';
+    background-color: yellow;
     color: red;
 }
