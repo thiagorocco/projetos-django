@@ -10,6 +10,9 @@ main{
     margin: 0 auto;
     text-align: center;
 }
+aside{
+    float: right;
+}
 main table{
     margin: 0 auto;
 }
@@ -46,6 +49,6 @@ tr{
 .cot-dolar{
     justify-content: center;
     font-family: 'Trebuchet MS';
-    background-color: yellow;
+    background-color: blanchedalmond;
     color: red;
 }

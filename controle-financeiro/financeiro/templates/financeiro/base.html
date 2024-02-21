@@ -14,9 +14,13 @@
             {% block navbar %}{% include 'fragments/navbar.html' %}{% endblock %}
         </nav>
     </header>
+    <aside>
+        {%block dolar %}{% include 'fragments/dolar.html' %}{% endblock %}
+    </aside>
     <main>    
         {% block content %}{% endblock %}
     </main>
+
     <footer>
             {% block footer %}{% include 'fragments/footer.html' %}{% endblock %}
     </footer>

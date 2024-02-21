@@ -1,8 +1,1 @@
-{% if cotacao_dolar %}
-<p>A cotação do dólar é: R$ {{ cotacao_dolar }}</p>
-<p>Data de criação: {{ create_date }}</p>
-<p>Código: {{ code }}</p>
-<p>Código In: {{ code_in }}</p>
-{% else %}
-<p>Não foi possível obter os dados da cotação do dólar no momento.</p>
-{% endif %}
+<span class="cot-dolar">Dólar US$ = R$ {{ request.cotacao_dolar }}</span>
