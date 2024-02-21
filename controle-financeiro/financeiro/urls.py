@@ -2,7 +2,7 @@ from django.urls import path
 from .views import home, lancamentos, rel_lancamentos, rel_origens
 from .views import lancamentos_save, rel_orcamentos, orcamentos_save
 from .views import rel_categorias, orcamentos, delete_lcto, update_get_lcto
-from .views import update_lcto, get_cotacao_dolar
+from .views import update_lcto, get_cotacao_dolar, rel_orcado_realizado
 
 
 urlpatterns = [
@@ -20,4 +20,5 @@ urlpatterns = [
     path('delete_lcto/<int:id>/', delete_lcto, name='delete'),
     path('update_get_lcto/<int:id>/', update_get_lcto, name='update_get_lcto'),
     path('update_lcto/<int:id>/', update_lcto, name='update_lcto'),
+    path('orc_real/', rel_orcado_realizado, name='rel_orcado_realizado'),
 ]

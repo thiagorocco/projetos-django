@@ -140,3 +140,7 @@ def rel_categorias(request):
     categorias = Categoria.objects.all()
     return render(request, 'financeiro/categorias.html',
                   {"categorias": categorias})
+
+
+def rel_orcado_realizado(request):
+    return render(request, 'financeiro/orcado-realizado.html')
