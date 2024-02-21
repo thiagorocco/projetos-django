@@ -1,3 +1,6 @@
+body{
+    font-family: 'Trebuchet MS';
+}
 header{
     background-color: #4CAF50;
     color: #fff;
@@ -17,9 +20,13 @@ main table{
     margin: 0 auto;
 }
 footer{
-    padding-top: 40px;
-    margin: 0 auto;
+    padding: 1px;
+    margin-top: 10px;
+    justify-content: center;
     text-align: center;
+    font-family: 'Trebuchet MS';
+    background-color: #383d36;
+    color: white;
 }
 
 h1, h2{
