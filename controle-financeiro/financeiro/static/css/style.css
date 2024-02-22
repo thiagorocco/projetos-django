@@ -2,8 +2,8 @@ body{
     font-family: 'Trebuchet MS';
 }
 header{
-    background-color: #4CAF50;
-    color: #fff;
+    background-color: #7fdd7f;
+    color: #083f14;
 }
 nav{
     margin: 0 auto;
@@ -56,6 +56,7 @@ tr{
 .cot-dolar{
     justify-content: center;
     font-family: 'Trebuchet MS';
-    background-color: blanchedalmond;
-    color: red;
+    background-color: rgba(255, 30, 0, 0.863);
+    color: rgb(247, 254, 255);
+    font-size: 25px;
 }

@@ -44,6 +44,7 @@ def lancamentos(request):
 
 def lancamentos_save(request):
     novo_lcto = Lancamento()
+    saldos = Services.calcular_diferencaORM()
     campos_obrigatorios = ['data', 'descricao', 'tipo_operacao', 'valor',
                            'categoria', 'origem']
     if all(campo in request.POST for campo in campos_obrigatorios):
