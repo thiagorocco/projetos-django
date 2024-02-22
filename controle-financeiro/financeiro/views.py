@@ -54,9 +54,20 @@ def lancamentos_save(request):
         novo_lcto.valor = Decimal(request.POST.get('valor', 0.0))
         novo_lcto.categoria_id = int(request.POST.get('categoria', 0))
         novo_lcto.origem_id = int(request.POST.get('origem', 0))
-        novo_lcto.save()
-    # Redirecionando para a view rel_lancamentos
-    return redirect(reverse('rel_lancamentos'))
+
+        if novo_lcto.tipo_operacao == 's':
+            for saldo in saldos:
+                if saldo['origem__nome'] == novo_lcto.origem.nome:
+                    if saldo['diferenca'] >= novo_lcto.valor:
+                        novo_lcto.save()
+                        return redirect(reverse('rel_lancamentos'))
+                    else:
+                        msn = f"Saldo insuficiente em {saldo['origem__nome']}"
+                        return render(request, 'financeiro/lancamentos.html',
+                             {"msn": msn})
+        else:
+            novo_lcto.save()
+            return redirect(reverse('rel_lancamentos'))
 
 
 def rel_lancamentos(request):
