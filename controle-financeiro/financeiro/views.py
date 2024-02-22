@@ -63,8 +63,9 @@ def lancamentos_save(request):
                         return redirect(reverse('rel_lancamentos'))
                     else:
                         msn = f"Saldo insuficiente em {saldo['origem__nome']}"
-                        return render(request, 'financeiro/lancamentos.html',
-                             {"msn": msn})
+                        return render(request,
+                                      'financeiro/lancamentos.html',
+                                      {"msn": msn})
         else:
             novo_lcto.save()
             return redirect(reverse('rel_lancamentos'))

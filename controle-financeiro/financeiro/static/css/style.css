@@ -60,3 +60,7 @@ tr{
     color: rgb(247, 254, 255);
     font-size: 25px;
 }
+.erro-saldo{
+    background-color: rgba(255, 30, 0, 0.863);
+    color: rgb(247, 254, 255);
+}
