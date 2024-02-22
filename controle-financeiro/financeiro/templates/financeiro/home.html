@@ -14,7 +14,7 @@
     {% for dif in diferenca %}
     <tr>
         <td>{{ dif.origem__nome }}</td>
-        <td>R$ {{ dif.diferenca|floatformat:2 }}</td>
+        <td>R$ {{ dif.diferenca|floatformat:4 }}</td>
     </tr>
     {% endfor %}
 </table>
