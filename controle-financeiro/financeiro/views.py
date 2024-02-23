@@ -62,6 +62,8 @@ def lancamentos_save(request):
                         novo_lcto.save()
                         return redirect(reverse('rel_lancamentos'))
                     else:
+                        print('Saldo: ', saldo['diferenca'])
+                        print('Valor lcto: ', novo_lcto.valor)
                         msn = f"Saldo insuficiente em {saldo['origem__nome']}"
                         return render(request,
                                       'financeiro/lancamentos.html',
