@@ -43,8 +43,7 @@ ul li a{
 }
 ul li a:hover{
     text-decoration: none;
-    background: #083f14;
-    color: white;
+    background: #c4fcd0;
 }
 .aselect{
     background: #083f14;
