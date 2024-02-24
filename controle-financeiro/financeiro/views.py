@@ -31,8 +31,10 @@ def get_cotacao_dolar(request):
 
 def home(request):
     locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+    page = 'home'
     diferenca = Services.calcular_diferencaORM()
-    return render(request, 'financeiro/home.html', {"diferenca": diferenca})
+    return render(request, 'financeiro/home.html', {"diferenca": diferenca,
+                                                    "page": page})
 
 
 def lancamentos(request):
