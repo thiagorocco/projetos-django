@@ -25,46 +25,34 @@
             {% block footer %}{% include 'fragments/footer.html' %}{% endblock %}
     </footer>
     <script>
-        // Obtém a URL atual
-        var urlAtual = window.location.href;
-
-        // Substitua 'sua-url-especifica' pela parte específica da URL que você está verificando
+        var urlAtual = window.location.pathname;
         var classeEspecifica = 'aselect';
-
-        // Obtém todos os elementos que têm a classe específica
         var elementosAntigos = document.querySelectorAll('.' + classeEspecifica);
-
-        // Remove a classe de todos os elementos antigos
         elementosAntigos.forEach(function(elementoAntigo) {
             elementoAntigo.classList.remove(classeEspecifica);
         });
 
-        pagina = {
+        var paginas = {
             '/home/': 'nav1',
             '/origens/': 'nav2',
-            '/home/': 'nav3',
-            '/home/': 'nav4',
-            '/home/': 'nav5',
-            '/home/': 'nav6',
-            '/home/': 'nav7',
-            '/home/': 'nav8',
+            '/categorias/': 'nav3',
+            '/orcamentos/': 'nav4',
+            '/rel-orctos/': 'nav5',
+            '/lancamentos/': 'nav6',
+            '/rel-lctos/': 'nav7',
+            '/orc_real/': 'nav8',
 
         }
-
-        // Verifica se a URL contém a string desejada
-        if (urlAtual.indexOf('/home/') !== -1) {
-            var elementoNovo = document.getElementById('nav1');
-            if (elementoNovo) {
-                elementoNovo.classList.add(classeEspecifica);
+        
+        for (var pagina in paginas){
+            if (urlAtual.indexOf(pagina) !== -1) {
+                var elementoNovo = document.getElementById(paginas[pagina]);
+                if (elementoNovo) {
+                    elementoNovo.classList.add(classeEspecifica);
+                }
+                break
             }
-        }
-        // Verifica se a URL contém a string desejada
-        if (urlAtual.indexOf('/origens/') !== -1) {
-            var elementoNovo = document.getElementById('nav2');
-            if (elementoNovo) {
-                elementoNovo.classList.add(classeEspecifica);
-            }
-        }
+        }      
     </script>
 </body>
 </html>
