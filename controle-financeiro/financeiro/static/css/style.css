@@ -46,6 +46,9 @@ ul li a:hover{
     color: black;
     background: orange
 }
+ul li a.selected{
+    background: #083f14;
+}
 
 thead tr{ 
     background-color:#98FB98
