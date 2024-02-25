@@ -1,6 +1,7 @@
 from decimal import Decimal
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
+from django.contrib import messages
 from financeiro.models import Lancamento, Origem, Categoria, Orcamento
 from financeiro.services import Services
 import locale
@@ -167,8 +168,15 @@ def rel_origens(request):
 
 
 def delete_origem(request, id):
-    origem = Origem.objects.get(id=id)
-    origem.delete()
+    # origem = Origem.objects.get(id=id)
+    origem = get_object_or_404(Origem, id=id)
+    # Verificar se existem lançamentos associados a esta origem
+    if origem.lancamento_set.exists():
+        messages.error(request, "Não é possível excluir esta origem. Existem lançamentos associados.")
+    else:
+        origem.delete()
+        messages.success(request, "Origem excluída com sucesso.")
+
     return redirect(reverse('rel_origens'))
 
 
