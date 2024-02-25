@@ -166,6 +166,11 @@ def rel_origens(request):
     return render(request, 'financeiro/origens.html', {"origens": origens})
 
 
+def delete_origem(request, id):
+    origem = Origem.objects.get(id=id)
+    origem.delete()
+    return redirect(reverse('rel_origens'))
+
 def rel_categorias(request):
     nova_categoria = Categoria()
     if 'nome' in request.POST:
