@@ -64,12 +64,16 @@ def lancamentos_save(request):
                         novo_lcto.save()
                         return redirect(reverse('rel_lancamentos'))
                     else:
+                        cats = Categoria.objects.all()
+                        origens = Origem.objects.all()
                         print('Saldo: ', saldo['diferenca'])
                         print('Valor lcto: ', novo_lcto.valor)
                         msn = f"Saldo insuficiente em {saldo['origem__nome']}"
                         return render(request,
                                       'financeiro/lancamentos.html',
-                                      {"msn": msn})
+                                      {"msn": msn,
+                                       "cats": cats,
+                                       "origens": origens})
         else:
             novo_lcto.save()
             return redirect(reverse('rel_lancamentos'))

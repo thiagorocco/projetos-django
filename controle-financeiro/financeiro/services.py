@@ -1,5 +1,5 @@
 from django.db import connection
-from django.db.models import Sum, F, Case, When
+from django.db.models import Sum, F, Case, When, DecimalField
 from financeiro.models import Lancamento
 
 
@@ -28,6 +28,9 @@ class Services:
             .annotate(diferenca=Sum(
                 Case(
                     When(tipo_operacao='e', then=F('valor')),
-                    default=-F('valor'))))
+                    default=-F('valor'),
+                    output_field=DecimalField()
+                    ))
+                )
             )
         return diferenca
