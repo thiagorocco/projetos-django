@@ -171,6 +171,7 @@ def delete_origem(request, id):
     origem.delete()
     return redirect(reverse('rel_origens'))
 
+
 def rel_categorias(request):
     nova_categoria = Categoria()
     if 'nome' in request.POST:
