@@ -56,6 +56,15 @@ def lancamentos_save(request):
         novo_lcto.valor = Decimal(request.POST.get('valor', 0.0))
         novo_lcto.categoria_id = int(request.POST.get('categoria', 0))
         novo_lcto.origem_id = int(request.POST.get('origem', 0))
+        cats = Categoria.objects.all()
+        origens = Origem.objects.all()
+
+        if novo_lcto.valor <= 0:
+            msn = "Valor do lançamento não pode ser zero ou negativo!"
+            return render(request, 'financeiro/lancamentos.html',
+                          {"msn": msn,
+                           "cats": cats,
+                           "origens": origens})
 
         if novo_lcto.tipo_operacao == 's':
             for saldo in saldos:
@@ -64,8 +73,6 @@ def lancamentos_save(request):
                         novo_lcto.save()
                         return redirect(reverse('rel_lancamentos'))
                     else:
-                        cats = Categoria.objects.all()
-                        origens = Origem.objects.all()
                         print('Saldo: ', saldo['diferenca'])
                         print('Valor lcto: ', novo_lcto.valor)
                         msn = f"Saldo insuficiente em {saldo['origem__nome']}"
