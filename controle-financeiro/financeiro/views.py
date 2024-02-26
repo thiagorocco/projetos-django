@@ -201,7 +201,7 @@ def delete_categoria(request, id):
         categoria.delete()
         messages.success(request, "Categoria excluída com sucesso.")
 
-    return redirect(reverse('rel_origens'))
+    return redirect(reverse('rel_categorias'))
 
 
 def rel_orcado_realizado(request):
