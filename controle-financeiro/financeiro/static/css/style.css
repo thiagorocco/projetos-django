@@ -45,10 +45,16 @@ ul li a:hover{
     text-decoration: none;
     background: #c4fcd0;
     color: black;
+    border: 1px solid #242b25;
+    border-radius: 8%;
+    padding: 1px;
 }
 .aselect{
     background: #083f14;
     color: white;
+    border: 1px solid #083f14;
+    border-radius: 8%;
+    padding: 1px;
 }
 
 thead tr{ 
@@ -61,8 +67,10 @@ tr{
     justify-content: center;
     font-family: 'Trebuchet MS';
     background-color: rgba(255, 30, 0, 0.863);
+    border: 1px solid rgba(255, 30, 0, 0.863);
     color: rgb(247, 254, 255);
     font-size: 25px;
+    padding: 2px;
 }
 .erro-saldo{
     background-color: rgba(255, 30, 0, 0.863);
