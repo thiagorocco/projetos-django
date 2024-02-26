@@ -172,7 +172,8 @@ def delete_origem(request, id):
     origem = get_object_or_404(Origem, id=id)
     # Verificar se existem lançamentos associados a esta origem
     if origem.lancamento_set.exists():
-        messages.error(request, "Não é possível excluir esta origem. Existem lançamentos associados.")
+        messages.error(request, "Impossível excluir esta origem. "
+                                "Existem lançamentos associados.")
     else:
         origem.delete()
         messages.success(request, "Origem excluída com sucesso.")
@@ -188,6 +189,19 @@ def rel_categorias(request):
     categorias = Categoria.objects.all()
     return render(request, 'financeiro/categorias.html',
                   {"categorias": categorias})
+
+
+def del_categorias(request, id):
+    categoria = get_object_or_404(Categoria, id=id)
+    # Verificar se existem lançamentos associados a esta categoria
+    if categoria.lancamento_set.exists():
+        messages.error(request, "Impossível excluir esta categoria. "
+                                "Existem lançamentos associados.")
+    else:
+        categoria.delete()
+        messages.success(request, "Categoria excluída com sucesso.")
+
+    return redirect(reverse('rel_origens'))
 
 
 def rel_orcado_realizado(request):
