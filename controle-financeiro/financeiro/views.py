@@ -191,7 +191,7 @@ def rel_categorias(request):
                   {"categorias": categorias})
 
 
-def del_categorias(request, id):
+def delete_categoria(request, id):
     categoria = get_object_or_404(Categoria, id=id)
     # Verificar se existem lançamentos associados a esta categoria
     if categoria.lancamento_set.exists():

@@ -21,8 +21,18 @@
         </thead>
         {% for categoria in categorias %}
         <tr>
-            <td>{{ categoria.nome }}</td><td><a href="#">Editar</a></td><td><a href="">Excluir</a></td>
+            <td>{{ categoria.nome }}</td><td><a href="#">Editar</a></td><td><a href="/delete_categoria/{{categoria.id}}">Excluir</a></td>
         </tr>
         {% endfor %}
     </table>
+    {% if messages %}
+        {% for message in messages %}
+            <p 
+                {% if message.tags %} 
+                    class="msg-{{ message.tags }}" 
+                {% endif %}>
+                {{ message }}
+            </p>
+        {% endfor %}
+    {% endif %}
 {% endblock %}
