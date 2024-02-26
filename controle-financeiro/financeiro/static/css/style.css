@@ -68,3 +68,13 @@ tr{
     background-color: rgba(255, 30, 0, 0.863);
     color: rgb(247, 254, 255);
 }
+.msg-error{
+    background-color: rgba(255, 30, 0, 0.863);
+    color: rgb(247, 254, 255);
+    text-align: center;
+}
+.msg-success{
+    background-color: #50fa7b;
+    color: #1d662f;
+    text-align: center;
+}
