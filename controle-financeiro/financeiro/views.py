@@ -1,4 +1,5 @@
 from decimal import Decimal
+from django.db import IntegrityError
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib import messages
@@ -185,7 +186,12 @@ def rel_categorias(request):
     nova_categoria = Categoria()
     if 'nome' in request.POST:
         nova_categoria.nome = request.POST.get('nome')
-        nova_categoria.save()
+        try:
+            nova_categoria.save()
+            messages.success(request, f"Categoria {nova_categoria} cadastrada \
+                             com sucesso!")
+        except IntegrityError:
+            messages.error(request, f"A Categoria {nova_categoria} já existe!")
     categorias = Categoria.objects.all()
     return render(request, 'financeiro/categorias.html',
                   {"categorias": categorias})
