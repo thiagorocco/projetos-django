@@ -179,6 +179,13 @@ def update_get_origem(request, id):
                   {"origem": origem})
 
 
+def update_origem(request, id):
+    origem = Origem.objects.get(id=id)
+    origem.nome = request.POST['nome']
+    origem.save()
+    return redirect(reverse('rel_origens'))
+
+
 def delete_origem(request, id):
     # origem = Origem.objects.get(id=id)
     origem = get_object_or_404(Origem, id=id)
