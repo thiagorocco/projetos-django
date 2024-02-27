@@ -162,7 +162,7 @@ def delete_orcamento(request, id):
 def rel_origens(request):
     nova_origem = Origem()
     if 'nome' in request.POST:
-        nova_origem.nome = request.POST.get('nome') 
+        nova_origem.nome = request.POST.get('nome')
         try:
             nova_origem.save()
             messages.success(request, f"Origem {nova_origem} cadastrada \
@@ -171,6 +171,12 @@ def rel_origens(request):
             messages.error(request, f"A Origem {nova_origem} já existe!")
     origens = Origem.objects.all()
     return render(request, 'financeiro/origens.html', {"origens": origens})
+
+
+def update_get_origem(request, id):
+    origem = Origem.objects.get(id=id)
+    return render(request, 'financeiro/editar_origem.html',
+                  {"origem": origem})
 
 
 def delete_origem(request, id):
