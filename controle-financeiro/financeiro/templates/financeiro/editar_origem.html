@@ -1,0 +1,38 @@
+{% extends 'financeiro/base.html' %}
+{% load static %}
+{% block titulo %}Relatório de lançamentos{% endblock %}
+{% block content %}
+<br><br>
+<h2>Origens</h2>
+<form action="{% url 'rel_origens' %}" method="post">
+    {% csrf_token %}
+    Cadastrar origem: <input type="text" name="nome">
+    <input type="submit" value="Cadastrar">
+</form>
+<br>
+<hr>
+<h4>Origens cadastradas</h4>
+<table>
+    <thead>
+        <tr>
+            <th>Origem</th>
+            <th colspan="2">Ações</th>
+        </tr>
+    </thead>
+    {% for origem in origens %}
+    <tr>
+        <td>{{ origem.nome }}</td><td><a href="#">Editar</a></td><td><a href="/delete_origem/{{origem.id}}">Excluir</a></td>
+    </tr>
+    {% endfor %}
+</table>
+    {% if messages %}
+        {% for message in messages %}
+            <p 
+                {% if message.tags %} 
+                    class="msg-{{ message.tags }}" 
+                {% endif %}>
+                {{ message }}
+            </p>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
