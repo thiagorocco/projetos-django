@@ -21,7 +21,7 @@
     </thead>
     {% for origem in origens %}
     <tr>
-        <td>{{ origem.nome }}</td><td><a href="#">Editar</a></td><td><a href="/delete_origem/{{origem.id}}">Excluir</a></td>
+        <td>{{ origem.nome }}</td><td><a href="/update_get_origem/{{origem.id}}">Editar</a></td><td><a href="/delete_origem/{{origem.id}}">Excluir</a></td>
     </tr>
     {% endfor %}
 </table>

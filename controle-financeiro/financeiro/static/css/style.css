@@ -45,15 +45,11 @@ ul li a:hover{
     text-decoration: none;
     background: #c4fcd0;
     color: black;
-    border: 1px solid #242b25;
-    border-radius: 8%;
     padding: 1px;
 }
 .aselect{
     background: #083f14;
     color: white;
-    border: 1px solid #083f14;
-    border-radius: 8%;
     padding: 1px;
 }
 
