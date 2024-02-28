@@ -161,14 +161,19 @@ def delete_orcamento(request, id):
 
 def rel_origens(request):
     nova_origem = Origem()
+    nome = str(request.POST.get('nome'))
+    nome = nome.strip()
     if 'nome' in request.POST:
-        nova_origem.nome = request.POST.get('nome')
-        try:
-            nova_origem.save()
-            messages.success(request, f"Origem {nova_origem} cadastrada \
-                            com sucesso!")
-        except IntegrityError:
-            messages.error(request, f"A Origem {nova_origem} já existe!")
+        if nome != '':
+            nova_origem.nome = nome
+            try:
+                nova_origem.save()
+                messages.success(request, f"Origem {nova_origem} cadastrada \
+                                com sucesso!")
+            except IntegrityError:
+                messages.error(request, f"A Origem {nova_origem} já existe!")
+        else:
+            messages.error(request, "Informe uma descrição válida!")
     origens = Origem.objects.all()
     return render(request, 'financeiro/origens.html', {"origens": origens})
 
