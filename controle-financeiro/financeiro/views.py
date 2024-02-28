@@ -162,6 +162,8 @@ def delete_orcamento(request, id):
 def rel_origens(request):
     nova_origem = Origem()
     nome = str(request.POST.get('nome'))
+    # Impede a inserção de dados em branco. Ex: "", " " ou "      "
+    # Similar ao trim de outras linguagens
     nome = nome.strip()
     if 'nome' in request.POST:
         if nome != '':
@@ -186,8 +188,20 @@ def update_get_origem(request, id):
 
 def update_origem(request, id):
     origem = Origem.objects.get(id=id)
-    origem.nome = request.POST['nome']
-    origem.save()
+    nome = str(request.POST['nome'])
+    nome = nome.strip()
+    if 'nome' in request.POST:
+        if nome != '':
+            origem.nome = nome
+            try:
+                origem.save()
+                messages.success(request, "Alteração realizada com sucesso!")
+            except IntegrityError:
+                messages.error(request, f"A Origem {origem} já existe! \
+                               Alteração não realizada!")
+        else:
+            messages.error(request, "Informe uma descrição válida! \
+                                    Alteração não realizada!")
     return redirect(reverse('rel_origens'))
 
 
