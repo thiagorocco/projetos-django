@@ -1,0 +1,35 @@
+{% extends 'financeiro/base.html' %}
+{% load static %}
+{% block titulo %}Editar Orçamento{% endblock %}
+{% block content %}
+    <br><br>
+    <h2>Editar Orçamento</h2>
+    <form action="{% url 'update_orcamento' orcamento.id %}" method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>Data:</td><td><input type="date" name="data" value="{{ lcto.data|date:"Y-m-d" }}" required ></td>
+            </tr>
+            <tr>
+                <td>Categoria:</td>
+                <td>
+                    <select name="categoria">
+                        {% for cat in cats %}
+                            {% if cat.id == orcamento.categoria.id %} 
+                                <option value="{{ cat.id }}" selected>{{ cat.nome }}</option>
+                            {% else %}
+                                <option value="{{ cat.id }}">{{ cat.nome }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Valor:</td><td><input type="number" name="valor" step="0.01" value="{{ pvalor }}" required></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Editar"></td>
+            </tr>
+        </table>
+    </form>
+{% endblock %}
