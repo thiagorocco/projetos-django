@@ -21,7 +21,7 @@
         </thead>
         {% for categoria in categorias %}
         <tr>
-            <td>{{ categoria.nome }}</td><td><a href="#">Editar</a></td><td><a href="/delete_categoria/{{categoria.id}}">Excluir</a></td>
+            <td>{{ categoria.nome }}</td><td><a href="/update_get_categoria/{{origem.id}}">Editar</a></td><td><a href="/delete_categoria/{{categoria.id}}">Excluir</a></td>
         </tr>
         {% endfor %}
     </table>
