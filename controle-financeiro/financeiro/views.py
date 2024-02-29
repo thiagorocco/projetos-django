@@ -159,6 +159,10 @@ def delete_orcamento(request, id):
     return redirect(reverse('rel_orcamentos'))
 
 
+def update_get_orcamento(request, id):
+    pass
+
+
 def rel_origens(request):
     nova_origem = Origem()
     nome = str(request.POST.get('nome'))
