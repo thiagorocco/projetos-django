@@ -238,6 +238,31 @@ def rel_categorias(request):
                   {"categorias": categorias})
 
 
+def update_get_categoria(request, id):
+    categoria = Categoria.objects.get(id=id)
+    return render(request, 'financeiro/editar_categoria.html',
+                  {"categoria": categoria})
+
+
+def update_categoria(request, id):
+    categoria = Categoria.objects.get(id=id)
+    nome = str(request.POST['nome'])
+    nome = nome.strip()
+    if 'nome' in request.POST:
+        if nome != '':
+            categoria.nome = nome
+            try:
+                categoria.save()
+                messages.success(request, "Alteração realizada com sucesso!")
+            except IntegrityError:
+                messages.error(request, f"A Categoria {categoria} já existe! \
+                               Alteração não realizada!")
+        else:
+            messages.error(request, "Informe uma descrição válida! \
+                                    Alteração não realizada!")
+    return redirect(reverse('rel_categorias'))
+
+
 def delete_categoria(request, id):
     categoria = get_object_or_404(Categoria, id=id)
     # Verificar se existem lançamentos associados a esta categoria
