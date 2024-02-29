@@ -1,0 +1,7 @@
+# gitignore
+
+# Ambiente Virtual 
+venv/
+
+# Banco de dados Sqlite3
+db.sqlite3
