@@ -50,5 +50,15 @@
             </tr>
         </table>
         <p class="erro-saldo">{{ msn }}</p>
+        {% if messages %}
+            {% for message in messages %}
+                <p 
+                    {% if message.tags %} 
+                        class="msg-{{ message.tags }}" 
+                    {% endif %}>
+                    {{ message }}
+                </p>
+            {% endfor %}
+        {% endif %}
     </form>
 {% endblock %}

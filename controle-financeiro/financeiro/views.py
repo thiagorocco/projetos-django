@@ -85,7 +85,10 @@ def lancamentos_save(request):
                                        "origens": origens})
         else:
             novo_lcto.save()
-            return redirect(reverse('rel_lancamentos'))
+            messages.success(request, "Lançamento cadastrado com sucesso!")
+    else:
+        messages.error(request, "Todos os campos devem ser preenchidos!")   
+    return redirect(reverse('rel_lancamentos'))
 
 
 def rel_lancamentos(request):
@@ -119,13 +122,16 @@ def update_get_lcto(request, id):
 
 def update_lcto(request, id):
     lcto = Lancamento.objects.get(id=id)
-    lcto.data = request.POST['data']
-    lcto.descricao = request.POST['descricao']
-    lcto.valor = Decimal(request.POST.get('valor', 0.0))
-    lcto.tipo_operacao = request.POST['tipo_operacao']
-    lcto.categoria_id = int(request.POST.get('categoria', 0))
-    lcto.origem_id = int(request.POST.get('origem', 0))
-    lcto.save()
+    campos_obrigatorios = ['data', 'descricao', 'tipo_operacao', 'valor',
+                           'categoria', 'origem']
+    if all(campo in request.POST for campo in campos_obrigatorios):
+        lcto.data = request.POST['data']
+        lcto.descricao = request.POST['descricao']
+        lcto.valor = Decimal(request.POST.get('valor', 0.0))
+        lcto.tipo_operacao = request.POST['tipo_operacao']
+        lcto.categoria_id = int(request.POST.get('categoria', 0))
+        lcto.origem_id = int(request.POST.get('origem', 0))
+        lcto.save()
     return redirect(reverse('rel_lancamentos'))
 
 
