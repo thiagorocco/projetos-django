@@ -95,9 +95,6 @@ def lancamentos_save(request):
         else:
             novo_lcto.save()
             messages.success(request, "Lançamento cadastrado com sucesso!")
-    else:
-        messages.error(request, "Todos os campos devem ser preenchidos!")
-    return redirect(reverse('rel_lancamentos'))
 
 
 def rel_lancamentos(request):
@@ -240,14 +237,21 @@ def delete_origem(request, id):
 
 def rel_categorias(request):
     nova_categoria = Categoria()
+    nome = str(request.POST.get('nome'))
+    # Impede a inserção de dados em branco. Ex: "", " " ou "      "
+    # Similar ao trim de outras linguagens
+    nome = nome.strip()
     if 'nome' in request.POST:
-        nova_categoria.nome = request.POST.get('nome')
-        try:
-            nova_categoria.save()
-            messages.success(request, f"Categoria {nova_categoria} cadastrada \
-                             com sucesso!")
-        except IntegrityError:
-            messages.error(request, f"A Categoria {nova_categoria} já existe!")
+        if nome != '':
+            nova_categoria.nome = nome
+            try:
+                nova_categoria.save()
+                messages.success(request, f"Categoria {nova_categoria} cadastrada \
+                                com sucesso!")
+            except IntegrityError:
+                messages.error(request, f"A Origem {nova_categoria} já existe!")
+        else:
+            messages.error(request, "Informe uma descrição válida!")
     categorias = Categoria.objects.all()
     return render(request, 'financeiro/categorias.html',
                   {"categorias": categorias})
