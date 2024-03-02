@@ -26,7 +26,7 @@
     </thead>
     {% for lcto in lctos %}
     <tr>
-        <td>{{ lcto.data }}</td>
+        <td>{{ lcto.data|date:"d/m/Y" }}</td>
         <td>{{ lcto.nome_categoria }}</td>
         <td>{{ lcto.descricao }}</td>
         <td>R$ {{ lcto.valor }}</td>
