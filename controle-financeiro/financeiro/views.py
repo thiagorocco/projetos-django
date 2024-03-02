@@ -53,7 +53,6 @@ def lancamentos_save(request):
                            'categoria', 'origem']
     if all(campo in request.POST for campo in campos_obrigatorios):
         novo_lcto.data = request.POST.get('data')
-        novo_lcto.descricao = request.POST.get('descricao')
         novo_lcto.tipo_operacao = request.POST.get('tipo_operacao')
         novo_lcto.valor = Decimal(request.POST.get('valor', 0.0))
         novo_lcto.categoria_id = int(request.POST.get('categoria', 0))
@@ -61,6 +60,16 @@ def lancamentos_save(request):
         cats = Categoria.objects.all()
         origens = Origem.objects.all()
 
+        descricao = str(request.POST.get('descricao'))
+        descricao = descricao.strip()
+        if descricao != '':
+            novo_lcto.descricao = descricao
+        else:
+            msn = 'Descrição inválida!!!'
+            return render(request, 'financeiro/lancamentos.html',
+                          {"msn": msn,
+                           "cats": cats,
+                           "origens": origens})
         if novo_lcto.valor <= 0:
             msn = "Valor do lançamento não pode ser zero ou negativo!"
             return render(request, 'financeiro/lancamentos.html',
@@ -87,7 +96,7 @@ def lancamentos_save(request):
             novo_lcto.save()
             messages.success(request, "Lançamento cadastrado com sucesso!")
     else:
-        messages.error(request, "Todos os campos devem ser preenchidos!")   
+        messages.error(request, "Todos os campos devem ser preenchidos!")
     return redirect(reverse('rel_lancamentos'))
 
 
