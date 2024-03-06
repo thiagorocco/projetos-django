@@ -149,10 +149,7 @@ def update_lcto(request, id):
                 novo_lcto.descricao = descricao
             else:
                 msn = 'Descrição inválida!!!'
-                return render(request, 'financeiro/editar_lancamento.html',
-                            {"msn": msn,
-                            "cats": cats,
-                            "origens": origens})
+                return redirect(request, f"update-get-lcto/{novo_lcto.id}")
             if novo_lcto.valor <= 0:
                 msn = "Valor do lançamento não pode ser zero ou negativo!"
                 return render(request, 'financeiro/editar_lancamento.html',
@@ -178,7 +175,11 @@ def update_lcto(request, id):
                 messages.success(request, "Lançamento cadastrado com sucesso!")
         except:
             messages.error(request, "Preencha os dados corretamente!")
-            return redirect(reverse('lancamentos'))
+            return render(request,
+                                        'financeiro/editar_lancamento.html',
+                                        {"msn": msn,
+                                        "cats": cats,
+                                        "origens": origens})
 
 
 def orcamentos(request):
