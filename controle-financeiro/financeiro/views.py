@@ -51,7 +51,7 @@ def lancamentos_save(request):
     saldos = Services.calcular_diferencaORM()
     campos_obrigatorios = ['data', 'descricao', 'tipo_operacao', 'valor',
                            'categoria', 'origem']
-    if all(campo in request.POST for campo in campos_obrigatorios):  
+    if all(campo in request.POST for campo in campos_obrigatorios):
         try:
             novo_lcto.data = request.POST.get('data')
             novo_lcto.tipo_operacao = request.POST.get('tipo_operacao')
@@ -129,18 +129,56 @@ def update_get_lcto(request, id):
 
 
 def update_lcto(request, id):
-    lcto = Lancamento.objects.get(id=id)
+    novo_lcto = Lancamento.objects.get(id=id)
+    saldos = Services.calcular_diferencaORM()
     campos_obrigatorios = ['data', 'descricao', 'tipo_operacao', 'valor',
                            'categoria', 'origem']
     if all(campo in request.POST for campo in campos_obrigatorios):
-        lcto.data = request.POST['data']
-        lcto.descricao = request.POST['descricao']
-        lcto.valor = Decimal(request.POST.get('valor', 0.0))
-        lcto.tipo_operacao = request.POST['tipo_operacao']
-        lcto.categoria_id = int(request.POST.get('categoria', 0))
-        lcto.origem_id = int(request.POST.get('origem', 0))
-        lcto.save()
-    return redirect(reverse('rel_lancamentos'))
+        try:
+            novo_lcto.data = request.POST.get('data')
+            novo_lcto.tipo_operacao = request.POST.get('tipo_operacao')
+            novo_lcto.valor = Decimal(request.POST.get('valor', 0.0))
+            novo_lcto.categoria_id = int(request.POST.get('categoria', 0))
+            novo_lcto.origem_id = int(request.POST.get('origem', 0))
+            cats = Categoria.objects.all()
+            origens = Origem.objects.all()
+
+            descricao = str(request.POST.get('descricao'))
+            descricao = descricao.strip()
+            if descricao != '':
+                novo_lcto.descricao = descricao
+            else:
+                msn = 'Descrição inválida!!!'
+                return render(request, 'financeiro/editar_lancamento.html',
+                            {"msn": msn,
+                            "cats": cats,
+                            "origens": origens})
+            if novo_lcto.valor <= 0:
+                msn = "Valor do lançamento não pode ser zero ou negativo!"
+                return render(request, 'financeiro/editar_lancamento.html',
+                            {"msn": msn,
+                            "cats": cats,
+                            "origens": origens})
+
+            if novo_lcto.tipo_operacao == 's':
+                for saldo in saldos:
+                    if saldo['origem__nome'] == novo_lcto.origem.nome:
+                        if saldo['diferenca'] >= novo_lcto.valor:
+                            novo_lcto.save()
+                            return redirect(reverse('rel_lancamentos'))
+                        else:
+                            msn = f"Saldo insuficiente em {saldo['origem__nome']}"
+                            return render(request,
+                                        'financeiro/editar_lancamento.html',
+                                        {"msn": msn,
+                                        "cats": cats,
+                                        "origens": origens})
+            else:
+                novo_lcto.save()
+                messages.success(request, "Lançamento cadastrado com sucesso!")
+        except:
+            messages.error(request, "Preencha os dados corretamente!")
+            return redirect(reverse('lancamentos'))
 
 
 def orcamentos(request):
