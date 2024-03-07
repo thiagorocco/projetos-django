@@ -58,26 +58,17 @@ def lancamentos_save(request):
             novo_lcto.valor = Decimal(request.POST.get('valor', 0.0))
             novo_lcto.categoria_id = int(request.POST.get('categoria', 0))
             novo_lcto.origem_id = int(request.POST.get('origem', 0))
-            cats = Categoria.objects.all()
-            origens = Origem.objects.all()
 
             descricao = str(request.POST.get('descricao'))
             descricao = descricao.strip()
             if descricao != '':
                 novo_lcto.descricao = descricao
             else:
-                msn = 'Descrição inválida!!!'
-                return render(request, 'financeiro/lancamentos.html',
-                            {"msn": msn,
-                            "cats": cats,
-                            "origens": origens})
+                messages.error(request, "Descrição inválida!")
+                return redirect(reverse('lancamentos'))
             if novo_lcto.valor <= 0:
-                msn = "Valor do lançamento não pode ser zero ou negativo!"
-                return render(request, 'financeiro/lancamentos.html',
-                            {"msn": msn,
-                            "cats": cats,
-                            "origens": origens})
-
+                messages.error(request, "Valor do lançamento não pode ser zero ou negativo!")
+                return redirect(reverse('lancamentos'))
             if novo_lcto.tipo_operacao == 's':
                 for saldo in saldos:
                     if saldo['origem__nome'] == novo_lcto.origem.nome:
@@ -85,12 +76,8 @@ def lancamentos_save(request):
                             novo_lcto.save()
                             return redirect(reverse('rel_lancamentos'))
                         else:
-                            msn = f"Saldo insuficiente em {saldo['origem__nome']}"
-                            return render(request,
-                                        'financeiro/lancamentos.html',
-                                        {"msn": msn,
-                                        "cats": cats,
-                                        "origens": origens})
+                            messages.error(request, f"Saldo insuficiente em {saldo['origem__nome']}")
+                            return redirect(reverse('lancamentos'))
             else:
                 novo_lcto.save()
                 messages.success(request, "Lançamento cadastrado com sucesso!")
@@ -111,8 +98,6 @@ def update_lcto(request, id):
             novo_lcto.valor = Decimal(request.POST.get('valor', 0.0))
             novo_lcto.categoria_id = int(request.POST.get('categoria', 0))
             novo_lcto.origem_id = int(request.POST.get('origem', 0))
-            cats = Categoria.objects.all()
-            origens = Origem.objects.all()
 
             descricao = str(request.POST.get('descricao'))
             descricao = descricao.strip()
