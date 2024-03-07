@@ -99,21 +99,6 @@ def lancamentos_save(request):
             return redirect(reverse('lancamentos'))
 
 
-def update_get_lcto(request, id):
-    lcto = Lancamento.objects.get(id=id)
-    # vvalor pega lcto.valor e converte em string
-    vvalor = str(lcto.valor)
-    # pega a string vvalor e substitui a vírgula pelo ponto.
-    pvalor = vvalor.replace(",", ".")
-    cats = Categoria.objects.all()
-    origens = Origem.objects.all()
-    return render(request, 'financeiro/editar_lancamento.html',
-                  {"lcto": lcto,
-                   "cats": cats,
-                   "origens": origens,
-                   "pvalor": pvalor})
-
-
 def update_lcto(request, id):
     novo_lcto = Lancamento.objects.get(id=id)
     saldos = Services.calcular_diferencaORM()
@@ -135,7 +120,10 @@ def update_lcto(request, id):
                 novo_lcto.descricao = descricao
             else:
                 msn = 'Descrição inválida!!!'
-                return redirect(request, f"update-get-lcto/{novo_lcto.id}")
+                return render(request, 'financeiro/editar_lancamento.html',
+                            {"msn": msn,
+                            "cats": cats,
+                            "origens": origens})
             if novo_lcto.valor <= 0:
                 msn = "Valor do lançamento não pode ser zero ou negativo!"
                 return render(request, 'financeiro/editar_lancamento.html',
@@ -161,7 +149,22 @@ def update_lcto(request, id):
                 messages.success(request, "Lançamento cadastrado com sucesso!")
         except:
             messages.error(request, "Preencha os dados corretamente!")
-            return redirect(reverse('rel_lancamentos'))
+            return redirect(reverse('update_get_lcto', kwargs={'id': novo_lcto.id}))
+
+
+def update_get_lcto(request, id):
+    lcto = Lancamento.objects.get(id=id)
+    # vvalor pega lcto.valor e converte em string
+    vvalor = str(lcto.valor)
+    # pega a string vvalor e substitui a vírgula pelo ponto.
+    pvalor = vvalor.replace(",", ".")
+    cats = Categoria.objects.all()
+    origens = Origem.objects.all()
+    return render(request, 'financeiro/editar_lancamento.html',
+                  {"lcto": lcto,
+                   "cats": cats,
+                   "origens": origens,
+                   "pvalor": pvalor})
 
 
 def rel_lancamentos(request):
