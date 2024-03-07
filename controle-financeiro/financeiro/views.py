@@ -99,20 +99,6 @@ def lancamentos_save(request):
             return redirect(reverse('lancamentos'))
 
 
-def rel_lancamentos(request):
-    lctos = Lancamento.objects.all()
-    for lcto in lctos:
-        lcto.nome_origem = lcto.origem.nome
-        lcto.nome_categoria = lcto.categoria.nome
-    return render(request, 'financeiro/rel_lancamentos.html', {"lctos": lctos})
-
-
-def delete_lcto(request, id):
-    lcto = Lancamento.objects.get(id=id)
-    lcto.delete()
-    return redirect(reverse('rel_lancamentos'))
-
-
 def update_get_lcto(request, id):
     lcto = Lancamento.objects.get(id=id)
     # vvalor pega lcto.valor e converte em string
@@ -175,11 +161,21 @@ def update_lcto(request, id):
                 messages.success(request, "Lançamento cadastrado com sucesso!")
         except:
             messages.error(request, "Preencha os dados corretamente!")
-            return render(request,
-                                        'financeiro/editar_lancamento.html',
-                                        {"msn": msn,
-                                        "cats": cats,
-                                        "origens": origens})
+            return redirect(reverse('rel_lancamentos'))
+
+
+def rel_lancamentos(request):
+    lctos = Lancamento.objects.all()
+    for lcto in lctos:
+        lcto.nome_origem = lcto.origem.nome
+        lcto.nome_categoria = lcto.categoria.nome
+    return render(request, 'financeiro/rel_lancamentos.html', {"lctos": lctos})
+
+
+def delete_lcto(request, id):
+    lcto = Lancamento.objects.get(id=id)
+    lcto.delete()
+    return redirect(reverse('rel_lancamentos'))
 
 
 def orcamentos(request):
