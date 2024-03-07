@@ -138,12 +138,15 @@ def update_lcto(request, id):
                             novo_lcto.save()
                             return redirect(reverse('rel_lancamentos'))
                         else:
+                            messages.error(request, f"Saldo insuficiente em {saldo['origem__nome']}")
+                            return redirect(reverse('update_get_lcto', kwargs={'id': novo_lcto.id}))
+                            '''
                             msn = f"Saldo insuficiente em {saldo['origem__nome']}"
                             return render(request,
                                         'financeiro/editar_lancamento.html',
                                         {"msn": msn,
                                         "cats": cats,
-                                        "origens": origens})
+                                        "origens": origens})'''
             else:
                 novo_lcto.save()
                 messages.success(request, "Lançamento cadastrado com sucesso!")
