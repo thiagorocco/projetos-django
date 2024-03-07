@@ -119,17 +119,12 @@ def update_lcto(request, id):
             if descricao != '':
                 novo_lcto.descricao = descricao
             else:
-                msn = 'Descrição inválida!!!'
-                return render(request, 'financeiro/editar_lancamento.html',
-                            {"msn": msn,
-                            "cats": cats,
-                            "origens": origens})
+                messages.error(request, "Descrição inválida!")
+                return redirect(reverse('update_get_lcto', kwargs={'id': novo_lcto.id}))
+
             if novo_lcto.valor <= 0:
-                msn = "Valor do lançamento não pode ser zero ou negativo!"
-                return render(request, 'financeiro/editar_lancamento.html',
-                            {"msn": msn,
-                            "cats": cats,
-                            "origens": origens})
+                messages.error(request, "Valor do lançamento não pode ser zero ou negativo!")
+                return redirect(reverse('update_get_lcto', kwargs={'id': novo_lcto.id}))
 
             if novo_lcto.tipo_operacao == 's':
                 for saldo in saldos:
@@ -140,13 +135,6 @@ def update_lcto(request, id):
                         else:
                             messages.error(request, f"Saldo insuficiente em {saldo['origem__nome']}")
                             return redirect(reverse('update_get_lcto', kwargs={'id': novo_lcto.id}))
-                            '''
-                            msn = f"Saldo insuficiente em {saldo['origem__nome']}"
-                            return render(request,
-                                        'financeiro/editar_lancamento.html',
-                                        {"msn": msn,
-                                        "cats": cats,
-                                        "origens": origens})'''
             else:
                 novo_lcto.save()
                 messages.success(request, "Lançamento cadastrado com sucesso!")
