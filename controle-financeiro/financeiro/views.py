@@ -66,9 +66,13 @@ def lancamentos_save(request):
             else:
                 messages.error(request, "Descrição inválida!")
                 return redirect(reverse('lancamentos'))
+            
             if novo_lcto.valor <= 0:
                 messages.error(request, "Valor do lançamento não pode ser zero ou negativo!")
                 return redirect(reverse('lancamentos'))
+            
+            # Services.verificaValor(request, novo_lcto.valor, 'lancamentos')
+            
             if novo_lcto.tipo_operacao == 's':
                 for saldo in saldos:
                     if saldo['origem__nome'] == novo_lcto.origem.nome:
