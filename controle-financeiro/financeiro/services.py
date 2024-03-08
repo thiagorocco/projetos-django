@@ -1,6 +1,8 @@
 from django.db import connection
 from django.db.models import Sum, F, Case, When, DecimalField
 from financeiro.models import Lancamento
+from django.contrib import messages
+from django.shortcuts import redirect
 
 
 class Services:
@@ -34,3 +36,9 @@ class Services:
                 )
             )
         return diferenca
+
+    def verificaValor(request, valor, url):
+        if valor <= 0:
+            messages.error(request, "Valor do lançamento não pode ser zero\
+                               ou negativo!")
+            return redirect(reverse(url))  
