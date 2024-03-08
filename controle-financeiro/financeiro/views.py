@@ -105,11 +105,14 @@ def update_lcto(request, id):
                 novo_lcto.descricao = descricao
             else:
                 messages.error(request, "Descrição inválida!")
-                return redirect(reverse('update_get_lcto', kwargs={'id': novo_lcto.id}))
+                return redirect(reverse('update_get_lcto',
+                                        kwargs={'id': novo_lcto.id}))
 
             if novo_lcto.valor <= 0:
-                messages.error(request, "Valor do lançamento não pode ser zero ou negativo!")
-                return redirect(reverse('update_get_lcto', kwargs={'id': novo_lcto.id}))
+                messages.error(request, "Valor do lançamento não pode ser zero\
+                               ou negativo!")
+                return redirect(reverse('update_get_lcto',
+                                        kwargs={'id': novo_lcto.id}))
 
             if novo_lcto.tipo_operacao == 's':
                 for saldo in saldos:
@@ -118,14 +121,17 @@ def update_lcto(request, id):
                             novo_lcto.save()
                             return redirect(reverse('rel_lancamentos'))
                         else:
-                            messages.error(request, f"Saldo insuficiente em {saldo['origem__nome']}")
-                            return redirect(reverse('update_get_lcto', kwargs={'id': novo_lcto.id}))
+                            messages.error(request, f"Saldo insuficiente em\
+                                           {saldo['origem__nome']}")
+                            return redirect(reverse('update_get_lcto',
+                                            kwargs={'id': novo_lcto.id}))
             else:
                 novo_lcto.save()
                 messages.success(request, "Lançamento cadastrado com sucesso!")
         except:
             messages.error(request, "Preencha os dados corretamente!")
-            return redirect(reverse('update_get_lcto', kwargs={'id': novo_lcto.id}))
+            return redirect(reverse('update_get_lcto',
+                                    kwargs={'id': novo_lcto.id}))
 
 
 def update_get_lcto(request, id):
@@ -166,11 +172,13 @@ def orcamentos_save(request):
     novo_orcamento = Orcamento()
     campos_obrigatorios = ['data', 'categoria', 'valor']
     if all(campo in request.POST for campo in campos_obrigatorios):
-        novo_orcamento.data = request.POST.get('data')
-        novo_orcamento.categoria_id = int(request.POST.get('categoria', 0))
-        novo_orcamento.valor = Decimal(request.POST.get('valor', 0.0))
-        novo_orcamento.save()
-    return redirect(reverse('rel_orcamentos'))
+        try:
+            novo_orcamento.data = request.POST.get('data')
+            novo_orcamento.categoria_id = int(request.POST.get('categoria', 0))
+            novo_orcamento.valor = Decimal(request.POST.get('valor', 0.0))
+            novo_orcamento.save()
+        except:
+            return redirect(reverse('rel_orcamentos'))
 
 
 def rel_orcamentos(request):
