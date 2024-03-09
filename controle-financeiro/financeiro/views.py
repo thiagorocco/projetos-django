@@ -49,7 +49,6 @@ def lancamentos(request):
 def lancamentos_save(request):
     novo_lcto = Lancamento()
     saldos = Services.calcular_diferencaORM()
-    serv = Services()
     campos_obrigatorios = ['data', 'descricao', 'tipo_operacao', 'valor',
                            'categoria', 'origem']
     if all(campo in request.POST for campo in campos_obrigatorios):
@@ -177,9 +176,17 @@ def orcamentos_save(request):
             novo_orcamento.data = request.POST.get('data')
             novo_orcamento.categoria_id = int(request.POST.get('categoria', 0))
             novo_orcamento.valor = Decimal(request.POST.get('valor', 0.0))
+         
+            if novo_orcamento.valor <= 0:
+                messages.error(request, "Valor do orçamento não pode ser zero ou negativo!")
+                return redirect(reverse('orcamentos'))
+           
             novo_orcamento.save()
+            messages.success(request, "Orçamento cadastrado com sucesso!")
+            return redirect(reverse('orcamentos'))
         except:
-            return redirect(reverse('rel_orcamentos'))
+            messages.error(request, "Preencha os dados corretamente!")
+            return redirect(reverse('orcamentos'))
 
 
 def rel_orcamentos(request):
