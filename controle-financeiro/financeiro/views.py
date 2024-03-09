@@ -49,6 +49,7 @@ def lancamentos(request):
 def lancamentos_save(request):
     novo_lcto = Lancamento()
     saldos = Services.calcular_diferencaORM()
+    serv = Services()
     campos_obrigatorios = ['data', 'descricao', 'tipo_operacao', 'valor',
                            'categoria', 'origem']
     if all(campo in request.POST for campo in campos_obrigatorios):
@@ -65,14 +66,10 @@ def lancamentos_save(request):
                 novo_lcto.descricao = descricao
             else:
                 messages.error(request, "Descrição inválida!")
-                return redirect(reverse('lancamentos'))
-            
+                return redirect(reverse('lancamentos'))                     
             if novo_lcto.valor <= 0:
                 messages.error(request, "Valor do lançamento não pode ser zero ou negativo!")
                 return redirect(reverse('lancamentos'))
-            
-            # Services.verificaValor(request, novo_lcto.valor, 'lancamentos')
-            
             if novo_lcto.tipo_operacao == 's':
                 for saldo in saldos:
                     if saldo['origem__nome'] == novo_lcto.origem.nome:

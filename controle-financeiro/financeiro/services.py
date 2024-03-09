@@ -37,9 +37,3 @@ class Services:
                 )
             )
         return diferenca
-
-    def verificaValor(request, valor, url):
-        if valor <= 0:
-            messages.error(request, "Valor do lançamento não pode ser zero\
-                               ou negativo!")
-            return redirect(reverse(url))
