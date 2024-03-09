@@ -8,7 +8,7 @@
         {% csrf_token %}
         <table>
             <tr>
-                <td>Data:</td><td><input type="date" name="data" value="{{ lcto.data|date:"Y-m-d" }}" required ></td>
+                <td>Data:</td><td><input type="date" name="data" value="{{ orcamento.data|date:"Y-m-d" }}" required ></td>
             </tr>
             <tr>
                 <td>Categoria:</td>
@@ -31,5 +31,15 @@
                 <td colspan="2"><input type="submit" value="Editar"></td>
             </tr>
         </table>
+        {% if messages %}
+            {% for message in messages %}
+                <p 
+                    {% if message.tags %} 
+                        class="msg-{{ message.tags }}" 
+                    {% endif %}>
+                    {{ message }}
+                </p>
+            {% endfor %}
+        {% endif %}
     </form>
 {% endblock %}

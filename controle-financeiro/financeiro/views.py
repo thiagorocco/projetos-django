@@ -204,7 +204,16 @@ def delete_orcamento(request, id):
 
 
 def update_get_orcamento(request, id):
-    pass
+    orcamento = Orcamento.objects.get(id=id)
+    # vvalor pega lcto.valor e converte em string
+    vvalor = str(orcamento.valor)
+    # pega a string vvalor e substitui a vírgula pelo ponto.
+    pvalor = vvalor.replace(",", ".")
+    cats = Categoria.objects.all()
+    return render(request, 'financeiro/editar_orcamento.html',
+                  {"orcamento": orcamento,
+                   "cats": cats,
+                   "pvalor": pvalor})
 
 
 def rel_origens(request):
