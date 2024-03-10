@@ -1,9 +1,6 @@
 from django.db import connection
 from django.db.models import Sum, F, Case, When, DecimalField
 from financeiro.models import Lancamento
-from django.contrib import messages
-from django.shortcuts import redirect
-from django.urls import reverse
 
 
 class Services:
