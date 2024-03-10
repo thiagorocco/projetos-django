@@ -191,10 +191,12 @@ def orcamentos_save(request):
 
 def rel_orcamentos(request):
     orcamentos = Orcamento.objects.all()
+    categorias = Categoria.objects.all()
     for orcamento in orcamentos:
         orcamento.nome_categoria = orcamento.categoria.nome
     return render(request, 'financeiro/rel_orcamentos.html',
-                  {"orcamentos": orcamentos})
+                  {"orcamentos": orcamentos,
+                   "categorias": categorias})
 
 
 def delete_orcamento(request, id):
