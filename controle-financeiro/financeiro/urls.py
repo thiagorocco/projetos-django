@@ -5,7 +5,7 @@ from .views import rel_categorias, orcamentos, delete_lcto, update_get_lcto
 from .views import update_lcto, get_cotacao_dolar, rel_orcado_realizado
 from .views import delete_origem, delete_categoria, update_get_origem
 from .views import update_origem, update_get_categoria, update_categoria
-from .views import delete_orcamento
+from .views import delete_orcamento, update_get_orcamento
 
 
 urlpatterns = [
@@ -31,6 +31,8 @@ urlpatterns = [
          name='update_get_categoria'),
     path('update_get_origem/<int:id>/', update_get_origem,
          name='update_get_origem'),
+    path('update_get_orcamento/<int:id>/', update_get_orcamento,
+         name='update_get_orcamento'),
     path('update_lcto/<int:id>/', update_lcto, name='update_lcto'),
     path('update_origem/<int:id>/', update_origem, name='update_origem'),
     path('update_categoria/<int:id>/', update_categoria,
