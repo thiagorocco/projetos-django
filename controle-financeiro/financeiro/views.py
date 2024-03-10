@@ -217,7 +217,7 @@ def update_get_orcamento(request, id):
 
 
 def update_orcamento(request, id):
-    orcamento = Orcamento()
+    orcamento = Orcamento.objects.get(id=id)
     campos_obrigatorios = ['data', 'categoria', 'valor']
     if all(campo in request.POST for campo in campos_obrigatorios):
         try:
@@ -233,6 +233,7 @@ def update_orcamento(request, id):
             else:
                 orcamento.save()
                 messages.success(request, "Orcamento alterado com sucesso!")
+                return redirect(reverse('orcamentos'))
         except:
             messages.error(request, "Preencha os dados corretamente!")
             return redirect(reverse('update_get_orcamento',
