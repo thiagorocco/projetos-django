@@ -216,6 +216,29 @@ def update_get_orcamento(request, id):
                    "pvalor": pvalor})
 
 
+def update_orcamento(request, id):
+    orcamento = Orcamento()
+    campos_obrigatorios = ['data', 'categoria', 'valor']
+    if all(campo in request.POST for campo in campos_obrigatorios):
+        try:
+            orcamento.data = request.POST.get('data')
+            orcamento.categoria_id = int(request.POST.get('categoria', 0))
+            orcamento.valor = Decimal(request.POST.get('valor', 0.0))
+
+            if orcamento.valor <= 0:
+                messages.error(request, "Valor do lançamento não pode ser zero\
+                               ou negativo!")
+                return redirect(reverse('update_get_orcamento',
+                                        kwargs={'id': orcamento.id}))
+            else:
+                orcamento.save()
+                messages.success(request, "Orcamento alterado com sucesso!")
+        except:
+            messages.error(request, "Preencha os dados corretamente!")
+            return redirect(reverse('update_get_orcamento',
+                                    kwargs={'id': orcamento.id}))
+
+
 def rel_origens(request):
     nova_origem = Origem()
     nome = str(request.POST.get('nome'))
