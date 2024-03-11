@@ -197,12 +197,12 @@ def rel_orcamentos(request):
     get_dt_ini = request.GET.get('data-inicio')
     get_dt_fim = request.GET.get('data-fim')
     get_cat = request.GET.get('categoria')
-    
+
     # Implemente os filtros aqui
     
-    # por data
+    ## por data
     
-    # por categoria
+    ## por categoria
     
     for orcamento in orcamentos:
         orcamento.nome_categoria = orcamento.categoria.nome
