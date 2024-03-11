@@ -191,25 +191,25 @@ def orcamentos_save(request):
 
 
 def rel_orcamentos(request):
-    orcamentos = Orcamento.objects.all()
+    orcamentos = Orcamento.objects.all().order_by('data')
     categorias = Categoria.objects.all()
-    
-    # Recebe os dados get aqui
     get_dt_ini = request.GET.get('data-inicio')
     get_dt_fim = request.GET.get('data-fim')
     get_cat = request.GET.get('categoria')
+    imprimir = False
 
     # Implemente os filtros aqui
-    
-    ## por data
-    if get_dt_ini and get_dt_fim:
-        orcamentos = Orcamento.objects.filter(Q)
-    ## por categoria
-    
+    if get_dt_ini and get_dt_fim and get_cat:
+        orcamentos = Orcamento.objects.filter(
+            data_range=[get_dt_ini, get_dt_fim],
+            categoria_id=get_cat).order_by('data')
+        imprimir = True
+
     for orcamento in orcamentos:
         orcamento.nome_categoria = orcamento.categoria.nome
     return render(request, 'financeiro/rel_orcamentos.html',
                   {"orcamentos": orcamentos,
+                   "imprimir": imprimir,
                    "categorias": categorias})
 
 
