@@ -192,6 +192,18 @@ def orcamentos_save(request):
 def rel_orcamentos(request):
     orcamentos = Orcamento.objects.all()
     categorias = Categoria.objects.all()
+    
+    # Recebe os dados get aqui
+    get_dt_ini = request.GET.get('data-inicio')
+    get_dt_fim = request.GET.get('data-fim')
+    get_cat = request.GET.get('categoria')
+    
+    # Implemente os filtros aqui
+    
+    # por data
+    
+    # por categoria
+    
     for orcamento in orcamentos:
         orcamento.nome_categoria = orcamento.categoria.nome
     return render(request, 'financeiro/rel_orcamentos.html',
