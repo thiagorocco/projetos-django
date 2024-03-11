@@ -1,5 +1,6 @@
 from decimal import Decimal
 from django.db import IntegrityError
+from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib import messages
@@ -201,7 +202,8 @@ def rel_orcamentos(request):
     # Implemente os filtros aqui
     
     ## por data
-    
+    if get_dt_ini and get_dt_fim:
+        orcamentos = Orcamento.objects.filter(Q)
     ## por categoria
     
     for orcamento in orcamentos:
