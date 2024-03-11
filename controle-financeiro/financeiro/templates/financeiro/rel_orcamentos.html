@@ -4,8 +4,7 @@
 {% block content %}
 <br><br>
     <h2>Relatório de Orçamentos</h2>
-    <form action="{% url 'rel_orcamentos' %}" method="post">
-        {% csrf_token %}
+    <form action="{% url 'rel_orcamentos' %}">
         Data Inicial: <input type="date" name="data-inicio">
         Data Final: <input type="date" name="data-fim">
         Categoria: <select name="categoria">
