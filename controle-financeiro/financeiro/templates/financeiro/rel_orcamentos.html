@@ -4,7 +4,8 @@
 {% block content %}
 <br><br>
     <h2>Relatório de Orçamentos</h2>
-    <form action="">
+    <form action="{% url 'rel_orcamentos' %}" method="post">
+        {% csrf_token %}
         Data Inicial: <input type="date" name="data-inicio">
         Data Final: <input type="date" name="data-fim">
         Categoria: <select name="categoria">
@@ -23,6 +24,7 @@
             <th colspan="2">AÇÃO</th>
         </tr>
     </thead>
+    
     {% for orcamento in orcamentos %}
     <tr>
         <td>{{ orcamento.data }}</td>
