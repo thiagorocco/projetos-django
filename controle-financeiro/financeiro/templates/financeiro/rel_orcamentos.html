@@ -7,8 +7,9 @@
     <form action="{% url 'rel_orcamentos' %}">
         Data Inicial: <input type="date" name="data-inicio" value="2024-01-01" required >
         Data Final: <input type="date" name="data-fim" value="2024-03-31" required >
-        Categoria: <select name="categoria">
-                <option value="-1">* Todas *</option>
+        Categoria: 
+        <select name="categoria">
+                <option value="-1">*** Todas ***</option>
             {% for categoria in categorias %}
                 <option value="{{ categoria.id }}">{{ categoria.nome }}</option>
             {% endfor %}        
@@ -27,7 +28,7 @@
     {% if imprimir %}
         {% for orcamento in orcamentos %}
             <tr>
-                <td>{{ orcamento.data }}</td>
+                <td>{{ orcamento.data|date:"d/m/Y" }}</td>
                 <td>{{ orcamento.nome_categoria }}</td>
                 <td>R$ {{ orcamento.valor }}</td>
                 <td><a href="/update_get_orcamento/{{orcamento.id}}">Editar</a> | <a href="/delete_orcamento/{{orcamento.id}}">Excluir</a></td>

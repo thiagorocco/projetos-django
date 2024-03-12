@@ -1,6 +1,5 @@
 from decimal import Decimal
 from django.db import IntegrityError
-from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib import messages
@@ -192,7 +191,7 @@ def orcamentos_save(request):
 
 def rel_orcamentos(request):
     orcamentos = Orcamento.objects.all().order_by('data')
-    categorias = Categoria.objects.all()
+    categorias = Categoria.objects.all().order_by('nome')
     get_dt_ini = request.GET.get('data-inicio')
     get_dt_fim = request.GET.get('data-fim')
     get_cat = request.GET.get('categoria')
