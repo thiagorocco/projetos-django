@@ -26,17 +26,17 @@
     </thead>
     {% if imprimir %}
         {% for orcamento in orcamentos %}
-        <tr>
-            <td>{{ orcamento.data }}</td>
-            <td>{{ orcamento.nome_categoria }}</td>
-            <td>R$ {{ orcamento.valor }}</td>
-            <td><a href="/update_get_orcamento/{{orcamento.id}}">Editar</a> | <a href="/delete_orcamento/{{orcamento.id}}">Excluir</a></td>
-        </tr>
+            <tr>
+                <td>{{ orcamento.data }}</td>
+                <td>{{ orcamento.nome_categoria }}</td>
+                <td>R$ {{ orcamento.valor }}</td>
+                <td><a href="/update_get_orcamento/{{orcamento.id}}">Editar</a> | <a href="/delete_orcamento/{{orcamento.id}}">Excluir</a></td>
+            </tr>
         {% endfor %}
     {% else %}
-        <p class="msg-error">
-            Preencha todos os dados do formulário corretamente   
-        </p>
+            <tr>
+                <td colspan="4">Informe os filtros para gerar o relatório</td>
+            </tr>
     {% endif %}
-</table>
+    </table>
 {% endblock %}
