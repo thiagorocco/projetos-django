@@ -5,8 +5,8 @@
 <br><br>
     <h2>Relatório de Orçamentos</h2>
     <form action="{% url 'rel_orcamentos' %}">
-        Data Inicial: <input type="date" name="data-inicio" value="2024-01-01" required >
-        Data Final: <input type="date" name="data-fim" value="2024-03-31" required >
+        Data Inicial: <input type="date" name="data-inicio" required >
+        Data Final: <input type="date" name="data-fim" required >
         Categoria: 
         <select name="categoria">
                 <option value="-1">*** Todas ***</option>
@@ -36,8 +36,24 @@
         {% endfor %}
     {% else %}
             <tr>
+                <td colspan="4">-----------------------------------------</td>
+            </tr>
+            <tr>
                 <td colspan="4">Informe os filtros para gerar o relatório</td>
+            </tr>
+            <tr>
+                <td colspan="4">-----------------------------------------</td>
             </tr>
     {% endif %}
     </table>
+    {% if messages %}
+    {% for message in messages %}
+        <p 
+            {% if message.tags %} 
+                class="msg-{{ message.tags }}" 
+            {% endif %}>
+            {{ message }}
+        </p>
+    {% endfor %}
+{% endif %}
 {% endblock %}

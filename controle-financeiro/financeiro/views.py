@@ -7,7 +7,7 @@ from financeiro.models import Lancamento, Origem, Categoria, Orcamento
 from financeiro.services import Services
 import locale
 import requests
-
+from datetime import datetime
 
 def get_cotacao_dolar(request):
     url = 'https://economia.awesomeapi.com.br/json/last/USD-BRL'
@@ -199,6 +199,13 @@ def rel_orcamentos(request):
 
     # Implemente os filtros aqui
     if get_dt_ini and get_dt_fim and get_cat:
+        data1 = datetime.strptime(get_dt_ini, '%Y-%m-%d')
+        data2 = datetime.strptime(get_dt_fim, '%Y-%m-%d')
+        print(data1)
+        print(data2)
+        if data1 > data2:
+            messages.error(request, "Data inicial deve ser menor que a data final")
+            return redirect(reverse('rel_orcamentos'))
         try:
             cat = int(get_cat)
             if cat == -1:
@@ -209,9 +216,10 @@ def rel_orcamentos(request):
                     data__range=[get_dt_ini, get_dt_fim],
                     categoria__id=get_cat).order_by('data')
                 imprimir = True
+            
         except:
             messages.error(request, "Preencha o formulário corretamente")
-            return redirect(reverse('rel_orcamentos')) 
+            return redirect(reverse('rel_orcamentos'))
     for orcamento in orcamentos:
         orcamento.nome_categoria = orcamento.categoria.nome
     return render(request, 'financeiro/rel_orcamentos.html',
