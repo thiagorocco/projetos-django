@@ -200,11 +200,17 @@ def rel_orcamentos(request):
 
     # Implemente os filtros aqui
     if get_dt_ini and get_dt_fim and get_cat:
-        orcamentos = Orcamento.objects.filter(
-            data_range=[get_dt_ini, get_dt_fim],
-            categoria_id=get_cat).order_by('data')
-        imprimir = True
-
+        cat = int(get_cat)
+        if cat == -1:
+            print('Entrou no -1')
+            orcamentos = Orcamento.objects.filter(data__range=[get_dt_ini, get_dt_fim]).order_by('data')
+            imprimir = True
+        else:
+            print('Entrou fora do -1')
+            orcamentos = Orcamento.objects.filter(
+                data__range=[get_dt_ini, get_dt_fim],
+                categoria__id=get_cat).order_by('data')
+            imprimir = True
     for orcamento in orcamentos:
         orcamento.nome_categoria = orcamento.categoria.nome
     return render(request, 'financeiro/rel_orcamentos.html',
