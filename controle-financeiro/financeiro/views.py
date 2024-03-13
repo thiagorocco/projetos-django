@@ -201,8 +201,6 @@ def rel_orcamentos(request):
     if get_dt_ini and get_dt_fim and get_cat:
         data1 = datetime.strptime(get_dt_ini, '%Y-%m-%d')
         data2 = datetime.strptime(get_dt_fim, '%Y-%m-%d')
-        print(data1)
-        print(data2)
         if data1 > data2:
             messages.error(request, "Data inicial deve ser menor que a data final")
             return redirect(reverse('rel_orcamentos'))

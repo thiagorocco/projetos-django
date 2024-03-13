@@ -5,7 +5,7 @@
 <br><br>
     <h2>Relatório de Orçamentos</h2>
     <form action="{% url 'rel_orcamentos' %}">
-        Data Inicial: <input type="date" name="data-inicio" required >
+        Data Inicial: <input type="date" name="data-inicio" value="{% if request.GET.get('data-inicio') %}{{ request.GET.get('data-inicio')}}{% endif%}" required >
         Data Final: <input type="date" name="data-fim" required >
         Categoria: 
         <select name="categoria">
