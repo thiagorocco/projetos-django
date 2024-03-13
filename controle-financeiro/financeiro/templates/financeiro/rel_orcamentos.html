@@ -30,18 +30,20 @@
         </tr>
     </thead>
     {% if imprimir %}
-        {% for orcamento in orcamentos %}
+        {% if sem_resultados  %}
             <tr>
-                <td>{{ orcamento.data|date:"d/m/Y" }}</td>
-                <td>{{ orcamento.nome_categoria }}</td>
-                <td>R$ {{ orcamento.valor }}</td>
-                <td><a href="/update_get_orcamento/{{orcamento.id}}">Editar</a> | <a href="/delete_orcamento/{{orcamento.id}}">Excluir</a></td>
+                <td colspan="4">Não há registros para o filtro informado</td>
             </tr>
-        {% endfor %}
-    {% elif orcamento == None and imprimir %}
-        <tr>
-            <td colspan="4">Não há registros</td>
-        </tr>
+        {% else %}    
+            {% for orcamento in orcamentos %}
+                <tr>
+                    <td>{{ orcamento.data|date:"d/m/Y" }}</td>
+                    <td>{{ orcamento.nome_categoria }}</td>
+                    <td>R$ {{ orcamento.valor }}</td>
+                    <td><a href="/update_get_orcamento/{{orcamento.id}}">Editar</a> | <a href="/delete_orcamento/{{orcamento.id}}">Excluir</a></td>
+                </tr>
+            {% endfor %}
+        {% endif %}
     {% else %}
             <tr><td colspan="4">...</td></tr>
             <tr>
