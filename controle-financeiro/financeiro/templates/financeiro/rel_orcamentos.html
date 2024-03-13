@@ -38,16 +38,18 @@
                 <td><a href="/update_get_orcamento/{{orcamento.id}}">Editar</a> | <a href="/delete_orcamento/{{orcamento.id}}">Excluir</a></td>
             </tr>
         {% endfor %}
+    {% elif orcamento == None and imprimir %}
+        <tr><td colspan="4">...</td></tr>
+        <tr>
+            <td colspan="4">Não há registros</td>
+        </tr>
+        <tr><td colspan="4">...</td></tr>
     {% else %}
-            <tr>
-                <td colspan="4">-----------------------------------------</td>
-            </tr>
+            <tr><td colspan="4">...</td></tr>
             <tr>
                 <td colspan="4">Informe os filtros para gerar o relatório</td>
             </tr>
-            <tr>
-                <td colspan="4">-----------------------------------------</td>
-            </tr>
+            <tr><td colspan="4">...</td></tr>
     {% endif %}
     </table>
     {% if messages %}

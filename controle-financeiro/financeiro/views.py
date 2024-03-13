@@ -197,7 +197,6 @@ def rel_orcamentos(request):
     get_cat = request.GET.get('categoria')
     imprimir = False
     cat_sel = -1
-    
     # Implemente os filtros aqui
     if get_dt_ini and get_dt_fim and get_cat:
         data1 = datetime.strptime(get_dt_ini, '%Y-%m-%d')
