@@ -81,6 +81,7 @@ def lancamentos_save(request):
             else:
                 novo_lcto.save()
                 messages.success(request, "Lançamento cadastrado com sucesso!")
+                return redirect(reverse('lancamentos'))
         except:
             messages.error(request, "Preencha os dados corretamente!")
             return redirect(reverse('lancamentos'))
