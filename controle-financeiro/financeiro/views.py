@@ -196,9 +196,11 @@ def rel_orcamentos(request):
     get_dt_fim = request.GET.get('data-fim')
     get_cat = request.GET.get('categoria')
     imprimir = False
+    sem_resultados = False
     cat_sel = -1
     # Implemente os filtros aqui
     if get_dt_ini and get_dt_fim and get_cat:
+        print(type(orcamentos))
         data1 = datetime.strptime(get_dt_ini, '%Y-%m-%d')
         data2 = datetime.strptime(get_dt_fim, '%Y-%m-%d')
         cat_sel = int(get_cat)
@@ -210,12 +212,13 @@ def rel_orcamentos(request):
             if cat == -1:
                 orcamentos = Orcamento.objects.filter(data__range=[get_dt_ini, get_dt_fim]).order_by('data')
                 imprimir = True
+                sem_resultados = True if not orcamentos.exists() else False
             else:
                 orcamentos = Orcamento.objects.filter(
                     data__range=[get_dt_ini, get_dt_fim],
                     categoria__id=get_cat).order_by('data')
                 imprimir = True
-            
+                sem_resultados = True if not orcamentos.exists() else False            
         except:
             messages.error(request, "Preencha o formulário corretamente")
             return redirect(reverse('rel_orcamentos'))
@@ -227,6 +230,7 @@ def rel_orcamentos(request):
                    "dtini": get_dt_ini,
                    "dtfim": get_dt_fim,
                    "cat": cat_sel,
+                   "sem_resultados": sem_resultados,
                    "categorias": categorias})
 
 
