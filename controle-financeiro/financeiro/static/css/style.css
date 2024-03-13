@@ -82,3 +82,13 @@ tr{
     color: #1d662f;
     text-align: center;
 }
+.fa-trash{
+    color: rgb(194, 16, 16);
+    padding: 4px;
+    margin: auto;
+}
+.fa-pen{
+    padding: 4px;
+    margin: auto;
+    color: rgb(82, 69, 69)
+}
