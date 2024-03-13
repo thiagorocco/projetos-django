@@ -21,7 +21,7 @@
         </thead>
         {% for categoria in categorias %}
         <tr>
-            <td>{{ categoria.nome }}</td><td><a href="/update_get_categoria/{{categoria.id}}">Editar</a></td><td><a href="/delete_categoria/{{categoria.id}}">Excluir</a></td>
+            <td>{{ categoria.nome }}</td><td><a href="/update_get_categoria/{{categoria.id}}"><i class="fa-solid fa-pen" title="EDITAR REGISTRO"></i></a></td><td><a href="/delete_categoria/{{categoria.id}}"><i class="fa-solid fa-trash" title="EXCLUIR REGISTRO"></i></a></td>
         </tr>
         {% endfor %}
     </table>
