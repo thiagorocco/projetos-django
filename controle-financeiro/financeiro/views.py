@@ -223,6 +223,9 @@ def rel_orcamentos(request):
     return render(request, 'financeiro/rel_orcamentos.html',
                   {"orcamentos": orcamentos,
                    "imprimir": imprimir,
+                   "dtini": get_dt_ini,
+                   "dtfim": get_dt_fim,
+                   "cat": get_cat,
                    "categorias": categorias})
 
 
