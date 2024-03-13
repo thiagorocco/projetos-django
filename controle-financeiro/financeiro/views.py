@@ -196,11 +196,13 @@ def rel_orcamentos(request):
     get_dt_fim = request.GET.get('data-fim')
     get_cat = request.GET.get('categoria')
     imprimir = False
-
+    cat_sel = -1
+    
     # Implemente os filtros aqui
     if get_dt_ini and get_dt_fim and get_cat:
         data1 = datetime.strptime(get_dt_ini, '%Y-%m-%d')
         data2 = datetime.strptime(get_dt_fim, '%Y-%m-%d')
+        cat_sel = int(get_cat)
         if data1 > data2:
             messages.error(request, "Data inicial deve ser menor que a data final")
             return redirect(reverse('rel_orcamentos'))
@@ -225,7 +227,7 @@ def rel_orcamentos(request):
                    "imprimir": imprimir,
                    "dtini": get_dt_ini,
                    "dtfim": get_dt_fim,
-                   "cat": get_cat,
+                   "cat": cat_sel,
                    "categorias": categorias})
 
 

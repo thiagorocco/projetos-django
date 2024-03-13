@@ -8,14 +8,10 @@
         Data Inicial: <input type="date" name="data-inicio" value="{{ dtini }}" required >
         Data Final: <input type="date" name="data-fim" value="{{ dtfim }}" required >
         Categoria: 
-        <select name="categoria">
-                {% if cat == -1%}
-                    <option value="-1" selected>*** Todas ***</option>
-                {% else %}    
-                    <option value="-1">*** Todas ***</option>
-                {% endif %}
+        <select name="categoria">   
+                <option value="-1">*** Todas ***</option>
             {% for categoria in categorias %}
-                {% if categoria.id == cat%}
+                {% if categoria.id == cat %}
                     <option value="{{ categoria.id }}" selected>{{ categoria.nome }}</option>
                 {% else %}
                     <option value="{{ categoria.id }}">{{ categoria.nome }}</option>
