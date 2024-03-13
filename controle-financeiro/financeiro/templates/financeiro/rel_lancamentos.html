@@ -32,7 +32,7 @@
         <td>R$ {{ lcto.valor }}</td>
         <td>{{ lcto.tipo_operacao }}</td>
         <td>{{ lcto.nome_origem}}</td>
-        <td><a href="/update_get_lcto/{{lcto.id}}">Editar</a> | <a href="/delete_lcto/{{lcto.id}}">Excluir</a></td>
+        <td><a href="/update_get_lcto/{{lcto.id}}"><i class="fa-solid fa-pen" title="EDITAR REGISTRO"></i></a> | <a href="/delete_lcto/{{lcto.id}}"><i class="fa-solid fa-trash" title="EXCLUIR REGISTRO"></i></a></td>
     </tr>
     {% endfor %}
 </table>
