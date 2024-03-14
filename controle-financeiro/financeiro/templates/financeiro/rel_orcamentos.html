@@ -5,7 +5,7 @@
 <br><br>
 <script scr="{% static 'js/script.js' %}"></script>
 <h2>Relatório de Orçamentos</h2>
-<form action="{% url 'rel_orcamentos' %}">
+<form action="{% url 'rel_orcamentos' %}" class="form-rel-filter">
     <h3>Filtros de Pesquisa</h3>
     Data Inicial: <input type="date" name="data-inicio" value="{{ dtini }}" required >
     Data Final: <input type="date" name="data-fim" value="{{ dtfim }}" required >
@@ -34,7 +34,7 @@
     </thead>
     {% if imprimir %}
         {% if sem_resultados  %}
-            <tr>
+            <tr class="msg-no-result">
                 <td colspan="4">Não há registros para o filtro informado</td>
             </tr>
         {% else %}    
