@@ -4,7 +4,8 @@
 {% block content %}
 <br><br>
     <h2>Relatório de Lançamentos</h2>
-    <form action="">
+    <form action="" class="form-rel-filter">
+        <h3>Filtros de Pesquisa</h3>
         Data Inicial: <input type="date" name="" id="">
         Data Final: <input type="date" name="" id="">
         Categoria: <select name="categoria"><option value=""></option></select>
@@ -12,6 +13,7 @@
         Origem: <select name="origem"><option value=""></option></select>
         <input type="submit" value="Filtrar">
     </form>
+    <br>
     <table>
         <thead>
             <tr>
