@@ -152,6 +152,14 @@ def update_get_lcto(request, id):
 
 def rel_lancamentos(request):
     lctos = Lancamento.objects.all().order_by('data')
+    get_dt_ini = request.GET.get('data-inicio')
+    get_dt_fim = request.GET.get('data-fim')
+    get_cat = request.GET.get('categoria')
+    imprimir = False
+    sem_resultados = False
+    cat_sel = -1
+
+
     for lcto in lctos:
         lcto.nome_origem = lcto.origem.nome
         lcto.nome_categoria = lcto.categoria.nome
