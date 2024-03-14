@@ -152,22 +152,23 @@ def update_get_lcto(request, id):
 
 def rel_lancamentos(request):
     lctos = Lancamento.objects.all().order_by('data')
+    categorias = Categoria.objects.all().order_by('nome')
+    origens = Origem.objects.all().order_by('nome')
+
     get_dt_ini = request.GET.get('data-inicio')
     get_dt_fim = request.GET.get('data-fim')
     get_cat = request.GET.get('categoria')
-    get_op = request.GET.get('operacao')
     get_or = request.GET.get('origem')
     imprimir = False
     sem_resultados = False
     cat_sel = -1
-    op_sel = -1
+    op_sel = 't'
     or_sel = -1
 
     if get_dt_ini and get_dt_fim and get_cat:
         data1 = datetime.strptime(get_dt_ini, '%Y-%m-%d')
         data2 = datetime.strptime(get_dt_fim, '%Y-%m-%d')
         cat_sel = int(get_cat)
-        op_sel = int(get_op)
         or_sel = int(get_or)
 
         if data1 > data2:
@@ -175,13 +176,25 @@ def rel_lancamentos(request):
             return redirect(reverse('rel_lancamentos'))
         try:
             # Se o filtro estiver com todas as categorias, origens e operações
-            if cat_sel == -1 and op_sel == -1 and or_sel == -1:
+            if cat_sel == -1 and or_sel == -1 and op_sel == 't':
                 lctos = Lancamento.objects.filter(data__range=[get_dt_ini, get_dt_fim]).order_by('data')
                 imprimir = True
                 sem_resultados = True if not lctos.exists() else False
+            # Se filtrar só categoria e origens e operações serem todas
+            elif cat_sel != -1 and op_sel == -1 and or_sel == -1:
+                lctos = Lancamento.objects.filter(
+                data__range=[get_dt_ini, get_dt_fim],categoria__id=cat_sel).order_by('data')
+                imprimir = True
+                sem_resultados = True if not lctos.exists() else False
+            # Se filtrar só operação e origens e categorias serem todas
+            elif op_sel != -1 and cat_sel == -1 and or_sel == -1:
+                lctos = Lancamento.objects.filter(
+                data__range=[get_dt_ini, get_dt_fim],tipo__operacao=op_sel).order_by('data')
+                imprimir = True
+                sem_resultados = True if not lctos.exists() else False        
             else:
                 lctos = Lancamento.objects.filter(
-                    data__range=[get_dt_ini, get_dt_fim],categoria__id=get_cat).order_by('data')
+                    data__range=[get_dt_ini, get_dt_fim],origem__id=or_sel).order_by('data')
                 imprimir = True
                 sem_resultados = True if not lctos.exists() else False            
         except:
@@ -191,7 +204,18 @@ def rel_lancamentos(request):
     for lcto in lctos:
         lcto.nome_origem = lcto.origem.nome
         lcto.nome_categoria = lcto.categoria.nome
-    return render(request, 'financeiro/rel_lancamentos.html', {"lctos": lctos})
+    return render(request, 'financeiro/rel_lancamentos.html', 
+                  {"lctos": lctos,
+                   "imprimir": imprimir,
+                   "dtini": get_dt_ini,
+                   "dtfim": get_dt_fim,
+                   "cat": cat_sel,
+                   "op": op_sel,
+                   "orig": or_sel,
+                   "sem_resultados": sem_resultados,
+                   "categorias": categorias,
+                   "origens": origens
+                   })
 
 
 def delete_lcto(request, id):
