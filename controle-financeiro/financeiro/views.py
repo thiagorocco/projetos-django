@@ -155,10 +155,38 @@ def rel_lancamentos(request):
     get_dt_ini = request.GET.get('data-inicio')
     get_dt_fim = request.GET.get('data-fim')
     get_cat = request.GET.get('categoria')
+    get_op = request.GET.get('operacao')
+    get_or = request.GET.get('origem')
     imprimir = False
     sem_resultados = False
     cat_sel = -1
+    op_sel = -1
+    or_sel = -1
 
+    if get_dt_ini and get_dt_fim and get_cat:
+        data1 = datetime.strptime(get_dt_ini, '%Y-%m-%d')
+        data2 = datetime.strptime(get_dt_fim, '%Y-%m-%d')
+        cat_sel = int(get_cat)
+        op_sel = int(get_op)
+        or_sel = int(get_or)
+
+        if data1 > data2:
+            messages.error(request, "Data inicial deve ser menor que a data final")
+            return redirect(reverse('rel_lancamentos'))
+        try:
+            # Se o filtro estiver com todas as categorias, origens e operações
+            if cat_sel == -1 and op_sel == -1 and or_sel == -1:
+                lctos = Lancamento.objects.filter(data__range=[get_dt_ini, get_dt_fim]).order_by('data')
+                imprimir = True
+                sem_resultados = True if not lctos.exists() else False
+            else:
+                lctos = Lancamento.objects.filter(
+                    data__range=[get_dt_ini, get_dt_fim],categoria__id=get_cat).order_by('data')
+                imprimir = True
+                sem_resultados = True if not lctos.exists() else False            
+        except:
+            messages.error(request, "Preencha o formulário corretamente")
+            return redirect(reverse('rel_orcamentos'))    
 
     for lcto in lctos:
         lcto.nome_origem = lcto.origem.nome
@@ -209,7 +237,6 @@ def rel_orcamentos(request):
     cat_sel = -1
     # Implemente os filtros aqui
     if get_dt_ini and get_dt_fim and get_cat:
-        print(type(orcamentos))
         data1 = datetime.strptime(get_dt_ini, '%Y-%m-%d')
         data2 = datetime.strptime(get_dt_fim, '%Y-%m-%d')
         cat_sel = int(get_cat)
