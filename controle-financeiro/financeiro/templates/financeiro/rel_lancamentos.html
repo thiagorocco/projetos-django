@@ -39,6 +39,7 @@
     <table>
         <thead>
             <tr>
+            <th class="linha"></th>
             <th>Data</th>
             <th>Categoria</th>
             <th>Descrição</th>
@@ -56,6 +57,7 @@
         {% else %}    
             {% for lcto in lctos %}
             <tr>
+                <td class="linha">{{ forloop.counter }}</td>
                 <td>{{ lcto.data|date:"d/m/Y" }}</td>
                 <td>{{ lcto.nome_categoria }}</td>
                 <td>{{ lcto.descricao }}</td>
