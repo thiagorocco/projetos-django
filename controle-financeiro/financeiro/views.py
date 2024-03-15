@@ -179,7 +179,7 @@ def rel_lancamentos(request):
         try:
             # Se o filtro estiver com todas as categorias, origens e operações
             if cat_sel == -1 and or_sel == -1 and op_sel == 't':
-                lctos = Lancamento.objects.filter(data__range=[get_dt_ini, get_dt_fim]).order_by('data')
+                lctos = Lancamento.objects.filter(data__range=[get_dt_ini, get_dt_fim], categoria__id=None).order_by('data')
                 imprimir = True
                 sem_resultados = True if not lctos.exists() else False
             # Se o filtro estiver filtrando os 3 elementos    
@@ -197,9 +197,9 @@ def rel_lancamentos(request):
                 imprimir = True
                 sem_resultados = True if not lctos.exists() else False
             # Se filtrar só operação e origens e categorias serem todas
-            elif op_sel != -1 and cat_sel == -1 and or_sel == -1:
+            elif op_sel != 't' and cat_sel == -1 and or_sel == -1:
                 lctos = Lancamento.objects.filter(
-                data__range=[get_dt_ini, get_dt_fim],tipo__operacao=op_sel).order_by('data')
+                data__range=[get_dt_ini, get_dt_fim], tipo__operacao=op_sel).order_by('data')
                 imprimir = True
                 sem_resultados = True if not lctos.exists() else False                 
         except:
