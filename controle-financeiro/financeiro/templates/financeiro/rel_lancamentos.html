@@ -19,8 +19,8 @@
                    </select>
         Operação: <select name="operacao">
                         <option value="t">*** Todas ***</option>
-                        <option value="s">Saída</option>
-                        <option value="e">Entrada</option>
+                        <option value="s" {% if op == 's'%}selected{% endif %}>Saída</option>
+                        <option value="e" {% if op == 'e'%}selected{% endif %}>Entrada</option>
                   </select>
         Origem: <select name="origem">
                     {% for origem in origens %}

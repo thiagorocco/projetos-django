@@ -158,6 +158,7 @@ def rel_lancamentos(request):
     get_dt_ini = request.GET.get('data-inicio')
     get_dt_fim = request.GET.get('data-fim')
     get_cat = request.GET.get('categoria')
+    get_op = request.GET.get('operacao')
     get_or = request.GET.get('origem')
     imprimir = False
     sem_resultados = False
@@ -170,6 +171,7 @@ def rel_lancamentos(request):
         data2 = datetime.strptime(get_dt_fim, '%Y-%m-%d')
         cat_sel = int(get_cat)
         or_sel = int(get_or)
+        op_sel = get_op
 
         if data1 > data2:
             messages.error(request, "Data inicial deve ser menor que a data final")
