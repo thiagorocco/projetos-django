@@ -106,3 +106,10 @@ i{
     border: 1px solid #000;
     padding-bottom: 25px;
 }
+.linha{
+    background-color: #fff;
+    font-size: 10px;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
