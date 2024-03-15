@@ -8,6 +8,7 @@ from financeiro.services import Services
 import locale
 import requests
 from datetime import datetime
+from django.db.models import Q
 
 def get_cotacao_dolar(request):
     url = 'https://economia.awesomeapi.com.br/json/last/USD-BRL'
@@ -167,6 +168,7 @@ def rel_lancamentos(request):
     or_sel = -1
 
     if get_dt_ini and get_dt_fim and get_cat:
+        # print('operação: ', get_op)
         data1 = datetime.strptime(get_dt_ini, '%Y-%m-%d')
         data2 = datetime.strptime(get_dt_fim, '%Y-%m-%d')
         cat_sel = int(get_cat)
@@ -177,6 +179,24 @@ def rel_lancamentos(request):
             messages.error(request, "Data inicial deve ser menor que a data final")
             return redirect(reverse('rel_lancamentos'))
         try:
+            # Criando um filtro base
+            filtro = Q(data__range=[get_dt_ini, get_dt_fim])
+            
+            # Adicionando condições ao filtro conforme os parâmetros passados
+            if cat_sel != -1:
+                filtro &= Q(categoria__id=cat_sel)
+            if or_sel != -1:
+                filtro &= Q(origem__id=or_sel)
+            if op_sel != 't':
+                filtro &= Q(tipo__operacao=op_sel)
+
+            # Aplicando o filtro e ordenando por data
+            lctos = Lancamento.objects.filter(filtro).order_by('data')
+            
+            # Verificando se há resultados
+            sem_resultados = not lctos.exists()
+            imprimir = True
+            '''
             # Se o filtro estiver com todas as categorias, origens e operações
             if cat_sel == -1 and or_sel == -1 and op_sel == 't':
                 lctos = Lancamento.objects.filter(data__range=[get_dt_ini, get_dt_fim], categoria__id=None).order_by('data')
@@ -202,7 +222,9 @@ def rel_lancamentos(request):
                 data__range=[get_dt_ini, get_dt_fim], tipo__operacao=op_sel).order_by('data')
                 imprimir = True
                 sem_resultados = True if not lctos.exists() else False                 
+            '''
         except:
+            print('Entrou na exceção')
             messages.error(request, "Preencha o formulário corretamente")
             return redirect(reverse('rel_lancamentos'))   
 
