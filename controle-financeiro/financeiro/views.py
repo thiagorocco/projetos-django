@@ -188,7 +188,7 @@ def rel_lancamentos(request):
             if or_sel != -1:
                 filtro &= Q(origem__id=or_sel)
             if op_sel != 't':
-                filtro &= Q(tipo__operacao=op_sel)
+                filtro &= Q(tipo_operacao=op_sel)
 
             # Aplicando o filtro e ordenando por data
             lctos = Lancamento.objects.filter(filtro).order_by('data')
@@ -196,33 +196,6 @@ def rel_lancamentos(request):
             # Verificando se há resultados
             sem_resultados = not lctos.exists()
             imprimir = True
-            '''
-            # Se o filtro estiver com todas as categorias, origens e operações
-            if cat_sel == -1 and or_sel == -1 and op_sel == 't':
-                lctos = Lancamento.objects.filter(data__range=[get_dt_ini, get_dt_fim], categoria__id=None).order_by('data')
-                imprimir = True
-                sem_resultados = True if not lctos.exists() else False
-            # Se o filtro estiver filtrando os 3 elementos    
-            elif cat_sel != -1 and or_sel != -1 and op_sel != 't':
-                lctos = Lancamento.objects.filter(
-                    data__range=[get_dt_ini, get_dt_fim],
-                    categoria__id=cat_sel, 
-                    tipo__operacao=op_sel).order_by('data')
-                imprimir = True
-                sem_resultados = True if not lctos.exists() else False
-            # Se filtrar só categoria. Origens e operações todas
-            elif cat_sel != -1 and or_sel == -1 and op_sel == 't':
-                lctos = Lancamento.objects.filter(
-                data__range=[get_dt_ini, get_dt_fim], categoria__id=cat_sel).order_by('data')
-                imprimir = True
-                sem_resultados = True if not lctos.exists() else False
-            # Se filtrar só operação e origens e categorias serem todas
-            elif op_sel != 't' and cat_sel == -1 and or_sel == -1:
-                lctos = Lancamento.objects.filter(
-                data__range=[get_dt_ini, get_dt_fim], tipo__operacao=op_sel).order_by('data')
-                imprimir = True
-                sem_resultados = True if not lctos.exists() else False                 
-            '''
         except:
             print('Entrou na exceção')
             messages.error(request, "Preencha o formulário corretamente")
