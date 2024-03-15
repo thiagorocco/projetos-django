@@ -182,10 +182,18 @@ def rel_lancamentos(request):
                 lctos = Lancamento.objects.filter(data__range=[get_dt_ini, get_dt_fim]).order_by('data')
                 imprimir = True
                 sem_resultados = True if not lctos.exists() else False
-            # Se filtrar só categoria e origens e operações serem todas
-            elif cat_sel != -1 and op_sel == -1 and or_sel == -1:
+            # Se o filtro estiver filtrando os 3 elementos    
+            elif cat_sel != -1 and or_sel != -1 and op_sel != 't':
                 lctos = Lancamento.objects.filter(
-                data__range=[get_dt_ini, get_dt_fim],categoria__id=cat_sel).order_by('data')
+                    data__range=[get_dt_ini, get_dt_fim],
+                    categoria__id=cat_sel, 
+                    tipo__operacao=op_sel).order_by('data')
+                imprimir = True
+                sem_resultados = True if not lctos.exists() else False
+            # Se filtrar só categoria. Origens e operações todas
+            elif cat_sel != -1 and or_sel == -1 and op_sel == 't':
+                lctos = Lancamento.objects.filter(
+                data__range=[get_dt_ini, get_dt_fim], categoria__id=cat_sel).order_by('data')
                 imprimir = True
                 sem_resultados = True if not lctos.exists() else False
             # Se filtrar só operação e origens e categorias serem todas
@@ -193,15 +201,10 @@ def rel_lancamentos(request):
                 lctos = Lancamento.objects.filter(
                 data__range=[get_dt_ini, get_dt_fim],tipo__operacao=op_sel).order_by('data')
                 imprimir = True
-                sem_resultados = True if not lctos.exists() else False        
-            else:
-                lctos = Lancamento.objects.filter(
-                    data__range=[get_dt_ini, get_dt_fim],origem__id=or_sel).order_by('data')
-                imprimir = True
-                sem_resultados = True if not lctos.exists() else False            
+                sem_resultados = True if not lctos.exists() else False                 
         except:
             messages.error(request, "Preencha o formulário corretamente")
-            return redirect(reverse('rel_orcamentos'))    
+            return redirect(reverse('rel_lancamentos'))   
 
     for lcto in lctos:
         lcto.nome_origem = lcto.origem.nome
