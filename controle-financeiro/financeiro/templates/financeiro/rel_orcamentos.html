@@ -3,7 +3,6 @@
 {% block titulo %}Relatório de Orçamentos{% endblock %}
 {% block content %}
 <br><br>
-<script scr="{% static 'js/script.js' %}"></script>
 <h2>Relatório de Orçamentos</h2>
 <form action="{% url 'rel_orcamentos' %}" class="form-rel-filter">
     <h3>Filtros de Pesquisa</h3>
@@ -54,13 +53,13 @@
     {% endif %}
     </table>
     {% if messages %}
-    {% for message in messages %}
-        <p 
-            {% if message.tags %} 
-                class="msg-{{ message.tags }}" 
-            {% endif %}>
-            {{ message }}
-        </p>
-    {% endfor %}
-{% endif %}
+        {% for message in messages %}
+            <p 
+                {% if message.tags %} 
+                    class="msg-{{ message.tags }}" 
+                {% endif %}>
+                {{ message }}
+            </p>
+        {% endfor %}
+    {% endif %}
 {% endblock %}
