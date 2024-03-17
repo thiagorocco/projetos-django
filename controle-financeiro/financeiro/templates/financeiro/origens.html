@@ -15,12 +15,14 @@
 <table>
     <thead>
         <tr>
+            <th class="linha"></th>
             <th>Origem</th>
             <th colspan="2">Ações</th>
         </tr>
     </thead>
     {% for origem in origens %}
     <tr>
+        <td class="linha">{{ forloop.counter }}</td>
         <td>{{ origem.nome }}</td><td><a href="/update_get_origem/{{origem.id}}"><i class="fa-solid fa-pen" title="EDITAR REGISTRO"></i></a></td><td><a href="/delete_origem/{{origem.id}}"><i class="fa-solid fa-trash" title="EXCLUIR REGISTRO"></i></a></td>
     </tr>
     {% endfor %}
