@@ -458,4 +458,6 @@ def delete_categoria(request, id):
 
 
 def rel_orcado_realizado(request):
-    return render(request, 'financeiro/orcado-realizado.html')
+    categorias = Categoria.objects.all().order_by('nome')
+    return render(request, 'financeiro/orcado-realizado.html', {
+                           'categorias': categorias})

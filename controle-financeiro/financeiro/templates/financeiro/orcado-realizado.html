@@ -10,10 +10,13 @@
         Categoria:
         <select name="categoria">
                 <option value="-1">*** TODAS ***</option>
-            {% if categoria.id == cat %}
-                <option value="{{ categoria.id }}" selected>{{ categoria.nome }}</option>
-            {% else %}
-                <option value="{{ categoria.id }}">{{ categoria.nome }}</option>
+            {% for categoria in categorias %}
+                {% if categoria.id == cat %}
+                    <option value="{{ categoria.id }}" selected>{{ categoria.nome }}</option>
+                {% else %}
+                    <option value="{{ categoria.id }}">{{ categoria.nome }}</option>
+                {% endif %}
+            {% endfor %}
         </select>
         <input type="submit" value="Filtrar">
     </form>
