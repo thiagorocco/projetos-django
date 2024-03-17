@@ -28,6 +28,7 @@
         {% endfor %}
     </table>
     {% if messages %}
+        <script>mostrarMensagem("Categoria cadastrada com sucesso!")</script>
         {% for message in messages %}
             <p 
                 {% if message.tags %} 
