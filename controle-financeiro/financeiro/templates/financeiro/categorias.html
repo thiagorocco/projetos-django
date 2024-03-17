@@ -15,12 +15,14 @@
     <table>
         <thead>
             <tr>
+                <td class="linha"></td>
                 <th>Categoria</th>
                 <th colspan="2">Ações</th>
             </tr>
         </thead>
         {% for categoria in categorias %}
         <tr>
+            <td class="linha">{{ forloop.counter}}</td>
             <td>{{ categoria.nome }}</td><td><a href="/update_get_categoria/{{categoria.id}}"><i class="fa-solid fa-pen" title="EDITAR REGISTRO"></i></a></td><td><a href="/delete_categoria/{{categoria.id}}"><i class="fa-solid fa-trash" title="EXCLUIR REGISTRO"></i></a></td>
         </tr>
         {% endfor %}
