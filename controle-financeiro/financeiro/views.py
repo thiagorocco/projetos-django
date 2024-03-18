@@ -373,7 +373,7 @@ def update_origem(request, id):
             origem.nome = nome
             try:
                 origem.save()
-                messages.success(request, "Alteração realizada com sucesso!")
+                messages.success(request, "Origem alterada  com sucesso!")
             except IntegrityError:
                 messages.error(request, f"A Origem {origem} já existe! \
                                Alteração não realizada!")

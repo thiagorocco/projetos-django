@@ -22,6 +22,13 @@
     </aside>
     <main>    
         {% block content %}{% endblock %}
+        {% if messages %}
+            {% with messages as all_messages %}
+                <script>
+                    mostrarMensagem('{{ all_messages|join:"<br>" }}');
+                </script>
+            {% endwith %}
+        {% endif %}
     </main>
 
     <footer>

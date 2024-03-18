@@ -21,17 +21,10 @@
             </tr>
         </thead>
         {% for categoria in categorias %}
-        <tr>
-            <td class="linha">{{ forloop.counter}}</td>
-            <td>{{ categoria.nome }}</td><td><a href="/update_get_categoria/{{categoria.id}}"><i class="fa-solid fa-pen" title="EDITAR REGISTRO"></i></a></td><td><a href="/delete_categoria/{{categoria.id}}"><i class="fa-solid fa-trash" title="EXCLUIR REGISTRO"></i></a></td>
-        </tr>
+            <tr>
+                <td class="linha">{{ forloop.counter}}</td>
+                <td>{{ categoria.nome }}</td><td><a href="/update_get_categoria/{{categoria.id}}"><i class="fa-solid fa-pen" title="EDITAR REGISTRO"></i></a></td><td><a href="/delete_categoria/{{categoria.id}}"><i class="fa-solid fa-trash" title="EXCLUIR REGISTRO"></i></a></td>
+            </tr>
         {% endfor %}
     </table>
-    {% if messages %}
-        {% with messages as all_messages %}
-            <script>
-                mostrarMensagem('{{ all_messages|join:"<br>" }}');
-            </script>
-        {% endwith %}
-    {% endif %}
 {% endblock %}
