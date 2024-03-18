@@ -129,7 +129,9 @@ def update_lcto(request, id):
                                             kwargs={'id': novo_lcto.id}))
             else:
                 novo_lcto.save()
-                messages.success(request, "Lançamento cadastrado com sucesso!")
+                messages.success(request, "Lançamento alterado com sucesso!")
+                return redirect(reverse('update_get_lcto',
+                                    kwargs={'id': novo_lcto.id}))
         except:
             messages.error(request, "Preencha os dados corretamente!")
             return redirect(reverse('update_get_lcto',
