@@ -1,8 +1,8 @@
-function mostrarMensagem(msg) {
+function mostrarMensagem(msg, icon) {
     Swal.fire({
         title: msg,
         //text: 'Operação realizada com sucesso! SweetAlert!',
-        icon: 'success',
+        icon: icon,
         confirmButtonText: 'OK'
     });
 }

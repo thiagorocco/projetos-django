@@ -23,14 +23,19 @@
     <main>    
         {% block content %}{% endblock %}
         {% if messages %}
-            {% with messages as all_messages %}
-                <script>
-                    mostrarMensagem('{{ all_messages|join:"<br>" }}');
-                </script>
-            {% endwith %}
+            <script>
+                {% for message in messages %}
+                    {% if message.tags == 'success' %}
+                        mostrarMensagem('{{ message }}', 'success');
+                    {% elif message.tags == 'error' %}
+                        mostrarMensagem('{{ message }}', 'error');
+                    {% else %}
+                        mostrarMensagem('{{ message }}');
+                    {% endif %}
+                {% endfor %}
+            </script>
         {% endif %}
     </main>
-
     <footer>
             {% block footer %}{% include 'fragments/footer.html' %}{% endblock %}
     </footer>
