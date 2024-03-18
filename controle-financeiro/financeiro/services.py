@@ -34,3 +34,6 @@ class Services:
                 )
             )
         return diferenca
+    
+    def saldo_orcamento_realizado():
+        pass
