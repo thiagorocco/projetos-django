@@ -1,6 +1,7 @@
 from django.db import connection
 from django.db.models import Sum, F, Case, When, DecimalField
-from financeiro.models import Lancamento
+from django.db.models.functions import Concat, Extract
+from financeiro.models import Lancamento, Orcamento
 
 
 class Services:
@@ -35,5 +36,15 @@ class Services:
             )
         return diferenca
     
-    def saldo_orcamento_realizado():
-        pass
+    def calcular_diferenca_orcamento():
+        diferenca = (
+            Orcamento.objects
+            .annotate(mes=Concat(Extract('data_orcamento', 'month'), '/', Extract('data_orcamento', 'year')))
+            .values('mes', 'categoria__nome')
+            .annotate(
+                valor_orcado=Sum('valor'),
+                valor_realizado=Sum('lancamento__valor'),
+                saldo=F('valor_orcado') - F('valor_realizado')
+            )
+        )
+        return diferenca
