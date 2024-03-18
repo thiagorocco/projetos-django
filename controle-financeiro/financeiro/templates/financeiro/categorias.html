@@ -28,14 +28,10 @@
         {% endfor %}
     </table>
     {% if messages %}
-        <script>mostrarMensagem("Categoria cadastrada com sucesso!")</script>
-        {% for message in messages %}
-            <p 
-                {% if message.tags %} 
-                    class="msg-{{ message.tags }}" 
-                {% endif %}>
-                {{ message }}
-            </p>
-        {% endfor %}
+        {% with messages as all_messages %}
+            <script>
+                mostrarMensagem('{{ all_messages|join:"<br>" }}');
+            </script>
+        {% endwith %}
     {% endif %}
 {% endblock %}
