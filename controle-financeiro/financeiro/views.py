@@ -434,7 +434,7 @@ def update_categoria(request, id):
             categoria.nome = nome
             try:
                 categoria.save()
-                messages.success(request, "Alteração realizada com sucesso!")
+                messages.success(request, "Categoria alterada com sucesso!")
             except IntegrityError:
                 messages.error(request, f"A Categoria {categoria} já existe! \
                                Alteração não realizada!")
