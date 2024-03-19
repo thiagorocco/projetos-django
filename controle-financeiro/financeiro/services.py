@@ -1,7 +1,9 @@
 from django.db import connection
 from django.db.models import Sum, F, Case, When, DecimalField
-from django.db.models.functions import Concat, Extract
-from financeiro.models import Lancamento, Orcamento
+from django.db.models.functions import TruncMonth
+from itertools import groupby
+from financeiro.models import Lancamento, Orcamento, Categoria
+from operator import itemgetter
 
 
 class Services:
@@ -35,16 +37,23 @@ class Services:
                 )
             )
         return diferenca
-    
-    def calcular_diferenca_orcamento():
-        diferenca = (
-            Orcamento.objects
-            .annotate(mes=Concat(Extract('data_orcamento', 'month'), '/', Extract('data_orcamento', 'year')))
-            .values('mes', 'categoria__nome')
-            .annotate(
-                valor_orcado=Sum('valor'),
-                valor_realizado=Sum('lancamento__valor'),
-                saldo=F('valor_orcado') - F('valor_realizado')
-            )
-        )
-        return diferenca
+
+    def calcular_saldo_orc_realizado(request):
+        lancamentos = Lancamento.objects.annotate(mes=TruncMonth('data')).values('mes', 'categoria').annotate(total_lancado=Sum('valor'))
+        orcamentos = Orcamento.objects.annotate(mes=TruncMonth('data')).values('mes', 'categoria').annotate(total_orcado=Sum('valor'))
+
+        relatorio = []
+        for key, group in groupby(sorted(list(lancamentos) + list(orcamentos), key=itemgetter('mes', 'categoria')), key=itemgetter('mes', 'categoria')):
+            mes, categoria = key
+            total_lancado = sum(item['total_lancado'] if item['total_lancado'] else 0 for item in group if item['mes'] == mes and item['categoria'] == categoria)
+            total_orcado = sum(item['total_orcado'] if item['total_orcado'] else 0 for item in group if item['mes'] == mes and item['categoria'] == categoria)
+            saldo = total_orcado - total_lancado
+            relatorio.append({
+                'mes': mes.strftime('%m/%Y'),
+                'categoria': Categoria.objects.get(pk=categoria).nome,
+                'valor_orcado': total_orcado,
+                'valor_lancado': total_lancado,
+                'saldo': saldo
+            })
+
+        return relatorio

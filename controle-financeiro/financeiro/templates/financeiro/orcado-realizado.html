@@ -30,5 +30,16 @@
             <th>Saldo</th>
         </tr>
     </thead>
+    <tbody>
+        {% for item in diferenca %}
+            <tr>
+                <td>{{ item.mes }}</td>
+                <td>{{ item.categoria }}</td>
+                <td>{{ item.valor_orcado|floatformat:2 }}</td>
+                <td>{{ item.valor_lancado|floatformat:2 }}</td>
+                <td>{{ item.saldo|floatformat:2 }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
 </table>
 {% endblock %}
