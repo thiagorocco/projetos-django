@@ -38,18 +38,18 @@ class Services:
             )
         return diferenca
 
-    def calcular_saldo_orc_realizado(request):
-        lancamentos = Lancamento.objects.annotate(mes=TruncMonth('data')).values('mes', 'categoria').annotate(total_lancado=Sum('valor'))
-        orcamentos = Orcamento.objects.annotate(mes=TruncMonth('data')).values('mes', 'categoria').annotate(total_orcado=Sum('valor'))
+    def calcular_saldo_orc_realizado():
+        lancamentos = Lancamento.objects.values('data', 'categoria').annotate(total_lancado=Sum('valor'))
+        orcamentos = Orcamento.objects.values('data', 'categoria').annotate(total_orcado=Sum('valor'))
 
         relatorio = []
-        for key, group in groupby(sorted(list(lancamentos) + list(orcamentos), key=itemgetter('mes', 'categoria')), key=itemgetter('mes', 'categoria')):
-            mes, categoria = key
-            total_lancado = sum(item['total_lancado'] if item['total_lancado'] else 0 for item in group if item['mes'] == mes and item['categoria'] == categoria)
-            total_orcado = sum(item['total_orcado'] if item['total_orcado'] else 0 for item in group if item['mes'] == mes and item['categoria'] == categoria)
+        for key, group in groupby(sorted(list(lancamentos) + list(orcamentos), key=itemgetter('data', 'categoria')), key=itemgetter('data', 'categoria')):
+            data, categoria = key
+            total_orcado = next((item['total_orcado'] for item in orcamentos if item['data'] == data and item['categoria'] == categoria), 0)
+            total_lancado = next((item['total_lancado'] for item in lancamentos if item['data'] == data and item['categoria'] == categoria), 0)
             saldo = total_orcado - total_lancado
             relatorio.append({
-                'mes': mes.strftime('%m/%Y'),
+                'mes': data.strftime('%m/%Y'),
                 'categoria': Categoria.objects.get(pk=categoria).nome,
                 'valor_orcado': total_orcado,
                 'valor_lancado': total_lancado,
