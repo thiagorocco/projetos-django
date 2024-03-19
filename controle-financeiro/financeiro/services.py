@@ -37,7 +37,7 @@ class Services:
                 )
             )
         return diferenca
-
+    '''
     def calcular_saldo_orc_realizado():
         lancamentos = Lancamento.objects.values('data', 'categoria').annotate(total_lancado=Sum('valor'))
         orcamentos = Orcamento.objects.values('data', 'categoria').annotate(total_orcado=Sum('valor'))
@@ -57,3 +57,41 @@ class Services:
             })
 
         return relatorio
+    '''
+    def calcular_saldo_orc_realizado():
+        # Agrupando os valores orçados por categoria e mês
+        orcamentos = Orcamento.objects.annotate(
+            mes=TruncMonth('data')
+        ).values(
+            'mes', 'categoria'
+        ).annotate(
+            valor_orcado=Sum('valor')
+        )
+
+        # Agrupando os valores lançados por categoria e mês
+        lancamentos = Lancamento.objects.annotate(
+            mes=TruncMonth('data')
+        ).values(
+            'mes', 'categoria'
+        ).annotate(
+            valor_realizado=Sum('valor')
+        )
+
+        # Juntando os dados dos orçamentos e lançamentos
+        relatorio = []
+        for orcamento in orcamentos:
+            mes = orcamento['mes']
+            categoria = orcamento['categoria']
+            valor_orcado = orcamento['valor_orcado']
+            valor_realizado = next((l['valor_realizado'] for l in lancamentos if l['mes'] == mes and l['categoria'] == categoria), 0)
+            saldo = valor_orcado - valor_realizado
+            relatorio.append({
+                'mes': mes.strftime('%m/%Y'),
+                'categoria': Categoria.objects.get(pk=categoria).nome,
+                'valor_orcado': valor_orcado,
+                'valor_realizado': valor_realizado,
+                'saldo': saldo
+            })
+
+        return relatorio
+    
