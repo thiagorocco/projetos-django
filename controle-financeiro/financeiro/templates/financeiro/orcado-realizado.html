@@ -35,9 +35,9 @@
             <tr>
                 <td>{{ item.mes }}</td>
                 <td>{{ item.categoria }}</td>
-                <td>{{ item.valor_orcado|floatformat:2 }}</td>
-                <td>{{ item.valor_realizado|floatformat:2 }}</td>
-                <td>{{ item.saldo|floatformat:2 }}</td>
+                <td>R$ {{ item.valor_orcado|floatformat:2 }}</td>
+                <td>R$ {{ item.valor_realizado|floatformat:2 }}</td>
+                <td>R$ {{ item.saldo|floatformat:2 }}</td>
             </tr>
         {% endfor %}  
     </tbody>
