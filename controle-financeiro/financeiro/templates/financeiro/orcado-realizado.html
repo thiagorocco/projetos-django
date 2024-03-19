@@ -36,10 +36,10 @@
                 <td>{{ item.mes }}</td>
                 <td>{{ item.categoria }}</td>
                 <td>{{ item.valor_orcado|floatformat:2 }}</td>
-                <td>{{ item.valor_lancado|floatformat:2 }}</td>
+                <td>{{ item.valor_realizado|floatformat:2 }}</td>
                 <td>{{ item.saldo|floatformat:2 }}</td>
             </tr>
-        {% endfor %}
+        {% endfor %}  
     </tbody>
 </table>
 {% endblock %}
