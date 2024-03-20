@@ -37,27 +37,7 @@ class Services:
                 )
             )
         return diferenca
-    '''
-    def calcular_saldo_orc_realizado():
-        lancamentos = Lancamento.objects.values('data', 'categoria').annotate(total_lancado=Sum('valor'))
-        orcamentos = Orcamento.objects.values('data', 'categoria').annotate(total_orcado=Sum('valor'))
 
-        relatorio = []
-        for key, group in groupby(sorted(list(lancamentos) + list(orcamentos), key=itemgetter('data', 'categoria')), key=itemgetter('data', 'categoria')):
-            data, categoria = key
-            total_orcado = next((item['total_orcado'] for item in orcamentos if item['data'] == data and item['categoria'] == categoria), 0)
-            total_lancado = next((item['total_lancado'] for item in lancamentos if item['data'] == data and item['categoria'] == categoria), 0)
-            saldo = total_orcado - total_lancado
-            relatorio.append({
-                'mes': data.strftime('%m/%Y'),
-                'categoria': Categoria.objects.get(pk=categoria).nome,
-                'valor_orcado': total_orcado,
-                'valor_lancado': total_lancado,
-                'saldo': saldo
-            })
-
-        return relatorio
-    '''
     def calcular_saldo_orc_realizado():
         # Agrupando os valores orçados por categoria e mês
         orcamentos = Orcamento.objects.annotate(
