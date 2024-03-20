@@ -1,9 +1,8 @@
 from django.db import connection
 from django.db.models import Sum, F, Case, When, DecimalField
 from django.db.models.functions import TruncMonth
-from itertools import groupby
 from financeiro.models import Lancamento, Orcamento, Categoria
-from operator import itemgetter
+from django.utils.dateparse import parse_date
 
 
 class Services:
@@ -38,9 +37,13 @@ class Services:
             )
         return diferenca
 
-    def calcular_saldo_orc_realizado():
+    def calcular_saldo_orc_realizado(self, data_ini, data_fim):
+        data_ini = parse_date(data_ini)
+        data_fim = parse_date(data_fim)
+        
+        
         # Agrupando os valores orçados por categoria e mês
-        orcamentos = Orcamento.objects.annotate(
+        orcamentos = Orcamento.objects.filter(data__range=(data_ini, data_fim)).annotate(
             mes=TruncMonth('data')
         ).values(
             'mes', 'categoria'
@@ -49,7 +52,7 @@ class Services:
         )
 
         # Agrupando os valores lançados por categoria e mês
-        lancamentos = Lancamento.objects.annotate(
+        lancamentos = Lancamento.objects.filter(data__range=(data_ini, data_fim)).annotate(
             mes=TruncMonth('data')
         ).values(
             'mes', 'categoria'
