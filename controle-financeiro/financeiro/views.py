@@ -472,3 +472,5 @@ def rel_orcado_realizado(request):
                             'categorias': categorias,
                             'diferenca': diferenca
                             })
+
+# if request.method == "GET"
