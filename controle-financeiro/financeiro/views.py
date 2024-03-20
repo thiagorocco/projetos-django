@@ -461,9 +461,14 @@ def delete_categoria(request, id):
 
 
 def rel_orcado_realizado(request):
-    diferenca = Services.calcular_saldo_orc_realizado()
     categorias = Categoria.objects.all().order_by('nome')
-    return render(request, 'financeiro/orcado-realizado.html', {
-                           'categorias': categorias,
-                           'diferenca': diferenca
-                           })
+    get_dt_ini = request.GET.get('data-inicio')
+    get_dt_fim = request.GET.get('data-fim')
+    get_cat = request.GET.get('categoria')
+     
+    if get_dt_ini and get_dt_fim and get_cat:
+        diferenca = Services.calcular_saldo_orc_realizado(get_dt_ini, get_dt_fim)
+        return render(request, 'financeiro/orcado-realizado.html', {
+                            'categorias': categorias,
+                            'diferenca': diferenca
+                            })
