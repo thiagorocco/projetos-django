@@ -37,11 +37,17 @@ class Services:
             )
         return diferenca
 
-    def calcular_saldo_orc_realizado(self, data_ini, data_fim):
+    def calcular_saldo_orc_realizado(self, data_ini, data_fim, categoria=None):
         data_ini = parse_date(data_ini)
         data_fim = parse_date(data_fim)
         
-        
+        # Filtrar por categoria, se fornecida
+        orcamentos = Orcamento.objects.filter(data__range=(data_ini, data_fim))
+        lancamentos = Lancamento.objects.filter(data__range=(data_ini, data_fim))
+        if categoria:
+            orcamentos = orcamentos.filter(categoria=categoria)
+            lancamentos = lancamentos.filter(categoria=categoria)
+                  
         # Agrupando os valores orçados por categoria e mês
         orcamentos = Orcamento.objects.filter(data__range=(data_ini, data_fim)).annotate(
             mes=TruncMonth('data')
