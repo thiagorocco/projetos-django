@@ -261,12 +261,11 @@ def rel_orcamentos(request):
     get_cat = request.GET.get('categoria')
     imprimir = False
     sem_resultados = False
-    cat_sel = -1
+    cat = -1
     # Implemente os filtros aqui
     if get_dt_ini and get_dt_fim and get_cat:
         data1 = datetime.strptime(get_dt_ini, '%Y-%m-%d')
         data2 = datetime.strptime(get_dt_fim, '%Y-%m-%d')
-        cat_sel = int(get_cat)
         if data1 > data2:
             messages.error(request, "Data inicial deve ser menor que a data final")
             return redirect(reverse('rel_orcamentos'))
@@ -292,7 +291,7 @@ def rel_orcamentos(request):
                    "imprimir": imprimir,
                    "dtini": get_dt_ini,
                    "dtfim": get_dt_fim,
-                   "cat": cat_sel,
+                   "cat": cat,
                    "sem_resultados": sem_resultados,
                    "categorias": categorias})
 
@@ -465,8 +464,8 @@ def rel_orcado_realizado(request):
     get_dt_ini = request.GET.get('data-inicio')
     get_dt_fim = request.GET.get('data-fim')
     get_cat = request.GET.get('categoria')
-    sem_resultados = False
     imprimir = False
+    sem_resultados = False
     diferenca = None
      
     if get_dt_ini and get_dt_fim and get_cat:
@@ -480,9 +479,9 @@ def rel_orcado_realizado(request):
             if cat == -1:
                 sem_resultados = True if not orcamentos.exists() else False
                 imprimir = True
-                pass
-            else:
                 diferenca = Services.calcular_saldo_orc_realizado(get_dt_ini, get_dt_fim)
+            else:
+                diferenca = Services.calcular_saldo_orc_realizado(get_dt_ini, get_dt_fim, cat)
                 imprimir = True
                 sem_resultados = True if not orcamentos.exists() else False
         except:
@@ -493,5 +492,7 @@ def rel_orcado_realizado(request):
                                 'categorias': categorias,
                                 'diferenca': diferenca,
                                 'dataini': get_dt_ini,
-                                'datafim': get_dt_fim
+                                'datafim': get_dt_fim,
+                                'imprimir': imprimir,
+                                'sem_resultados': sem_resultados
                                 })
