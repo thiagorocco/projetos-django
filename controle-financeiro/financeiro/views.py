@@ -467,9 +467,12 @@ def rel_orcado_realizado(request):
     get_cat = request.GET.get('categoria')
     sem_resultados = False
     imprimir = False
+    diferenca = None
      
-    if request.method == "GET":
-        if get_dt_ini > get_dt_fim:
+    if get_dt_ini and get_dt_fim and get_cat:
+        data1 = datetime.strptime(get_dt_ini, '%Y-%m-%d')
+        data2 = datetime.strptime(get_dt_fim, '%Y-%m-%d')
+        if data1 > data2:
             messages.error(request, "Data inicial deve ser menor que a data final")
             return redirect(reverse('rel_orcado_realizado'))
         try:
@@ -482,14 +485,13 @@ def rel_orcado_realizado(request):
                 diferenca = Services.calcular_saldo_orc_realizado(get_dt_ini, get_dt_fim)
                 imprimir = True
                 sem_resultados = True if not orcamentos.exists() else False
-                return render(request, 'financeiro/orcado-realizado.html', {
-                                'categorias': categorias,
-                                'diferenca': diferenca,
-                                'dataini': get_dt_ini,
-                                'datafim' : get_dt_fim
-                                })
         except:
             messages.error(request, "Preencha o formulário corretamente")
             return redirect(reverse('rel_orcado_realizado'))
 
-# if request.method == "GET"
+    return render(request, 'financeiro/orcado-realizado.html', {
+                                'categorias': categorias,
+                                'diferenca': diferenca,
+                                'dataini': get_dt_ini,
+                                'datafim': get_dt_fim
+                                })

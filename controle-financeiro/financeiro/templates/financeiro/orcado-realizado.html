@@ -4,7 +4,7 @@
 {% block content %}
 <br><br>
 <h2>Relatório de Orçamentos</h2>
-<form action="{% url 'rel_orcamentos' %}" class="form-rel-filter">
+<form action="{% url 'rel_orcado_realizado' %}" class="form-rel-filter">
     <h3>Filtros de Pesquisa</h3>
     Data Inicial: <input type="date" name="data-inicio" value="{{ dtini }}" required >
     Data Final: <input type="date" name="data-fim" value="{{ dtfim }}" required >
