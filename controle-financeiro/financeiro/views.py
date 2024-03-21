@@ -467,6 +467,7 @@ def rel_orcado_realizado(request):
     imprimir = False
     sem_resultados = False
     diferenca = None
+    cat = -1
      
     if get_dt_ini and get_dt_fim and get_cat:
         data1 = datetime.strptime(get_dt_ini, '%Y-%m-%d')
@@ -477,9 +478,9 @@ def rel_orcado_realizado(request):
         try:
             cat = int(get_cat)
             if cat == -1:
-                sem_resultados = True if not orcamentos.exists() else False
-                imprimir = True
                 diferenca = Services.calcular_saldo_orc_realizado(get_dt_ini, get_dt_fim)
+                imprimir = True
+                sem_resultados = True if not orcamentos.exists() else False
             else:
                 diferenca = Services.calcular_saldo_orc_realizado(get_dt_ini, get_dt_fim, cat)
                 imprimir = True
@@ -490,6 +491,7 @@ def rel_orcado_realizado(request):
 
     return render(request, 'financeiro/orcado-realizado.html', {
                                 'categorias': categorias,
+                                'cat': cat,
                                 'diferenca': diferenca,
                                 'dataini': get_dt_ini,
                                 'datafim': get_dt_fim,
