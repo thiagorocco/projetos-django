@@ -475,18 +475,21 @@ def rel_orcado_realizado(request):
         if data1 > data2:
             messages.error(request, "Data inicial deve ser menor que a data final")
             return redirect(reverse('rel_orcado_realizado'))
-        #try:
-        cat = int(get_cat)
-        if cat == -1:
-            diferenca = Services.calcular_saldo_orc_realizado(get_dt_ini, get_dt_fim, None)
-        else:
-            diferenca = Services.calcular_saldo_orc_realizado(get_dt_ini, get_dt_fim, cat)
-            
-        imprimir = True
-        sem_resultados = len(diferenca) == 0
-        #except TypeError as e:
-        #    messages.error(request, f"Preencha o formulário corretamente. Tipo de exceção: {e}")
-        #    return redirect(reverse('rel_orcado_realizado'))
+        try:
+            cat = int(get_cat)
+            cat_str = str(cat)
+            str_data1 = str(get_dt_ini)
+            str_data2 = str(get_dt_fim)
+            if get_cat == -1:
+                diferenca = Services.calcular_saldo_orc_realizado(str_data1, str_data2, None)
+            else:
+                diferenca = Services.calcular_saldo_orc_realizado(str_data1, str_data2, cat_str)
+                
+            imprimir = True
+            sem_resultados = True if len(diferenca) == 0 else False
+        except TypeError as e:
+            messages.error(request, f"Preencha o formulário corretamente. Tipo de exceção: {e}")
+            return redirect(reverse('rel_orcado_realizado'))
 
     return render(request, 'financeiro/orcado-realizado.html', {
                                 'categorias': categorias,
