@@ -7,8 +7,10 @@ from financeiro.models import Lancamento, Origem, Categoria, Orcamento
 from financeiro.services import Services
 import locale
 import requests
+import sys
 from datetime import datetime
 from django.db.models import Q
+
 
 def get_cotacao_dolar(request):
     url = 'https://economia.awesomeapi.com.br/json/last/USD-BRL'
@@ -485,8 +487,8 @@ def rel_orcado_realizado(request):
                 diferenca = Services.calcular_saldo_orc_realizado(get_dt_ini, get_dt_fim, cat)
                 imprimir = True
                 sem_resultados = True if not orcamentos.exists() else False
-        except:
-            messages.error(request, "Preencha o formulário corretamente")
+        except TypeError as e:
+            messages.error(request, f"Preencha o formulário corretamente. Tipo de exceção: {e}")
             return redirect(reverse('rel_orcado_realizado'))
 
     return render(request, 'financeiro/orcado-realizado.html', {

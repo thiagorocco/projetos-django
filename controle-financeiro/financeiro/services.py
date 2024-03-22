@@ -41,6 +41,10 @@ class Services:
         data_ini = parse_date(data_ini)
         data_fim = parse_date(data_fim)
         
+        print('data ini: ', data_ini)
+        print('data Fim: ', data_fim)
+        print('Categoria: ', categoria)
+        
         # Filtrar por categoria, se fornecida
         orcamentos = Orcamento.objects.filter(data__range=(data_ini, data_fim))
         lancamentos = Lancamento.objects.filter(data__range=(data_ini, data_fim))
