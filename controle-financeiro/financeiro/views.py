@@ -7,7 +7,6 @@ from financeiro.models import Lancamento, Origem, Categoria, Orcamento
 from financeiro.services import Services
 import locale
 import requests
-import sys
 from datetime import datetime
 from django.db.models import Q
 
@@ -202,7 +201,6 @@ def rel_lancamentos(request):
             sem_resultados = not lctos.exists()
             imprimir = True
         except:
-            print('Entrou na exceção')
             messages.error(request, "Preencha o formulário corretamente")
             return redirect(reverse('rel_lancamentos'))   
 
@@ -480,13 +478,12 @@ def rel_orcado_realizado(request):
         try:
             cat = int(get_cat)
             if cat == -1:
-                diferenca = Services.calcular_saldo_orc_realizado(get_dt_ini, get_dt_fim)
-                imprimir = True
-                sem_resultados = True if not orcamentos.exists() else False
+                diferenca = Services.calcular_saldo_orc_realizado(get_dt_ini, get_dt_fim, None)
             else:
                 diferenca = Services.calcular_saldo_orc_realizado(get_dt_ini, get_dt_fim, cat)
-                imprimir = True
-                sem_resultados = True if not orcamentos.exists() else False
+            
+            sem_resultados = True if not orcamentos.exists() else False
+            imprimir = True
         except TypeError as e:
             messages.error(request, f"Preencha o formulário corretamente. Tipo de exceção: {e}")
             return redirect(reverse('rel_orcado_realizado'))
@@ -495,8 +492,8 @@ def rel_orcado_realizado(request):
                                 'categorias': categorias,
                                 'cat': cat,
                                 'diferenca': diferenca,
-                                'dataini': get_dt_ini,
-                                'datafim': get_dt_fim,
+                                'dtini': get_dt_ini,
+                                'dtfim': get_dt_fim,
                                 'imprimir': imprimir,
                                 'sem_resultados': sem_resultados
                                 })
