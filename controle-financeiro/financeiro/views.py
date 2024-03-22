@@ -478,12 +478,12 @@ def rel_orcado_realizado(request):
         try:
             cat = int(get_cat)
             cat_str = str(cat)
-            str_data1 = str(get_dt_ini)
-            str_data2 = str(get_dt_fim)
-            if get_cat == -1:
-                diferenca = Services.calcular_saldo_orc_realizado(str_data1, str_data2, None)
+            if get_cat == '-1':
+                diferenca = Services.calcular_saldo_orc_realizado(get_dt_ini, get_dt_fim, None)
+                print('Entrou 1')
             else:
-                diferenca = Services.calcular_saldo_orc_realizado(str_data1, str_data2, cat_str)
+                diferenca = Services.calcular_saldo_orc_realizado(get_dt_ini, get_dt_fim, cat_str)
+                print('Entrou 2')
                 
             imprimir = True
             sem_resultados = True if len(diferenca) == 0 else False
