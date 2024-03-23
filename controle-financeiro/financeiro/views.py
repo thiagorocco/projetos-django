@@ -356,7 +356,7 @@ def rel_origens(request):
                 messages.error(request, f"A Origem {nova_origem} já existe!")
         else:
             messages.error(request, "Informe uma descrição válida!")
-    origens = Origem.objects.all()
+    origens = Origem.objects.all().order_by('nome')
     return render(request, 'financeiro/origens.html', {"origens": origens})
 
 
