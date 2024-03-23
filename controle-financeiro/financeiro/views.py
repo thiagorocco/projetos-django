@@ -480,11 +480,8 @@ def rel_orcado_realizado(request):
             cat_str = str(cat)
             if get_cat == '-1':
                 diferenca = Services.calcular_saldo_orc_realizado(get_dt_ini, get_dt_fim, None)
-                print('Entrou 1')
             else:
-                diferenca = Services.calcular_saldo_orc_realizado(get_dt_ini, get_dt_fim, cat_str)
-                print('Entrou 2')
-                
+                diferenca = Services.calcular_saldo_orc_realizado(get_dt_ini, get_dt_fim, cat_str)           
             imprimir = True
             sem_resultados = True if len(diferenca) == 0 else False
         except TypeError as e:

@@ -38,7 +38,7 @@
                 <td class="linha"></td>
                 <td colspan="5">Não há registros para o filtro informado</td>
             </tr>
-            {% else %}    
+        {% else %}    
             {% for orcamento in orcamentos %}
             <tr>
                 <td class="linha">{{ forloop.counter }}</td>
@@ -48,8 +48,8 @@
                 <td><a href="/update_get_orcamento/{{orcamento.id}}"><i class="fa-solid fa-pen" title="EDITAR REGISTRO"></i></a> | <a href="/delete_orcamento/{{orcamento.id}}"><i class="fa-solid fa-trash" title="EXCLUIR REGISTRO"></i></a></td>
             </tr>
             {% endfor %}
-            {% endif %}
-            {% else %}
+        {% endif %}
+    {% else %}
             <tr class="msg-init-filter">
                 <td class="linha"></td>
                 <td colspan="5">Informe os filtros acima para gerar o relatório.</td>

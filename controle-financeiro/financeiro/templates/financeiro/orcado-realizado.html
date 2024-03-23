@@ -33,21 +33,28 @@
             </tr>
         </thead>
         {% if imprimir %}
-        {% for item in diferenca %}
-            <tr>
-                <td class="linha">{{ forloop.counter }}</td>
-                <td>{{ item.mes }}</td>
-                <td>{{ item.categoria }}</td>
-                <td>R$ {{ item.valor_orcado|floatformat:2 }}</td>
-                <td>R$ {{ item.valor_realizado|floatformat:2 }}</td>
-                <td>R$ {{ item.saldo|floatformat:2 }}</td>
+            {% if sem_resultados  %}
+                <tr class="msg-no-result">
+                    <td class="linha"></td>
+                    <td colspan="5">Não há registros para o filtro informado</td>
+                </tr>
+            {% else %}   
+                {% for item in diferenca %}
+                    <tr>
+                        <td class="linha">{{ forloop.counter }}</td>
+                        <td>{{ item.mes }}</td>
+                        <td>{{ item.categoria }}</td>
+                        <td>R$ {{ item.valor_orcado|floatformat:2 }}</td>
+                        <td>R$ {{ item.valor_realizado|floatformat:2 }}</td>
+                        <td>R$ {{ item.saldo|floatformat:2 }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}  
+        {% else %}
+            <tr class="msg-init-filter">
+                <td class="linha"></td>
+                <td colspan="5">Informe os filtros acima para gerar o relatório.</td>
             </tr>
-        {% endfor %}  
-    {% else %}
-        <tr class="msg-init-filter">
-            <td class="linha"></td>
-            <td colspan="5">Informe os filtros acima para gerar o relatório.</td>
-        </tr>
-    {% endif %}
+        {% endif %}
     </table>
 {% endblock %}
