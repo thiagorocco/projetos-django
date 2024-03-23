@@ -29,4 +29,20 @@
         </tr>
     {% endfor %}
 </table>
+<br>
+<div class="pagination">
+    <span class="step-links">
+        {% if origens.has_previous %}
+            <a href="?page={{ origens.previous_page_number }}">anterior</a>
+        {% endif %}
+
+        <span class="current">
+            Página {{ origens.number }} de {{ origens.paginator.num_pages }}.
+        </span>
+
+        {% if origens.has_next %}
+            <a href="?page={{ origens.next_page_number }}">próxima</a>
+        {% endif %}
+    </span>
+</div>
 {% endblock %}

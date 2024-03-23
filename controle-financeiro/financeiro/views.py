@@ -357,7 +357,8 @@ def rel_origens(request):
         else:
             messages.error(request, "Informe uma descrição válida!")
     origens = Origem.objects.all().order_by('nome')
-    return render(request, 'financeiro/origens.html', {"origens": origens})
+    origs = Services.paginacao(request, origens)
+    return render(request, 'financeiro/origens.html', {"origens": origs})
 
 
 def update_get_origem(request, id):
