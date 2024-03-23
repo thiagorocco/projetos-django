@@ -9,7 +9,6 @@ import locale
 import requests
 from datetime import datetime
 from django.db.models import Q
-from django.core.paginator import Paginator, InvalidPage, EmptyPage
 
 
 def get_cotacao_dolar(request):
@@ -402,7 +401,6 @@ def delete_origem(request, id):
 
 def rel_categorias(request):
     nova_categoria = Categoria()
-    page = 1
     nome = str(request.POST.get('nome'))
     # Impede a inserção de dados em branco. Ex: "", " " ou "      "
     # Similar ao trim de outras linguagens
@@ -419,17 +417,7 @@ def rel_categorias(request):
         else:
             messages.error(request, "Informe uma descrição válida!")
     categorias = Categoria.objects.all().order_by('nome')
-    paginator = Paginator(categorias, 10)
-    try:
-        page = int(request.GET.get('page', '1'))
-    except ValueError:
-        page = 1
-
-    # Se o page request (9999) está fora da lista, mostre a última página.
-    try:
-        cats = paginator.page(page)
-    except (EmptyPage, InvalidPage):
-        cats = paginator.page(paginator.num_pages)
+    cats = Services.paginacao(request, categorias)
     return render(request, 'financeiro/categorias.html',
                   {'cats': cats})
 

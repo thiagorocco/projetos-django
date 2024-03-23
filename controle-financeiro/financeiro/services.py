@@ -2,7 +2,8 @@ from django.db import connection
 from django.db.models import Sum, F, Case, When, DecimalField
 from django.db.models.functions import TruncMonth
 from financeiro.models import Lancamento, Orcamento, Categoria
-from django.utils.dateparse import parse_date
+from django.core.paginator import Paginator, InvalidPage, EmptyPage
+import requests
 
 
 class Services:
@@ -83,3 +84,18 @@ class Services:
                 })
 
         return relatorio
+
+    def paginacao(request, registros):
+        # Paginação
+        paginator = Paginator(registros, 10)
+        try:
+            page = int(request.GET.get('page', '1'))
+        except ValueError:
+            page = 1
+
+        # Se o page request (9999) está fora da lista, mostre a última página.
+        try:
+            regs = paginator.page(page)
+        except (EmptyPage, InvalidPage):
+            regs = paginator.page(paginator.num_pages)
+        return regs
