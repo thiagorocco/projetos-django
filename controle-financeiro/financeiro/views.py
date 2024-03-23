@@ -490,7 +490,6 @@ def rel_orcado_realizado(request):
         except TypeError as e:
             messages.error(request, f"Preencha o formulário corretamente. Tipo de exceção: {e}")
             return redirect(reverse('rel_orcado_realizado'))
-
     return render(request, 'financeiro/orcado-realizado.html', {
                                 'categorias': categorias,
                                 'cat': cat,
