@@ -416,7 +416,7 @@ def rel_categorias(request):
                 messages.error(request, f"A Categoria {nova_categoria} já existe!")
         else:
             messages.error(request, "Informe uma descrição válida!")
-    categorias = Categoria.objects.all()
+    categorias = Categoria.objects.all().order_by('nome')
     return render(request, 'financeiro/categorias.html',
                   {"categorias": categorias})
 
