@@ -110,6 +110,14 @@ i{
     border: 1px solid #000;
     padding-bottom: 25px;
 }
+.frm-cad{
+    width: 350px;
+    margin: auto;
+    padding-bottom: 10px;
+    border: 2px #4685;
+    border-style: double;
+    background-color:aliceblue;
+}
 .linha{
     background-color: #fff;
     font-size: 10px;

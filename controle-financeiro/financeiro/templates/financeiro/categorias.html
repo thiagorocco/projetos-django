@@ -3,10 +3,12 @@
 {% block titulo %}Relatório de Categorias{% endblock %}
 {% block content %}
     <br><br>
-    <h2>Categorias</h2>
-    <form action="{% url 'rel_categorias' %}" method="post">
+    <form action="{% url 'rel_categorias' %}" method="post" class="frm-cad">
+        <h2>Categorias</h2>
         {% csrf_token %}
         Cadastrar categoria: <input type="text" name="nome" required>
+        <br>
+        <br>
         <input type="submit" value="Cadastrar">
     </form>
     <br>

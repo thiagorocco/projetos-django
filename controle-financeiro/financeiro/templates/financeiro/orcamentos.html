@@ -3,8 +3,8 @@
 {% block titulo %}Orçamento{% endblock %}
 {% block content %}
     <br><br>
-    <h2>Cadastrar Orçamento</h2>
-    <form action="{% url 'orcamentos_save' %}" method="post">
+    <form action="{% url 'orcamentos_save' %}" method="post" class="frm-cad">
+        <h2>Cadastrar Orçamento</h2>
         {% csrf_token %}
         <table>
             <tr>
