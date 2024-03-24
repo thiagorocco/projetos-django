@@ -405,6 +405,9 @@ def delete_origem(request, id):
 def rel_categorias(request):
     nova_categoria = Categoria()
     nome = str(request.POST.get('nome'))
+    inc = None
+    if 'inc' in request.GET:
+        inc = request.GET('inc')
     # Impede a inserção de dados em branco. Ex: "", " " ou "      "
     # Similar ao trim de outras linguagens
     nome = nome.strip()
@@ -422,7 +425,8 @@ def rel_categorias(request):
     categorias = Categoria.objects.all().order_by('nome')
     cats = Services.paginacao(request, categorias)
     return render(request, 'financeiro/categorias.html',
-                  {'cats': cats})
+                  {'cats': cats,
+                   'inc': inc})
 
 
 def update_get_categoria(request, id):
@@ -472,6 +476,7 @@ def rel_orcado_realizado(request):
     sem_resultados = False
     diferenca = None
     cat = -1
+    difs = None
      
     if get_dt_ini and get_dt_fim and get_cat:
         data1 = datetime.strptime(get_dt_ini, '%Y-%m-%d')
@@ -491,10 +496,11 @@ def rel_orcado_realizado(request):
         except TypeError as e:
             messages.error(request, f"Preencha o formulário corretamente. Tipo de exceção: {e}")
             return redirect(reverse('rel_orcado_realizado'))
+        difs = Services.paginacao(request, diferenca)
     return render(request, 'financeiro/orcado-realizado.html', {
                                 'categorias': categorias,
                                 'cat': cat,
-                                'diferenca': diferenca,
+                                'diferenca': difs,
                                 'dtini': get_dt_ini,
                                 'dtfim': get_dt_fim,
                                 'imprimir': imprimir,

@@ -57,4 +57,22 @@
             </tr>
         {% endif %}
     </table>
+    {% if imprimir %}
+        <br>
+        <div class="pagination">
+            <span class="step-links">
+                {% if diferenca.has_previous %}
+                    <a href="?page={{ diferenca.previous_page_number }}&data-inicio={{ dtini }}&data-fim={{ dtfim}}&categoria={{ cat }}">anterior</a>
+                {% endif %}
+        
+                <span class="current">
+                    Página {{ diferenca.number }} de {{ diferenca.paginator.num_pages }}.
+                </span>
+        
+                {% if diferenca.has_next %}
+                    <a href="?page={{ diferenca.next_page_number }}&data-inicio={{ dtini }}&data-fim={{ dtfim}}&categoria={{ cat }}">próxima</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
 {% endblock %}

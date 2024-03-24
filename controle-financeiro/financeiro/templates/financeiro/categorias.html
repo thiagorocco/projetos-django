@@ -24,7 +24,11 @@
         </thead>
         {% for categoria in cats %}
             <tr>
-                <td class="linha">{{ forloop.counter}}</td>
+                {% if cats.number == 1 %}
+                    <td class="linha">{{ forloop.counter}}</td>
+                {% else %}
+                    <td class="linha">{{ forloop.counter|add:inc}}</td>
+                {% endif %}
                 <td>{{ categoria.nome }}</td><td><a href="/update_get_categoria/{{categoria.id}}"><i class="fa-solid fa-pen" title="EDITAR REGISTRO"></i></a></td><td><a href="/delete_categoria/{{categoria.id}}"><i class="fa-solid fa-trash" title="EXCLUIR REGISTRO"></i></a></td>
             </tr>
         {% endfor %}
@@ -41,7 +45,7 @@
             </span>
     
             {% if cats.has_next %}
-                <a href="?page={{ cats.next_page_number }}">próxima</a>
+                <a href="?page={{ cats.next_page_number }}&inc={{ cats.number}}0">próxima</a>
             {% endif %}
         </span>
     </div>
