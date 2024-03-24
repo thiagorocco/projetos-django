@@ -57,19 +57,21 @@
     {% endif %}
     </table>
     <br>
-    <div class="pagination">
-        <span class="step-links">
-            {% if orcamentos.has_previous %}
-                <a href="?page={{ orcamentos.previous_page_number }}">anterior</a>
-            {% endif %}
-    
-            <span class="current">
-                Página {{ orcamentos.number }} de {{ orcamentos.paginator.num_pages }}.
+    {% if imprimir %}
+        <div class="pagination">
+            <span class="step-links">
+                {% if orcamentos.has_previous %}
+                    <a href="?page={{ orcamentos.previous_page_number }}&data-inicio={{ dtini }}&data-fim={{ dtfim}}&categoria={{ cat }}">anterior</a>
+                {% endif %}
+        
+                <span class="current">
+                    Página {{ orcamentos.number }} de {{ orcamentos.paginator.num_pages }}.
+                </span>
+        
+                {% if orcamentos.has_next %}
+                    <a href="?page={{ orcamentos.next_page_number }}&data-inicio={{ dtini }}&data-fim={{ dtfim}}&categoria={{ cat }}">próxima</a>
+                {% endif %}
             </span>
-    
-            {% if orcamentos.has_next %}
-                <a href="?page={{ orcamentos.next_page_number }}">próxima</a>
-            {% endif %}
-        </span>
-    </div>
+        </div>
+    {% endif %}
 {% endblock %}
