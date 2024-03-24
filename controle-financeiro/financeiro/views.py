@@ -286,8 +286,10 @@ def rel_orcamentos(request):
             return redirect(reverse('rel_orcamentos'))
     for orcamento in orcamentos:
         orcamento.nome_categoria = orcamento.categoria.nome
+    
+    orcs = Services.paginacao(request, orcamentos)
     return render(request, 'financeiro/rel_orcamentos.html',
-                  {"orcamentos": orcamentos,
+                  {"orcamentos": orcs,
                    "imprimir": imprimir,
                    "dtini": get_dt_ini,
                    "dtfim": get_dt_fim,
