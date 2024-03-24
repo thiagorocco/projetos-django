@@ -207,8 +207,9 @@ def rel_lancamentos(request):
     for lcto in lctos:
         lcto.nome_origem = lcto.origem.nome
         lcto.nome_categoria = lcto.categoria.nome
-    return render(request, 'financeiro/rel_lancamentos.html', 
-                  {"lctos": lctos,
+    lancamentos = Services.paginacao(request, lctos)
+    return render(request, 'financeiro/rel_lancamentos.html',
+                  {"lctos": lancamentos,
                    "imprimir": imprimir,
                    "dtini": get_dt_ini,
                    "dtfim": get_dt_fim,
@@ -286,7 +287,6 @@ def rel_orcamentos(request):
             return redirect(reverse('rel_orcamentos'))
     for orcamento in orcamentos:
         orcamento.nome_categoria = orcamento.categoria.nome
-    
     orcs = Services.paginacao(request, orcamentos)
     return render(request, 'financeiro/rel_orcamentos.html',
                   {"orcamentos": orcs,
