@@ -406,10 +406,17 @@ def rel_categorias(request):
     nova_categoria = Categoria()
     nome = str(request.POST.get('nome'))
     inc = None
+    ant = None
+    prox = None
+    page = None
     if 'inc' in request.GET:
         inc = int(request.GET.get('inc'))
         ant = int(request.GET.get('ant'))
         prox = int(request.GET.get('prox'))
+        page = request.GET.get('page')
+        page = page + "0"
+        page = int(page)
+        
     # Impede a inserção de dados em branco. Ex: "", " " ou "      "
     # Similar ao trim de outras linguagens
     nome = nome.strip()
@@ -430,7 +437,8 @@ def rel_categorias(request):
                   {'cats': cats,
                    'inc': inc,
                    'ant': ant,
-                   'prox': prox})
+                   'prox': prox,
+                   'page': page})
 
 
 def update_get_categoria(request, id):
