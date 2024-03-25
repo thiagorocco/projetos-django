@@ -416,6 +416,7 @@ def rel_categorias(request):
         page = request.GET.get('page')
         page = page + "0"
         page = int(page)
+        page = page - 10
         
     # Impede a inserção de dados em branco. Ex: "", " " ou "      "
     # Similar ao trim de outras linguagens
