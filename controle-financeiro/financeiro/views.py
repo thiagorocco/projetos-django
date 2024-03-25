@@ -407,7 +407,7 @@ def rel_categorias(request):
     nome = str(request.POST.get('nome'))
     inc = None
     if 'inc' in request.GET:
-        inc = request.GET('inc')
+        inc = request.GET.get('inc')
         inc = int(inc)
     # Impede a inserção de dados em branco. Ex: "", " " ou "      "
     # Similar ao trim de outras linguagens
