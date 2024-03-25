@@ -406,13 +406,7 @@ def rel_categorias(request):
     nova_categoria = Categoria()
     nome = str(request.POST.get('nome'))
     prox = None
-    reg_por_linha = None
-    if 'page' in request.GET:
-        prox = int(request.GET.get('prox'))
-        reg_por_linha = request.GET.get('page')
-        reg_por_linha = reg_por_linha + "0"
-        reg_por_linha = int(reg_por_linha)
-        reg_por_linha = reg_por_linha - 10
+    reg_por_linha = Services.registro_por_linha(request)
         
     # Impede a inserção de dados em branco. Ex: "", " " ou "      "
     # Similar ao trim de outras linguagens
