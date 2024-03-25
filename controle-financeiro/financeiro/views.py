@@ -407,8 +407,9 @@ def rel_categorias(request):
     nome = str(request.POST.get('nome'))
     inc = None
     if 'inc' in request.GET:
-        inc = request.GET.get('inc')
-        inc = int(inc)
+        inc = int(request.GET.get('inc'))
+        ant = int(request.GET.get('ant'))
+        prox = int(request.GET.get('prox'))
     # Impede a inserção de dados em branco. Ex: "", " " ou "      "
     # Similar ao trim de outras linguagens
     nome = nome.strip()
@@ -427,7 +428,9 @@ def rel_categorias(request):
     cats = Services.paginacao(request, categorias)
     return render(request, 'financeiro/categorias.html',
                   {'cats': cats,
-                   'inc': inc})
+                   'inc': inc,
+                   'ant': ant,
+                   'prox': prox})
 
 
 def update_get_categoria(request, id):
