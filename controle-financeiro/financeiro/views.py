@@ -405,18 +405,14 @@ def delete_origem(request, id):
 def rel_categorias(request):
     nova_categoria = Categoria()
     nome = str(request.POST.get('nome'))
-    inc = None
-    ant = None
     prox = None
-    page = None
-    if 'inc' in request.GET:
-        inc = int(request.GET.get('inc'))
-        ant = int(request.GET.get('ant'))
+    reg_por_linha = None
+    if 'page' in request.GET:
         prox = int(request.GET.get('prox'))
-        page = request.GET.get('page')
-        page = page + "0"
-        page = int(page)
-        page = page - 10
+        reg_por_linha = request.GET.get('page')
+        reg_por_linha = reg_por_linha + "0"
+        reg_por_linha = int(reg_por_linha)
+        reg_por_linha = reg_por_linha - 10
         
     # Impede a inserção de dados em branco. Ex: "", " " ou "      "
     # Similar ao trim de outras linguagens
@@ -436,10 +432,8 @@ def rel_categorias(request):
     cats = Services.paginacao(request, categorias)
     return render(request, 'financeiro/categorias.html',
                   {'cats': cats,
-                   'inc': inc,
-                   'ant': ant,
                    'prox': prox,
-                   'page': page})
+                   'reg_por_linha': reg_por_linha})
 
 
 def update_get_categoria(request, id):
