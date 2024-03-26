@@ -159,7 +159,6 @@ def rel_lancamentos(request):
     lctos = Lancamento.objects.all().order_by('data')
     categorias = Categoria.objects.all().order_by('nome')
     origens = Origem.objects.all().order_by('nome')
-
     get_dt_ini = request.GET.get('data-inicio')
     get_dt_fim = request.GET.get('data-fim')
     get_cat = request.GET.get('categoria')
@@ -170,6 +169,10 @@ def rel_lancamentos(request):
     cat_sel = -1
     op_sel = 't'
     or_sel = -1
+    prox = None
+    reg_por_linha = Services.registro_por_linha(request)
+    if 'prox' in request.GET:
+        prox = int(request.GET.get('prox'))
 
     if get_dt_ini and get_dt_fim and get_cat:
         # print('operação: ', get_op)
@@ -218,7 +221,9 @@ def rel_lancamentos(request):
                    "orig": or_sel,
                    "sem_resultados": sem_resultados,
                    "categorias": categorias,
-                   "origens": origens
+                   "origens": origens,
+                   "reg_por_linha": reg_por_linha,
+                   "prox": prox
                    })
 
 
@@ -405,9 +410,11 @@ def delete_origem(request, id):
 def rel_categorias(request):
     nova_categoria = Categoria()
     nome = str(request.POST.get('nome'))
-    prox = None
     reg_por_linha = Services.registro_por_linha(request)
-        
+    prox = None
+    if 'prox' in request.GET:
+        prox = int(request.GET.get('prox'))
+
     # Impede a inserção de dados em branco. Ex: "", " " ou "      "
     # Similar ao trim de outras linguagens
     nome = nome.strip()

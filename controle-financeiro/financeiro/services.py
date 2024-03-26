@@ -104,7 +104,6 @@ class Services:
         reg_por_linha = None
 
         if 'page' in request.GET:
-            prox = int(request.GET.get('prox'))
             reg_por_linha = request.GET.get('page')
             reg_por_linha = reg_por_linha + "0"
             reg_por_linha = int(reg_por_linha)
