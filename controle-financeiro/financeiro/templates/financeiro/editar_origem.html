@@ -3,16 +3,12 @@
 {% block titulo %}Editar Origem{% endblock %}
 {% block content %}
     <br><br>
-    <h2>Editar Origem</h2>
-    <form action="{% url 'update_origem' origem.id %}" method="post">
+    <form action="{% url 'update_origem' origem.id %}" method="post" class="frm-cad">
+        <h2>Editar Origem</h2>
         {% csrf_token %}
-        <table>
-            <tr>
-                <td>Descrição:</td><td><input type="text" name="nome" value="{{ origem.nome }}" required></td>
-            </tr>
-            <tr>
-                <td colspan="2"><input type="submit" value="Editar"></td>
-            </tr>
-        </table>
+        Editar origem: <input type="text" name="nome" value="{{ origem.nome }}" required autofocus>
+        <br>
+        <br>
+        <input type="submit" value="Editar" class="button black">
     </form>
 {% endblock %}
