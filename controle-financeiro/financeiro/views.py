@@ -289,6 +289,7 @@ def rel_orcamentos(request):
     for orcamento in orcamentos:
         orcamento.nome_categoria = orcamento.categoria.nome
     orcs = Services.paginacao(request, orcamentos)
+    reg_por_linha = Services.registro_por_linha(request)
     return render(request, 'financeiro/rel_orcamentos.html',
                   {"orcamentos": orcs,
                    "imprimir": imprimir,
@@ -296,7 +297,8 @@ def rel_orcamentos(request):
                    "dtfim": get_dt_fim,
                    "cat": cat,
                    "sem_resultados": sem_resultados,
-                   "categorias": categorias})
+                   "categorias": categorias,
+                   "reg_por_linha": reg_por_linha})
 
 
 def delete_orcamento(request, id):

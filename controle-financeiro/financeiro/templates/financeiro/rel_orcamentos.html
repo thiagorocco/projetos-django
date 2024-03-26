@@ -41,7 +41,11 @@
         {% else %}    
             {% for orcamento in orcamentos %}
             <tr>
-                <td class="linha">{{ forloop.counter }}</td>
+                {% if orcamentos.number == 1%}
+                    <td class="linha">{{ forloop.counter }}</td>
+                {% else %}
+                    <td class="linha">{{ forloop.counter|add:reg_por_linha }}</td>
+                {% endif %}
                 <td>{{ orcamento.data|date:"d/m/Y" }}</td>
                 <td>{{ orcamento.nome_categoria }}</td>
                 <td>R$ {{ orcamento.valor }}</td>
