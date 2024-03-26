@@ -6,7 +6,7 @@
     <h2>Relatório de Lançamentos</h2>
     <form action="{% url 'rel_lancamentos' %}" class="form-rel-filter">
         <h3>Filtros de Pesquisa</h3>
-        Data Inicial: <input type="date" name="data-inicio" value="{{ dtini }}" required >
+        Data Inicial: <input type="date" name="data-inicio" value="{{ dtini }}" required autofocus>
         Data Final: <input type="date" name="data-fim" value="{{ dtfim }}" required>
         Categoria: <select name="categoria">
                                 <option value="-1">*** TODAS ***</option>
