@@ -3,29 +3,35 @@
 {% block titulo %}Orçamento{% endblock %}
 {% block content %}
     <br><br>
-    <form action="{% url 'orcamentos_save' %}" method="post" class="frm-cad">
-        <h2>Cadastrar Orçamento</h2>
-        {% csrf_token %}
-        <table>
-            <tr>
-                <td>Data:</td><td><input type="date" name="data" required autofocus></td>
-            </tr>
-            <tr>
-                <td>Categoria:</td>
-                <td>
-                    <select name="categoria">
-                        {% for cat in cats %}
-                           <option value="{{ cat.id }}">{{ cat.nome }}</option>
-                        {% endfor %}
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Valor:</td><td><input type="number" name="valor" step="0.01" required></td>
-            </tr>
-            <tr>
-                <td colspan="2"><input type="submit" value="Cadastrar"></td>
-            </tr>
-        </table>
-    </form>
+    {% if not cats %}
+        <h2 class="msg-error">Impossível cadastrar orçamentos!</h2>
+        <h3>É necessário cadastar ao menos uma categoria para cadastrar orçamentos.</h3>
+        <h4>Para cadastrar use o menu horizontal acima na opção "Categorias".</h4>
+    {% else %}
+        <form action="{% url 'orcamentos_save' %}" method="post" class="frm-cad">
+            <h2>Cadastrar Orçamento</h2>
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>Data:</td><td><input type="date" name="data" required autofocus></td>
+                </tr>
+                <tr>
+                    <td>Categoria:</td>
+                    <td>
+                        <select name="categoria">
+                            {% for cat in cats %}
+                            <option value="{{ cat.id }}">{{ cat.nome }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Valor:</td><td><input type="number" name="valor" step="0.01" required></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" value="Cadastrar"></td>
+                </tr>
+            </table>
+        </form>
+    {% endif %}
 {% endblock %}
