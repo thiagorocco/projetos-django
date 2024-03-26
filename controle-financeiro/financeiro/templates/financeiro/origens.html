@@ -6,7 +6,7 @@
 <form action="{% url 'rel_origens' %}" method="post" class="frm-cad">
     <h2>Origens</h2>
     {% csrf_token %}
-    Cadastrar origem: <input type="text" name="nome" required>
+    Cadastrar origem: <input type="text" name="nome" required autofocus>
     <br>
     <br>
     <input type="submit" class="button green" value="Cadastrar">
