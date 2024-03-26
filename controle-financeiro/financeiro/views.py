@@ -411,9 +411,6 @@ def rel_categorias(request):
     nova_categoria = Categoria()
     nome = str(request.POST.get('nome'))
     reg_por_linha = Services.registro_por_linha(request)
-    prox = None
-    if 'prox' in request.GET:
-        prox = int(request.GET.get('prox'))
 
     # Impede a inserção de dados em branco. Ex: "", " " ou "      "
     # Similar ao trim de outras linguagens
@@ -433,7 +430,6 @@ def rel_categorias(request):
     cats = Services.paginacao(request, categorias)
     return render(request, 'financeiro/categorias.html',
                   {'cats': cats,
-                   'prox': prox,
                    'reg_por_linha': reg_por_linha})
 
 
