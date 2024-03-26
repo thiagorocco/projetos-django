@@ -6,7 +6,7 @@
     <form action="{% url 'rel_categorias' %}" method="post" class="frm-cad">
         <h2>Categorias</h2>
         {% csrf_token %}
-        Cadastrar categoria: <input type="text" name="nome" required>
+        Cadastrar categoria: <input type="text" name="nome" required autofocus>
         <br>
         <br>
         <input type="submit" class="button green" value="Cadastrar">
