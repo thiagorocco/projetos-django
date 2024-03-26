@@ -60,7 +60,11 @@
         {% else %}    
             {% for lcto in lctos %}
             <tr>
-                <td class="linha">{{ forloop.counter }}</td>
+                {% if lctos.number == 1 %}
+                    <td class="linha">{{ forloop.counter}}</td>
+                {% else %}
+                    <td class="linha">{{ forloop.counter|add:reg_por_linha}}</td>
+                {% endif %}
                 <td>{{ lcto.data|date:"d/m/Y" }}</td>
                 <td>{{ lcto.nome_categoria }}</td>
                 <td>{{ lcto.descricao }}</td>
@@ -83,7 +87,7 @@
     <div class="pagination">
         <span class="step-links">
             {% if lctos.has_previous %}
-                <a href="?page={{ lctos.previous_page_number }}&data-inicio={{ dtini }}&data-fim={{ dtfim}}&categoria={{ cat }}&operacao={{ op }}&origem={{ orig }}">anterior</a>
+                <a href="?page={{ lctos.previous_page_number }}&prox=0&data-inicio={{ dtini }}&data-fim={{ dtfim}}&categoria={{ cat }}&operacao={{ op }}&origem={{ orig }}">anterior</a>
             {% endif %}
 
             <span class="current">
@@ -91,7 +95,7 @@
             </span>
 
             {% if lctos.has_next %}
-                <a href="?page={{ lctos.next_page_number }}&data-inicio={{ dtini }}&data-fim={{ dtfim}}&categoria={{ cat }}&operacao={{ op }}&origem={{ orig }}">próxima</a>
+                <a href="?page={{ lctos.next_page_number }}&prox=1&data-inicio={{ dtini }}&data-fim={{ dtfim}}&categoria={{ cat }}&operacao={{ op }}&origem={{ orig }}">próxima</a>
             {% endif %}
         </span>
     </div>
