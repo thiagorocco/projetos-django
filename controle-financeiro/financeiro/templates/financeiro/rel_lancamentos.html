@@ -87,7 +87,7 @@
     <div class="pagination">
         <span class="step-links">
             {% if lctos.has_previous %}
-                <a href="?page={{ lctos.previous_page_number }}&prox=0&data-inicio={{ dtini }}&data-fim={{ dtfim}}&categoria={{ cat }}&operacao={{ op }}&origem={{ orig }}">anterior</a>
+                <a href="?page={{ lctos.previous_page_number }}&data-inicio={{ dtini }}&data-fim={{ dtfim}}&categoria={{ cat }}&operacao={{ op }}&origem={{ orig }}">anterior</a>
             {% endif %}
 
             <span class="current">
@@ -95,7 +95,7 @@
             </span>
 
             {% if lctos.has_next %}
-                <a href="?page={{ lctos.next_page_number }}&prox=1&data-inicio={{ dtini }}&data-fim={{ dtfim}}&categoria={{ cat }}&operacao={{ op }}&origem={{ orig }}">próxima</a>
+                <a href="?page={{ lctos.next_page_number }}&data-inicio={{ dtini }}&data-fim={{ dtfim}}&categoria={{ cat }}&operacao={{ op }}&origem={{ orig }}">próxima</a>
             {% endif %}
         </span>
     </div>

@@ -169,10 +169,6 @@ def rel_lancamentos(request):
     cat_sel = -1
     op_sel = 't'
     or_sel = -1
-    prox = None
-    reg_por_linha = Services.registro_por_linha(request)
-    if 'prox' in request.GET:
-        prox = int(request.GET.get('prox'))
 
     if get_dt_ini and get_dt_fim and get_cat:
         # print('operação: ', get_op)
@@ -211,6 +207,7 @@ def rel_lancamentos(request):
         lcto.nome_origem = lcto.origem.nome
         lcto.nome_categoria = lcto.categoria.nome
     lancamentos = Services.paginacao(request, lctos)
+    reg_por_linha = Services.registro_por_linha(request)    
     return render(request, 'financeiro/rel_lancamentos.html',
                   {"lctos": lancamentos,
                    "imprimir": imprimir,
@@ -223,7 +220,6 @@ def rel_lancamentos(request):
                    "categorias": categorias,
                    "origens": origens,
                    "reg_por_linha": reg_por_linha,
-                   "prox": prox
                    })
 
 
