@@ -24,7 +24,11 @@
     </thead>
     {% for origem in origens %}
         <tr>
-            <td class="linha">{{ forloop.counter }}</td>
+            {% if origens.number == 1%}
+                <td class="linha">{{ forloop.counter }}</td>
+            {% else %}
+                <td class="linha">{{ forloop.counter|add:reg_por_linha }}</td>
+            {% endif %}
             <td>{{ origem.nome }}</td><td><a href="/update_get_origem/{{origem.id}}"><i class="fa-solid fa-pen" title="EDITAR REGISTRO"></i></a></td><td><a href="/delete_origem/{{origem.id}}"><i class="fa-solid fa-trash" title="EXCLUIR REGISTRO"></i></a></td>
         </tr>
     {% endfor %}
