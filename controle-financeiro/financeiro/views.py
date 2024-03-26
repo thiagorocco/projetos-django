@@ -364,8 +364,11 @@ def rel_origens(request):
         else:
             messages.error(request, "Informe uma descrição válida!")
     origens = Origem.objects.all().order_by('nome')
+    reg_por_linha = Services.registro_por_linha(request)
     origs = Services.paginacao(request, origens)
-    return render(request, 'financeiro/origens.html', {"origens": origs})
+    return render(request, 'financeiro/origens.html',
+                  {"origens": origs,
+                   "reg_por_linha": reg_por_linha})
 
 
 def update_get_origem(request, id):
@@ -410,7 +413,6 @@ def delete_origem(request, id):
 def rel_categorias(request):
     nova_categoria = Categoria()
     nome = str(request.POST.get('nome'))
-    reg_por_linha = Services.registro_por_linha(request)
 
     # Impede a inserção de dados em branco. Ex: "", " " ou "      "
     # Similar ao trim de outras linguagens
@@ -427,6 +429,7 @@ def rel_categorias(request):
         else:
             messages.error(request, "Informe uma descrição válida!")
     categorias = Categoria.objects.all().order_by('nome')
+    reg_por_linha = Services.registro_por_linha(request)
     cats = Services.paginacao(request, categorias)
     return render(request, 'financeiro/categorias.html',
                   {'cats': cats,
