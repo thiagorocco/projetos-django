@@ -3,8 +3,8 @@
 {% block titulo %}Editar Orçamento{% endblock %}
 {% block content %}
     <br><br>
-    <h2>Editar Orçamento</h2>
-    <form action="{% url 'update_orcamento' orcamento.id %}" method="post">
+    <form action="{% url 'update_orcamento' orcamento.id %}" method="post" class="frm-edit">
+        <h2>Editar Orçamento</h2>
         {% csrf_token %}
         <table>
             <tr>
@@ -28,7 +28,7 @@
                 <td>Valor:</td><td><input type="number" name="valor" step="0.01" value="{{ pvalor }}" required></td>
             </tr>
             <tr>
-                <td colspan="2"><input type="submit" value="Editar"></td>
+                <td colspan="2"><input type="submit" value="Editar" class="button blue"></td>
             </tr>
         </table>
     </form>
