@@ -3,16 +3,12 @@
 {% block titulo %}Editar Categoria{% endblock %}
 {% block content %}
     <br><br>
-    <h2>Editar Categoria</h2>
-    <form action="{% url 'update_categoria' categoria.id %}" method="post">
+    <form action="{% url 'update_categoria' categoria.id %}" method="post" class="frm-edit">
+        <h2>Editar Categoria</h2>
         {% csrf_token %}
-        <table>
-            <tr>
-                <td>Descrição:</td><td><input type="text" name="nome" value="{{ categoria.nome }}" required></td>
-            </tr>
-            <tr>
-                <td colspan="2"><input type="submit" value="Editar"></td>
-            </tr>
-        </table>
+        <td>Nova descrição:</td><td><input type="text" name="nome" value="{{ categoria.nome }}" required autofocus>
+        <br>    
+        <br>    
+        <input type="submit" value="Editar" class="button blue">
     </form>
 {% endblock %}
