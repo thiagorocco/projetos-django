@@ -337,7 +337,8 @@ def update_orcamento(request, id):
             else:
                 orcamento.save()
                 messages.success(request, "Orcamento alterado com sucesso!")
-                return redirect(reverse('orcamentos'))
+                return redirect(reverse('update_get_orcamento',
+                                        kwargs={'id': orcamento.id}))
         except:
             messages.error(request, "Preencha os dados corretamente!")
             return redirect(reverse('update_get_orcamento',
