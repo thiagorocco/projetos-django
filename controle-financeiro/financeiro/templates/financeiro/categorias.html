@@ -47,9 +47,6 @@
                 {% endif %}
                 <a href="?page={{ cats.previous_page_number }}">Anterior</a>
             {% endif %}
-    
-
-    
             {% if cats.has_next %}
                 <a href="?page={{ cats.next_page_number }}">Próxima</a>
                 {% if cats.paginator.num_pages > 2%}
