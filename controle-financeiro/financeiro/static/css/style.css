@@ -158,3 +158,19 @@ i{
 .blue:hover{
     background-color: #0b7dda;
 }
+.pagination{
+    font-weight: bold;
+    color: gray;
+}
+.pagination a{
+    text-decoration: none;
+    border: 1px solid #e2dede;
+    border-radius: 6px;
+    padding: 3px;
+    color: #f38021;
+}
+.pagination a:hover{
+    text-decoration: none;
+    color: #fff;
+    background-color: #9c9c99;
+}
