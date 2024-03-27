@@ -123,7 +123,9 @@ def update_lcto(request, id):
                     if saldo['origem__nome'] == novo_lcto.origem.nome:
                         if saldo['diferenca'] >= novo_lcto.valor:
                             novo_lcto.save()
-                            return redirect(reverse('rel_lancamentos'))
+                            messages.success(request, "Lançamento alterado com sucesso!")
+                            return redirect(reverse('update_get_lcto',
+                                                kwargs={'id': novo_lcto.id}))
                         else:
                             messages.error(request, f"Saldo insuficiente em\
                                            {saldo['origem__nome']}")
