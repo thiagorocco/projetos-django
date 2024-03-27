@@ -4,9 +4,9 @@
 {% block content %}
     <br><br>
     <form action="{% url 'update_origem' origem.id %}" method="post" class="frm-cad">
-        <h2>Editar Origem</h2>
+        <h2>Origens</h2>
         {% csrf_token %}
-        Editar origem: <input type="text" name="nome" value="{{ origem.nome }}" required autofocus>
+        <strong>Editar</strong> origem: <input type="text" name="nome" value="{{ origem.nome }}" required autofocus>
         <br>
         <br>
         <input type="submit" value="Editar" class="button black">
