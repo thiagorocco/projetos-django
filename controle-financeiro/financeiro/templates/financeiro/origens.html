@@ -35,17 +35,23 @@
 </table>
 <br>
 <div class="pagination">
+    <span class="current">
+        Página {{ origens.number }} de {{ origens.paginator.num_pages }}.
+    </span>
+    <br>
+    <br>
     <span class="step-links">
         {% if origens.has_previous %}
-            <a href="?page={{ origens.previous_page_number }}">anterior</a>
+            {% if origens.paginator.num_pages > 2 %}
+                <a href="?page=1">Primeira</a>
+            {% endif %}
+            <a href="?page={{ origens.previous_page_number }}">Anterior</a>
         {% endif %}
-
-        <span class="current">
-            Página {{ origens.number }} de {{ origens.paginator.num_pages }}.
-        </span>
-
         {% if origens.has_next %}
-            <a href="?page={{ origens.next_page_number }}">próxima</a>
+            <a href="?page={{ origens.next_page_number }}">Próxima</a>
+            {% if origens.paginator.num_pages > 2 %}
+                <a href="?page={{ origens.paginator.num_pages }}">Última</a>
+            {% endif %}
         {% endif %}
     </span>
 </div>
