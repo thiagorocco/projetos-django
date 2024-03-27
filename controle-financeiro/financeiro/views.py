@@ -304,10 +304,16 @@ def rel_orcamentos(request):
 
 
 def delete_orcamento(request, id):
-    orc = Orcamento.objects.get(id=id)
-    orc.delete()
-    return redirect(reverse('rel_orcamentos'))
-
+    try:
+        orc = Orcamento.objects.get(id=id)
+        orc.delete()
+        get_dt_ini = request.GET.get('data-inicio')
+        get_dt_fim = request.GET.get('data-fim')
+        get_cat = request.GET.get('categoria')
+        messages.success(request, "Orçamento excluído com sucesso")
+        return redirect(reverse('rel_orcamentos'))
+    except:
+        return redirect(reverse('rel_orcamentos'))
 
 def update_get_orcamento(request, id):
     orcamento = Orcamento.objects.get(id=id)
