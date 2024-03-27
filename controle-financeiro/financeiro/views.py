@@ -307,14 +307,18 @@ def delete_orcamento(request, id):
     try:
         orc = Orcamento.objects.get(id=id)
         orc.delete()
+        # Tem que passar essas variáveis na url
         get_dt_ini = request.GET.get('data-inicio')
         get_dt_fim = request.GET.get('data-fim')
         get_cat = request.GET.get('categoria')
         messages.success(request, "Orçamento excluído com sucesso")
+        '''
         return redirect(reverse('rel_orcamentos', kwargs={
             'data-inicio': get_dt_ini,
             'data-fim': get_dt_fim,
             'categoria': get_cat}))
+        '''
+        return render(request, f'financeiro/rel_orcamentos.html/data-inicio={get_dt_ini}&data-fim={get_dt_fim}&categoria={get_cat}')
     except:
         return redirect(reverse('rel_orcamentos'))
 
