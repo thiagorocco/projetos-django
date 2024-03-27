@@ -146,9 +146,15 @@ i{
 .green{
     background-color: #04AA6D;
 }
+.green:hover{
+    background-color: #46a049;
+}
 .black{
     background-color: #555555;
 }
 .blue{
     background-color: #2196F3;
+}
+.blue:hover{
+    background-color: #0b7dda;
 }
