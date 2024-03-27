@@ -118,6 +118,14 @@ i{
     border-style: double;
     background-color:rgb(240, 255, 225);
 }
+.frm-edit{
+    width: 350px;
+    margin: auto;
+    padding-bottom: 10px;
+    border: 2px rgba(60, 76, 135, 0.333);
+    border-style: double;
+    background-color:rgb(230, 237, 242);
+}
 .linha{
     background-color: #fff;
     font-size: 10px;
@@ -140,4 +148,7 @@ i{
 }
 .black{
     background-color: #555555;
+}
+.blue{
+    background-color: #2196F3;
 }
