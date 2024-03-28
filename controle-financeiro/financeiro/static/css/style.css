@@ -66,6 +66,8 @@ tr{
     background-color: #dfdede;
 }
 .cot-dolar{
+    text-align: center;
+    display: block;
     justify-content: center;
     font-family: 'Trebuchet MS';
     background-color: rgba(255, 30, 0, 0.863);
@@ -179,9 +181,10 @@ i{
 
 @media only screen and (min-width: 940px) and (max-width: 1165px){
     aside{
-        position: relative;
-        top: 5px;
-        left: -25%;
+        clear: both;
+        float: none;
+        margin-top: 20px;
+        text-align: center;
     }
     ul li a:hover{
         text-decoration: none;
@@ -194,6 +197,9 @@ i{
 @media screen and (max-width: 940px){
     header{
         width: 100%;
+    }
+    h1{
+        font-size: 23px;
     }
     ul li{
         border: 1px solid #fff;
@@ -211,11 +217,22 @@ i{
         display: block;
     }
     aside{
-        position: relative;
-        top: 1px;
-        align-content: center;
+        float: none;
+        margin-top: 20px;
+        text-align: center;
     }
     nav{
         margin-left: -40px;  
+    }
+    .cot-dolar{
+        text-align: center;
+        display: block;
+        justify-content: center;
+        font-family: 'Trebuchet MS';
+        background-color: rgba(255, 30, 0, 0.863);
+        border: 1px solid rgba(255, 30, 0, 0.863);
+        color: rgb(247, 254, 255);
+        font-size: 20px;
+        padding: 2px;
     }
 }
