@@ -84,26 +84,26 @@
 </table>
 <br>
 {% if imprimir %}
-    <div class="pagination">
-        <span class="current">
-            Página {{ lctos.number }} de {{ lctos.paginator.num_pages }}.
-        </span>
-        <br>
-        <br>
-        <span class="step-links">
-            {% if lctos.has_previous %}
-                {% if lctos.paginator.num_pages > 2 %}
-                    <a href="?page=1&data-inicio={{ dtini }}&data-fim={{ dtfim}}&categoria={{ cat }}&operacao={{ op }}&origem={{ orig }}">Primeira</a>
-                {% endif %}
-                <a href="?page={{ lctos.previous_page_number }}&data-inicio={{ dtini }}&data-fim={{ dtfim}}&categoria={{ cat }}&operacao={{ op }}&origem={{ orig }}">Anterior</a>
+<div class="pagination">
+    <span class="current">
+        Página {{ lctos.number }} de {{ lctos.paginator.num_pages }}.
+    </span>
+    <br>
+    <br>
+    <span class="step-links">
+        {% if lctos.has_previous %}
+            {% if lctos.paginator.num_pages > 2 %}
+                <a href="?page=1&data-inicio={{ dtini }}&data-fim={{ dtfim}}&categoria={{ cat }}&operacao={{ op }}&origem={{ orig }}">Primeira</a>
             {% endif %}
-            {% if lctos.has_next %}
-                <a href="?page={{ lctos.next_page_number }}&data-inicio={{ dtini }}&data-fim={{ dtfim}}&categoria={{ cat }}&operacao={{ op }}&origem={{ orig }}">Próxima</a>
-                {% if lctos.paginator.num_pages > 2 %}
-                    <a href="?page={{ lctos.paginator.num_pages }}&data-inicio={{ dtini }}&data-fim={{ dtfim}}&categoria={{ cat }}&operacao={{ op }}&origem={{ orig }}">Última</a>
-                {% endif %}
+            <a href="?page={{ lctos.previous_page_number }}&data-inicio={{ dtini }}&data-fim={{ dtfim}}&categoria={{ cat }}&operacao={{ op }}&origem={{ orig }}">Anterior</a>
+        {% endif %}
+        {% if lctos.has_next %}
+            <a href="?page={{ lctos.next_page_number }}&data-inicio={{ dtini }}&data-fim={{ dtfim}}&categoria={{ cat }}&operacao={{ op }}&origem={{ orig }}">Próxima</a>
+            {% if lctos.paginator.num_pages > 2 %}
+                <a href="?page={{ lctos.paginator.num_pages }}&data-inicio={{ dtini }}&data-fim={{ dtfim}}&categoria={{ cat }}&operacao={{ op }}&origem={{ orig }}">Última</a>
             {% endif %}
-        </span>
-    </div>
+        {% endif %}
+    </span>
+</div>
 {% endif %}
 {% endblock %}
