@@ -6,8 +6,7 @@ header{
     color: #083f14;
 }
 nav{
-    margin: 0 auto;
-    
+    margin: 0 auto;  
 }
 
 main{
@@ -51,11 +50,13 @@ ul li a:hover{
     background: #c4fcd0;
     color: black;
     padding: 1px;
+    display: block;
 }
 .aselect{
     background: #083f14;
     color: white;
     padding: 1px;
+    display: block;
 }
 
 thead tr{ 
@@ -176,25 +177,45 @@ i{
     background-color: #9c9c99;
 }
 
-@media only screen and (min-width: 940px) and (max-width: 1163px){
+@media only screen and (min-width: 940px) and (max-width: 1165px){
     aside{
         position: relative;
         top: 5px;
         left: -25%;
     }
+    ul li a:hover{
+        text-decoration: none;
+        background: #c4fcd0;
+        color: black;
+        padding: 1px;
+    }
 }
 
 @media screen and (max-width: 940px){
+    header{
+        width: 100%;
+    }
     ul li{
-        border-right: 1px solid #fff;
-        border-left: 1px solid #fff;
+        border: 1px solid #fff;
         list-style-type: none;
         float: none;
         width: 100%;
+        padding: 0;
+        text-align: center;
+    }
+    ul li a:hover{
+        text-decoration: none;
+        background: #c4fcd0;
+        color: black;
+        padding: 1px;
+        display: block;
     }
     aside{
         position: relative;
         top: 1px;
-        left: -25%;
+        align-content: center;
+    }
+    nav{
+        margin-left: -40px;  
     }
 }
