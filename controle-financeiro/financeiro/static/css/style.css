@@ -179,7 +179,7 @@ i{
     background-color: #9c9c99;
 }
 
-@media only screen and (min-width: 940px) and (max-width: 1165px){
+@media only screen and (min-width: 940px) and (max-width: 1185px){
     aside{
         clear: both;
         float: none;
@@ -194,7 +194,7 @@ i{
     }
 }
 
-@media screen and (max-width: 940px){
+@media screen and (max-width: 960px){
     header{
         width: 100%;
     }
@@ -236,4 +236,3 @@ i{
         padding: 2px;
     }
 }
-/* update */
