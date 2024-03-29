@@ -239,5 +239,13 @@ i{
     .input-rel{
         display: block;
         text-align: center;
+        font-size: 20px;
+    }
+    .input-rel input, select{
+        height: 20px;
+    }
+    .button{
+        width: 95%;
+        font-size: 30px;
     }
 }
