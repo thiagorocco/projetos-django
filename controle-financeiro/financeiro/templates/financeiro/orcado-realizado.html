@@ -5,9 +5,9 @@
     <br><br>
     <h2>Relatório Orçado X Realizado</h2>
     <form action="{% url 'rel_orcado_realizado' %}">
-        Data Inicial: <input type="date" name="data-inicio" required value={{ dtini }} autofocus>
-        Data Final: <input type="date" name="data-fim" required value={{ dtfim }}>
-        Categoria:
+        <span class="input-rel">Data Inicial: <input type="date" name="data-inicio" required value={{ dtini }} autofocus></span>
+        <span class="input-rel">Data Final: <input type="date" name="data-fim" required value={{ dtfim }}></span>
+        <span class="input-rel">Categoria:
         <select name="categoria">
                 <option value="-1">*** TODAS ***</option>
             {% for categoria in categorias %}
@@ -17,7 +17,7 @@
                     <option value="{{ categoria.id }}">{{ categoria.nome }}</option>
                 {% endif %}
             {% endfor %}
-        </select>
+        </select></span>
         <br>
         <br>
         <input type="submit" value="Filtrar" class="button black">
