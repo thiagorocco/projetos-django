@@ -236,4 +236,8 @@ i{
         font-size: 20px;
         padding: 2px;
     }
+    .input-rel{
+        display: block;
+        text-align: center;
+    }
 }
