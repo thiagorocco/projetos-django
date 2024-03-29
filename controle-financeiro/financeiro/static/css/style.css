@@ -2,6 +2,7 @@ body{
     font-family: 'Trebuchet MS';
 }
 header{
+    margin: 0 auto;
     background-color: #7fdd7f;
     color: #083f14;
 }
