@@ -197,6 +197,18 @@ i{
     }
 }
 
+@media (max-width: 30.5em), print and (orientation: portrait) {
+	header{
+        display: none;
+    }
+    aside{
+        display: none;
+    }
+    input .button .black{
+        display: none;
+    }
+}
+
 @media screen and (max-width: 960px){
     header{
         width: 100%;
